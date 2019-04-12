@@ -32,6 +32,6 @@
 - must be attached to a post
 
 
-![Entity Relationship Diagram](/DB%20Diagram.png?raw=true "Entity Relationship Diagram")
+![Entity Relationship Diagram](./DB%20Diagram.png?raw=true "Entity Relationship Diagram")
 
 
