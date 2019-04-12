@@ -11,23 +11,23 @@
 5. FriendRequest - requests between two user to establish friendship
 6. Friendship - represents friendship between two user
 
-###User
+### User
 - can send friendship request to another user
 - can establish friendship with another user
 - can submit post
 - can comment on a post
 - can like a post
 
-###Post
+### Post
 - must be created by a user
 - can have comments
 - can have likes
 
-###Comment
+### Comment
 - must be created by a user
 - must be attached to a post
 
-###Likes
+### Likes
 - must be created by a user
 - must be attached to a post
 
