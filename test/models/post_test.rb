@@ -9,7 +9,7 @@ class PostTest < ActiveSupport::TestCase
     assert @post.valid?
   end
 
-  test 'should have valid user' do
+  test 'should have valid user_id' do
     @post.user_id = ''
     assert_not @post.valid?
   end
