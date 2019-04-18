@@ -57,7 +57,7 @@ development:
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  database: odin-facebook_development
+  database: odin-facebook_test
   host: localhost
   port: 5432
   username: rails_dev
