@@ -20,4 +20,16 @@ class PostTest < ActiveSupport::TestCase
     @post.content = 'a' * 181
     assert_not @post.valid?
   end
+
+  test 'should destroy associated comments when destroyed' do
+    assert_difference 'Comment.count', -(@post.comments.count) do
+      @post.destroy
+    end
+  end
+
+  test 'should destroy associated likes when destroyed' do
+    assert_difference 'Like.count', -(@post.likes.count) do
+      @post.destroy
+    end
+  end
 end

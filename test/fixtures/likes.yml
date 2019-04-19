@@ -7,3 +7,9 @@ one:
 two:
   user: two
   post: two
+
+<% 5.times do |i| %>
+like_<%= i %>:
+  user: one
+  post: one
+<% end %>

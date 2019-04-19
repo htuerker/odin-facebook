@@ -13,10 +13,15 @@ class User < ApplicationRecord
   has_many :comments, dependent: :destroy
   has_many :likes, dependent: :destroy
 
-  has_many :friend_requests_sent, foreign_key: :sender_id, class_name: "FriendRequest"
-  has_many :friend_requests_received, foreign_key: :receiver_id, class_name: "FriendRequest"
+  has_many :friend_requests_sent, foreign_key: :sender_id,
+            class_name: "FriendRequest", dependent: :destroy
 
-  has_many :friendships, foreign_key: :user1_id
-  has_many :friendships_2, class_name: "Friendship", foreign_key: :user2_id
+  has_many :friend_requests_received, foreign_key: :receiver_id,
+            class_name: "FriendRequest", dependent: :destroy
+
+  has_many :friendships, foreign_key: :user1_id, dependent: :destroy
+  has_many :friendships_2, class_name: "Friendship", foreign_key: :user2_id,
+            dependent: :destroy
+
   has_many :friends, through: :friendships, source: :user2
 end
