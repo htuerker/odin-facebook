@@ -52,19 +52,13 @@ class UserTest < ActiveSupport::TestCase
     end
   end
 
-  test 'should destroy associated friend_requests_sent when user destroyed' do
-    assert_difference 'FriendRequest.count', -(@user.friend_requests_sent.count) do
+  test 'should destroy associated friend_requests when user destroyed which assigned as sender or receiver' do
+    assert_difference 'FriendRequest.count', -(@user.friend_requests_sent.count + @user.friend_requests_received.count) do
       @user.destroy
     end
   end
 
-  test 'should destroy associated friend_requests_received when user destroyed' do
-    assert_difference 'FriendRequest.count', -(@user.friend_requests_received.count) do
-      @user.destroy
-    end
-  end
-
-  test 'should destroy associated friendships records when user as user1 or user2' do
+  test 'should destroy associated friendships records when user destroyed which assigned as user1 or user2' do
     assert_difference 'Friendship.count', -(@user.friendships.count + @user.friendships_2.count) do
       @user.destroy
     end
