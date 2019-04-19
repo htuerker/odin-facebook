@@ -1,1 +1,12 @@
+one:
+  sender: one
+  receiver: two
+
+<% 5.times do |i| %>
+friend_request_<%= i %>:
+  sender: one
+  receiver: user_<%= i %>
+<% end %>
+
+
 

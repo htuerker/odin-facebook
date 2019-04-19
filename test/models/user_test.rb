@@ -64,14 +64,8 @@ class UserTest < ActiveSupport::TestCase
     end
   end
 
-  test 'should destroy associated friendships as marked by user_1' do
-    assert_difference 'Friendship.count', -(@user.friendships.count) do
-      @user.destroy
-    end
-  end
-
-  test 'should destroy associated friendships as marked by user_2' do
-    assert_difference 'Friendship.count', -(@user.friendships_2.count) do
+  test 'should destroy associated friendships records when user as user1 or user2' do
+    assert_difference 'Friendship.count', -(@user.friendships.count + @user.friendships_2.count) do
       @user.destroy
     end
   end

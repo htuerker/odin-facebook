@@ -1,7 +1,13 @@
 require 'test_helper'
 
 class FriendshipTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+
+  def setup
+    @friendship = friendships(:one)
+  end
+
+  test 'should valid' do
+    assert @friendship.valid?
+  end
 end
+

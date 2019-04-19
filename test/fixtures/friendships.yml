@@ -1,9 +1,15 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
 one:
   user1: one
-  user2: one
-
-two:
-  user1: two
   user2: two
+
+<% 5.times do |i| %>
+friendship_<%= i %>:
+  user1: one
+  user2: user_<%= i %>
+
+friendship_<%= i + 5 %>:
+  user1: user_<%= i %>
+  user2: one
+<% end %>
+
+
