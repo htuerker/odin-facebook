@@ -1,14 +1,14 @@
 # FACEBOOK CLONE PROJECT
 
 
-## Model
+## Models
 1. User - user of app
 2. Post - new text based posts
 3. Comments - comments on a post
-4. Likes - likes on a post
+4. FriendRequest - requests between two user to establish friendship
 
 ## Auxiliary Models
-5. FriendRequest - requests between two user to establish friendship
+5. Likes - likes on a post
 6. Friendship - represents friendship between two user
 
 ### User
@@ -27,7 +27,7 @@
 - must be created by a user
 - must be attached to a post
 
-### Likes
+### Like
 - must be created by a user
 - must be attached to a post
 
