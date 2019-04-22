@@ -1,0 +1,15 @@
+one:
+  user1: one
+  user2: two
+
+<% 5.times do |i| %>
+friendship_<%= i %>:
+  user1: one
+  user2: user_<%= i %>
+
+friendship_<%= i + 5 %>:
+  user1: user_<%= i %>
+  user2: one
+<% end %>
+
+

@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  content: MyText
+  post: one
+  user: one
+
+two:
+  content: MyText
+  post: two
+  user: two
+
+<% 5.times do |i| %>
+comment_<%= i %>:
+  content: <%= Faker::Lorem.paragraph_by_chars(180) %>
+  user: one
+  post: one
+<% end %>
+

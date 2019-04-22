@@ -1,0 +1,19 @@
+one:
+  first_name: Burhan
+  last_name: Tuerker
+  email: burhan@email.com
+  encrypted_password: <%= User.new.send(:password_digest, 'password') %>
+
+two:
+  first_name: Alex
+  last_name: Nikitin
+  email: alex@email.com
+  encrypted_password: <%= User.new.send(:password_digest, 'password') %>
+
+<% 5.times do |i| %>
+user_<%= i %>:
+  first_name: <%= Faker::Name.first_name %>
+  last_name: <%= Faker::Name.last_name %>
+  email: <%= Faker::Internet.email %>
+  encrypted_password: <%= User.new.send(:password_digest, 'password') %>
+<% end %>
