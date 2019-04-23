@@ -7,4 +7,5 @@ Rails.application.routes.draw do
   get 'me', to: 'users#me'
   resources :users, only: [:index, :show]
   resources :posts
+  resources :friend_requests, only: [:create, :update, :destroy]
 end
