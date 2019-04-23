@@ -18,7 +18,7 @@ class FriendRequest < ApplicationRecord
     end
   end
 
-  def sender_and_receiver_should_not_be_friend
+  def sender_and_receiver_should_not_be_friends
     if sender.friends.include?(receiver)
       self.errors.add(:sender_receiver, "sender and receiver users are already friend")
     end
