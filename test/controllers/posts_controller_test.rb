@@ -8,6 +8,9 @@ class PostsControllerTest < ActionDispatch::IntegrationTest
     @post = posts(:one)
   end
 
+  #########
+  # index #
+  #########
   test 'should get index' do
     sign_in @user
     get posts_path
@@ -21,6 +24,9 @@ class PostsControllerTest < ActionDispatch::IntegrationTest
     assert_template 'devise/sessions/new'
   end
 
+   #########
+   #  new  #
+   #########
   test 'should get new' do
     sign_in @user
     get new_post_path
@@ -32,14 +38,17 @@ class PostsControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to new_user_session_path
   end
 
+   ##########
+   # create #
+   ##########
   test 'should redirect create if not logged in' do
-    post posts_path, params: { content: @post.content, user: @post.user }
+    post posts_path, params: { content: @post.content }
     assert_redirected_to new_user_session_path
   end
 
   test 'create should render new page with flash message when given parameter is not valid' do
     sign_in @user
-    post posts_path, params: { post: { content: '', user: '' } }
+    post posts_path, params: { post: { content: '' } }
     invalid_post = assigns(:post)
     assert_template 'posts/new'
     assert flash.any?
@@ -58,6 +67,9 @@ class PostsControllerTest < ActionDispatch::IntegrationTest
     assert flash.any?
   end
 
+   ###########
+   # destroy #
+   ###########
   test 'should redirect destroy when not logged in' do
     delete post_path(@post)
     assert_redirected_to new_user_session_path
