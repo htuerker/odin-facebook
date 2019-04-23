@@ -1,6 +1,6 @@
 class FriendRequestsController < ApplicationController
   def create
-    @friend_request = FriendRequest.new(friend_request_params)
+    @friend_request = current_user.friend_requests_sent.build(friend_request_params)
     if @friend_request.save
       flash[:success] = "Friend request sent"
       redirect_to current_user
@@ -33,7 +33,8 @@ class FriendRequestsController < ApplicationController
   end
 
   private
+
   def friend_request_params
-    params.require(:friend_request).permit(:sender, :receiver, :status)
+    params.require(:friend_request).permit(:receiver_id, :status)
   end
 end

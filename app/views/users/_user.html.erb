@@ -1,11 +1,9 @@
 <li class="mb-3">
   <%= gravatar_for user %>
   <%= link_to get_full_name_for(user), user %>
-  <%= link_to 'Add friend',
-        friend_requests_path(friend_request: {sender: current_user,
-                             receiver: user,
-                             status: 0} ),
-        method: :post,
-        class: "btn btn-primary"
-    %>
+  <%= form_for current_user.friend_requests_sent.build do |f| %>
+    <%= f.hidden_field :receiver_id, value: user.id %>
+    <%= f.hidden_field :status, value: 0 %>
+    <%= f.submit "Add Friend" %>
+  <% end %>
 </li>
