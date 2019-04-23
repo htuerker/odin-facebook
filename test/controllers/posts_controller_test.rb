@@ -60,7 +60,9 @@ class PostsControllerTest < ActionDispatch::IntegrationTest
   test 'should create post when given parameter is valid' do
     sign_in @user
     assert_difference 'Post.count' do
-      post posts_path, params: { post: { content: @post.content } }
+      post posts_path, params: {
+        post: { content: @post.content } },
+        headers: { "HTTP_REFERER" => posts_url }
     end
     assert_redirected_to posts_path
     follow_redirect!
