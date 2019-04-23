@@ -1,4 +1,6 @@
 class FriendRequest < ApplicationRecord
+  scope :pending, -> { where(status: 0) }
+
   validates :sender, presence: true
   validates :receiver, presence: true
   validate :sender_and_receiver_should_be_different
