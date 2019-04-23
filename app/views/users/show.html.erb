@@ -1,2 +1,17 @@
 <h1><%= get_full_name_for(@user) %></h1>
 <p>Email: <%= @user.email %></p>
+
+<h3>New post</h3>
+<%= form_for @post do |f| %>
+  <%= f.text_area :content %>
+  <%= f.submit %>
+<% end %>
+
+<% if @user.posts.any? %>
+  <h2>Posts</h2>
+  <ul>
+    <% @user.posts.each do |post| %>
+      <li><%= post.content %></li>
+    <% end %>
+  </ul>
+<% end %> 

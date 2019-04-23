@@ -14,7 +14,7 @@ class PostsController < ApplicationController
     @post = current_user.posts.build(post_params)
     if @post.save
       flash[:success] = "Successfuly created a post"
-      redirect_to posts_path
+      redirect_back fallback_location: root_path
     else
       flash[:error] = "Invalid parameters"
       render "new"
