@@ -6,6 +6,7 @@ class FriendRequestsController < ApplicationController
       redirect_to current_user
     else
       flash[:error] = "Some error occured"
+      # TO-DO change redirection, not redirect current_user, redirect it to back
       redirect_to current_user
     end
   end
@@ -37,4 +38,5 @@ class FriendRequestsController < ApplicationController
   def friend_request_params
     params.require(:friend_request).permit(:receiver_id, :status)
   end
+
 end
