@@ -24,4 +24,9 @@ class User < ApplicationRecord
             dependent: :destroy
 
   has_many :friends, through: :friendships, source: :user2
+
+  def establish_friendship(other_user)
+    self.friends.push(other_user)
+    other_user.friends.push(self)
+  end
 end

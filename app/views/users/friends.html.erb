@@ -1,15 +1,13 @@
 <% if @user.friend_requests_received.pending.any?  %>
   <h2>New friend requests</h2>
   <ul>
-  <% @user.friend_requests_received.pending.each do |request| %>
-    <li>
-      <%= get_full_name_for(request.sender) %>
-      <%= form_for :request do |f| %>
-        <%= f.hidden_field :status, value: 1 %>
-        <%= f.submit "Accept" %>
-      <% end %>
-    </li>
-  <% end %>
+    <% @user.friend_requests_received.pending.each do |request| %>
+      <li>
+        <%= get_full_name_for(request.sender) %>
+          <%= link_to "Accept", friend_request_accept_path(request), method: :post, class: 'btn btn-primary' %>
+        <%= link_to "Decline", friend_request_decline_path(request), method: :post, class: 'btn btn-alert' %>
+      </li>
+    <% end %>
   </ul>
 <% end %>
 
