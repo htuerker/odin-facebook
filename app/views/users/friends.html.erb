@@ -11,6 +11,13 @@
   </ul>
 <% end %>
 
-<% @user.friends.each do |friend| %>
-  <p><%= get_full_name_for(friend) %></p>
+<% if @user.friends.any?  %>
+  <h2>Your friends</h2>
+  <ul>
+    <% @user.friends.each do |friend| %>
+      <li>
+        <%= get_full_name_for(friend) %>
+      </li>
+    <% end %>
+  </ul>
 <% end %>

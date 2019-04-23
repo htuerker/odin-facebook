@@ -13,7 +13,13 @@
           <%= link_to 'My profile', current_user, class: "nav-link" %>
         </li>
         <li class="nav-item">
-          <%= link_to 'My friends', me_friends_path, class: "nav-link" %>
+          <% new_requests = current_user.friend_requests_received.pending.any? ?
+                              "(#{current_user.friend_requests_received.pending.count})" :
+                              "" %>
+          <%= link_to "My friends#{new_requests}", me_friends_path, class: "nav-link" %>
+        </li>
+        <li class="nav-item">
+          <%= link_to('Logout', destroy_user_session_path, method: :delete, class: "nav-link") %>
         </li>
       </ul>
     </div>
