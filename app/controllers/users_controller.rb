@@ -1,8 +1,8 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show]
-  before_action :set_current_user, only: [:me, :edit]
+  before_action :set_current_user, only: [:me, :edit, :friends]
 
-  def index
+  def indeo
     @users = User.all
   end
 
@@ -11,6 +11,9 @@ class UsersController < ApplicationController
 
 
   def show
+  end
+
+  def friends
   end
 
   private
