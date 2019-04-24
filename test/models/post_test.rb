@@ -2,6 +2,7 @@ require 'test_helper'
 
 class PostTest < ActiveSupport::TestCase
   def setup
+    @user = users(:one)
     @post = posts(:one)
   end
 
@@ -29,4 +30,26 @@ class PostTest < ActiveSupport::TestCase
       @post.destroy
     end
   end
+
+  test 'should have likes' do
+    assert_difference -> { @post.likes.count } do
+      @post.likes.create(user: @user)
+    end
+  end
+
+  test 'should have only one like by one user' do
+    @post.likes.create(user: @user)
+    assert_no_difference -> { @post.likes.count } do
+      @post.likes.create(user: @user)
+    end
+  end
+
+
+  test 'should destroy likes' do
+    @post.likes.create(user: @user)
+    assert_difference -> { @post.likes.count }, -1 do
+      @post.likes.last.destroy
+    end
+  end
+
 end

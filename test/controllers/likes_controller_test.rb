@@ -23,7 +23,7 @@ class LikesControllerTest < ActionDispatch::IntegrationTest
 
   test 'should unique by user-post pair' do
     sign_in @user
-    @user.likes.create(post_id: @post.id)
+    @user.likes.create(user_id: @user.id, post_id: @post.id)
     assert_no_difference -> { @user.likes.count } do
       post likes_path, params: { like: { user_id: @user.id, post_id: @post.id } }
     end
@@ -31,7 +31,7 @@ class LikesControllerTest < ActionDispatch::IntegrationTest
 
   test 'should destroy by authorized user' do
     sign_in @user
-    @user.likes.create(post_id: @post.id)
+    post likes_path, params: { like: { user_id: @user.id, post_id: @post.id } }
     assert_difference -> { @user.likes.count }, -1 do
       delete like_path(@user.likes.last)
     end
@@ -39,7 +39,7 @@ class LikesControllerTest < ActionDispatch::IntegrationTest
 
   test 'should not destroy by unauthorized user' do
     sign_in @other_user
-    @user.likes.create(post_id: @post.id)
+    post likes_path, params: { like: { user_id: @user.id, post_id: @post.id } }
     assert_no_difference -> { @user.likes.count } do
       delete like_path(@user.likes.last)
     end
