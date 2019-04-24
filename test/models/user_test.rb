@@ -7,6 +7,10 @@ class UserTest < ActiveSupport::TestCase
     @other_user = users(:two)
   end
 
+  ###############
+  # validations #
+  ###############
+
   test "should be valid?" do
     assert @user.valid?
   end
@@ -34,6 +38,10 @@ class UserTest < ActiveSupport::TestCase
     @user.last_name = '1234'
     assert_not @user.valid?
   end
+
+  ###############
+  #   cascade   #
+  ###############
 
   test 'should destroy associated posts when user destroyed' do
     assert_difference 'Post.count', -(@user.posts.count) do
@@ -65,6 +73,26 @@ class UserTest < ActiveSupport::TestCase
     end
   end
 
+  ################
+  #    posts     #
+  ################
+
+  test 'should create posts' do
+    assert_difference -> { @user.posts.count } do
+      @user.posts.create(content: "Lorem Text")
+    end
+  end
+
+  test 'should destroy posts' do
+    assert_difference -> { @user.posts.count }, -1 do
+      @user.posts.delete(@user.posts.last)
+    end
+  end
+
+  ##################
+  # friend request #
+  ##################
+
   test 'should create friend_ship request' do
     assert_difference 'FriendRequest.count' do
       @user.friend_requests_sent.create(receiver: @other_user)
@@ -88,6 +116,10 @@ class UserTest < ActiveSupport::TestCase
     assert @user.errors[:friends].any?
     assert @other_user.errors[:friends].any?
   end
+
+  ###############
+  # friendship  #
+  ###############
 
   test 'should destroy friendship relation with one of his friends' do
     @user.establish_friendship(@other_user)

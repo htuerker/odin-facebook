@@ -87,7 +87,7 @@ class PostsControllerTest < ActionDispatch::IntegrationTest
     assert flash.any?
   end
 
-  test 'should redirect delete when current user is not authorized to delete' do
+  test 'should redirect destroy when current user is not authorized to delete' do
     sign_in @user
     other_user = users(:two)
     assert_no_difference 'Post.count', -1 do
