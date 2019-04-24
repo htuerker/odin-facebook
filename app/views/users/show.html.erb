@@ -14,7 +14,7 @@
     <% if @user.posts.any? %>
       <h2>Posts</h2>
       <ul class="list-unstyled pl-0">
-        <% @user.posts.each do |post| %>
+        <% @user.posts.order(created_at: :desc).each do |post| %>
           <li class="card mb-3">
             <div class="card-body">
               <%= post.content %>

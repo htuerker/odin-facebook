@@ -7,7 +7,8 @@ class LikesController < ApplicationController
 
   def destroy
     @like = Like.find(params[:id])
-    @like.destroy
+    flash[:danger] = "Some error occured" unless @like.destroy
+    redirect_back fallback_location: root_path
   end
 
   private
