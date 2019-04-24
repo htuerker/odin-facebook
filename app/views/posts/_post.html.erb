@@ -1,0 +1,18 @@
+<li class="card mb-3">
+  <div class="card-body">
+    <%= post.content %>
+    <hr>
+    <small class="text-muted">Posted: <%= post.created_at.strftime("%m/%d/%Y") %></small>
+    <small class="text-muted">
+      <%= link_to "Comments(#{post.comments.count})", post %>
+    </small>
+    <small class="text-muted">
+      Likes(<%= post.likes.count %>)
+    </small>
+    <% if current_user.liked_post? post %>
+      <%= render "shared/remove_like" %>
+    <% else %>
+      <%= render 'shared/like', post: post %>
+    <% end %>
+  </div>
+</li>

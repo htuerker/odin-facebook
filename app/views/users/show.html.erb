@@ -14,26 +14,7 @@
     <% if @user.posts.any? %>
       <h2>Posts</h2>
       <ul class="list-unstyled pl-0">
-        <% @user.posts.order(created_at: :desc).each do |post| %>
-          <li class="card mb-3">
-            <div class="card-body">
-              <%= post.content %>
-              <hr>
-              <small class="text-muted">Posted: <%= post.created_at.strftime("%m/%d/%Y") %></small>
-              <small class="text-muted">
-                <%= link_to "Comments(#{post.comments.count})", post %>
-              </small>
-              <small class="text-muted">
-                Likes(<%= post.likes.count %>)
-              </small>
-              <% if current_user.liked_post? post %>
-                <%= render "remove_like" %>
-              <% else %>
-                <%= render 'like', post: post %>
-              <% end %>
-            </div>
-          </li>
-        <% end %>
+        <%= render @user.posts.order(created_at: :desc) %>
       </ul>
     <% end %> 
   </div>
