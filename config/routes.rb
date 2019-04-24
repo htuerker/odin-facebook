@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   post 'friend_requests/accept/:id', to: 'friend_requests#accept', as: 'friend_request_accept'
   post 'friend_requests/decline/:id', to: 'friend_requests#decline', as: 'friend_request_decline'
 
+  delete 'friendship/:user_id', to: 'friendships#destroy', as: 'friendship'
   resources :users, only: [:index, :show]
   resources :posts
   resources :friend_requests, only: [:create, :update, :destroy]

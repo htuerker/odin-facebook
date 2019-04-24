@@ -1,15 +1,8 @@
 class FriendshipsController < ApplicationController
 
   def destroy
-    @friendships = Friendship.find_by(user1: params[:user_1])
-      .or(Friendship.find_by(user_2: params[:user_1]))
-    @friendships.each { |friendship| friendship.destory }
-    flash[:success] = "Succesfully removed friendship"
-    redirect_back(fallback_location: root_path)
-  end
-
-  private
-  def friendship_params
-    params.require(:friendship).permit(:user1, :user2)
+    debugger
+    @friendships = Friendship.where("user1_id = ? AND user2_id = ?", current_user.id, params[:user].id)
+      .or(Friendship.where("user1_id = ? AND user2_id = ?", params[:user].id, current_user.id))
   end
 end

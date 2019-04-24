@@ -98,4 +98,12 @@ class UserTest < ActiveSupport::TestCase
     assert_not @other_user.friends.include?(@user)
   end
 
+  test 'should destroy nothing if there\'s no friendship relation' do
+    assert_not @user.friends.include?(@other_user)
+    assert_not @other_user.friends.include?(@user)
+    assert_no_difference 'Friendship.count' do
+      @user.destroy_friendship(@other_user)
+    end
+  end
+
 end

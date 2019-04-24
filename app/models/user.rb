@@ -29,9 +29,9 @@ class User < ApplicationRecord
     begin
       self.friends.push(other_user)
       other_user.friends.push(self)
-    rescue ActiveRecord::RecordNotUnique => e
+    rescue ActiveRecord::RecordNotUnique
       # TO-DO cover application with centralized handle error mechanism
-      puts e
+      # puts e
       self.errors.add(:friends, "You're already friends")
       other_user.errors.add(:friends, "You're already friends")
     end
