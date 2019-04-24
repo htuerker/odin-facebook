@@ -1,7 +1,11 @@
 require 'test_helper'
 
 class FriendshipsControllerTest < ActionDispatch::IntegrationTest
-  # test "the truth" do
-  #   assert true
-  # end
+  def setup
+
+  end
+
+  test 'should destroy present friendship' do
+
+  end
 end

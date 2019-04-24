@@ -9,6 +9,9 @@ class FriendRequestsControllerTest < ActionDispatch::IntegrationTest
     @other_user = users(:two)
   end
 
+  ##########
+  # create #
+  ##########
   test 'should redirect create when not logged in' do
     post friend_requests_path, params: { friend_request: { receiver_id: 1 } }
     assert_redirected_to new_user_session_path
@@ -58,6 +61,9 @@ class FriendRequestsControllerTest < ActionDispatch::IntegrationTest
     end
   end
 
+  ##################
+  # accept decline #
+  ##################
   test 'should redirect accept when not logged in' do
     sign_in @user
     post friend_requests_path, params: { friend_request: { receiver_id: @other_user.id } }
@@ -91,6 +97,22 @@ class FriendRequestsControllerTest < ActionDispatch::IntegrationTest
     friend_request = assigns(:friend_request)
     post friend_request_decline_path(friend_request)
     assert_redirected_to root_path
+    assert flash.any?
+  end
+
+  ###########
+  # destroy #
+  ###########
+
+  test 'should redirect destroy when not logged in' do
+    sign_in @user
+    post friend_requests_path, params: { friend_request: { receiver_id: @other_user.id } }
+    friend_request = assigns(:friend_request)
+    sign_out @user
+    assert_no_difference 'FriendRequest.count' do
+      delete friend_request_path(friend_request)
+    end
+    assert_redirected_to new_user_session_path
     assert flash.any?
   end
 

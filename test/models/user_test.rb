@@ -4,6 +4,7 @@ class UserTest < ActiveSupport::TestCase
 
   def setup
     @user = users(:one)
+    @other_user = users(:two)
   end
 
   test "should be valid?" do
@@ -63,4 +64,38 @@ class UserTest < ActiveSupport::TestCase
       @user.destroy
     end
   end
+
+  test 'should create friend_ship request' do
+    assert_difference 'FriendRequest.count' do
+      @user.friend_requests_sent.create(receiver: @other_user)
+    end
+    assert @other_user.friend_requests_received.find_by(sender: @user).present?
+  end
+
+  test 'should establish friendship relation with some user' do
+    assert_difference 'Friendship.count', 2 do
+      @user.establish_friendship(@other_user)
+    end
+    assert @user.friends.include?(@other_user)
+    assert @other_user.friends.include?(@user)
+  end
+
+  test 'should handle uniqueness exception when users are already friends' do
+    @user.establish_friendship(@other_user)
+    assert_no_difference 'Friendship.count' do
+      @user.establish_friendship(@other_user)
+    end
+    assert @user.errors[:friends].any?
+    assert @other_user.errors[:friends].any?
+  end
+
+  test 'should destroy friendship relation with one of his friends' do
+    @user.establish_friendship(@other_user)
+    assert_difference 'Friendship.count', -2 do
+      @user.destroy_friendship(@other_user)
+    end
+    assert_not @user.friends.include?(@other_user)
+    assert_not @other_user.friends.include?(@user)
+  end
+
 end

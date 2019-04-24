@@ -26,7 +26,19 @@ class User < ApplicationRecord
   has_many :friends, through: :friendships, source: :user2
 
   def establish_friendship(other_user)
-    self.friends.push(other_user)
-    other_user.friends.push(self)
+    begin
+      self.friends.push(other_user)
+      other_user.friends.push(self)
+    rescue ActiveRecord::RecordNotUnique => e
+      # TO-DO cover application with centralized handle error mechanism
+      puts e
+      self.errors.add(:friends, "You're already friends")
+      other_user.errors.add(:friends, "You're already friends")
+    end
+  end
+
+  def destroy_friendship(other_user)
+    self.friends.delete(other_user)
+    other_user.friends.delete(self)
   end
 end

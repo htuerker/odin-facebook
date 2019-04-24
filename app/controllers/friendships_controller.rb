@@ -1,24 +1,11 @@
 class FriendshipsController < ApplicationController
-  def create
-    @friendship = Friendship.new(friendship_params)
-    if @friendship.save
-      flash[:success] = "You are now friends"
-      redirect_to current_user
-    else
-      flash[:error] = "Some error occured"
-      redirect_to current_user
-    end
-  end
 
   def destroy
-    @friendship = Friendship.find(params[:id])
-    if @friendship.destroy
-      flash[:success] = "You removed the user from friends"
-      redirect_to current_user
-    else
-      flash[:error] = "Some error occured"
-      redirect_to current_user
-    end
+    @friendships = Friendship.find_by(user1: params[:user_1])
+      .or(Friendship.find_by(user_2: params[:user_1]))
+    @friendships.each { |friendship| friendship.destory }
+    flash[:success] = "Succesfully removed friendship"
+    redirect_back(fallback_location: root_path)
   end
 
   private

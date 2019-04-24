@@ -1,7 +1,7 @@
 class FriendRequestsController < ApplicationController
   before_action :set_friend_request, only: [:accept, :decline, :destroy]
-  before_action :authorize_receiver, only: [:accept, :decline]
-  before_action :authorize_sender, only: [:destroy]
+  before_action :require_authorized_receiver, only: [:accept, :decline]
+  before_action :require_authorized_sender, only: [:destroy]
 
   # TO-DO remove status, create friend_request doesn't need status, for initially it should only 0(pending status)
   def create
@@ -55,14 +55,14 @@ class FriendRequestsController < ApplicationController
     @friend_request = FriendRequest.find(params[:id])
   end
 
-  def authorize_receiver
+  def require_authorized_receiver
     unless @friend_request.receiver == current_user
       flash[:danger] = "You're not authorized"
       redirect_back(fallback_location: root_path)
     end
   end
 
-  def authorize_sender
+  def require_authorized_sender
     unless @friend_request.sender == current_user
       flash[:danger] = "You're not authorized"
       redirect_back(fallback_location: root_path)
