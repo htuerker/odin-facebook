@@ -1,5 +1,8 @@
 <li class="card mb-3">
   <div class="card-body">
+    <h5>
+      <%= link_to get_full_name_for(post.user), post.user %>
+    </h5>
     <%= post.content %>
     <hr>
     <small class="text-muted">Posted: <%= post.created_at.strftime("%m/%d/%Y") %></small>

@@ -45,4 +45,10 @@ class User < ApplicationRecord
   def liked_post?(post)
     self.likes.include?(Like.find_by(post_id: post.id))
   end
+
+  def feed
+    friends_ids = self.friends.ids.join(',')
+    Post.where("user_id IN (#{friends_ids})
+                OR user_id = :user_id", user_id: id)
+  end
 end

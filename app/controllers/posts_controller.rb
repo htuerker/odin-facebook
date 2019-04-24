@@ -3,7 +3,7 @@ class PostsController < ApplicationController
   before_action :require_authorized_user, only: [:destroy]
 
   def index
-    @posts = Post.all
+    @posts = current_user.feed
   end
 
   def new
