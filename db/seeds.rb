@@ -1,9 +1,9 @@
 # Generate Users
-50.times do
+50.times do |i|
   first_name = Faker::Name.first_name
   last_name = Faker::Name.last_name
-  email = Faker::Internet.unique.email
-  password = "password"
+  email = "user#{i}@mail.com"
+  password = "123456"
   User.create!(first_name: first_name, last_name: last_name, email: email, password: password)
 end
 
