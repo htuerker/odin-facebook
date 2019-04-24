@@ -23,7 +23,14 @@
               <small class="text-muted">
                 <%= link_to "Comments(#{post.comments.count})", post %>
               </small>
-              <button class="btn btn-primary float-right">Like</button>
+              <small class="text-muted">
+                Likes(<%= post.likes.count %>)
+              </small>
+              <%= form_for post.likes.build, html: {class: "float-right"} do |f| %>
+                <%= f.hidden_field :user_id, value: current_user.id %>
+                <%= f.hidden_field :post_id, value: post.id %>
+                <%= f.submit "Like", class: "btn btn-primary" %>
+              <% end %>
             </div>
           </li>
         <% end %>

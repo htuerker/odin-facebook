@@ -1,7 +1,8 @@
 class LikesController < ApplicationController
   def create
     @like = Like.new(like_params)
-    @like.save
+    flash[:danger] = "Some error occured" unless @like.save
+    redirect_back fallback_location: root_path
   end
 
   def destroy
