@@ -41,4 +41,8 @@ class User < ApplicationRecord
     self.friends.delete(other_user)
     other_user.friends.delete(self)
   end
+
+  def liked_post?(post)
+    self.likes.include?(Like.find_by(post_id: post.id))
+  end
 end
