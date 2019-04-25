@@ -27,16 +27,16 @@ class PostsControllerTest < ActionDispatch::IntegrationTest
    #########
    #  new  #
    #########
-  test 'should get new' do
-    sign_in @user
-    get new_post_path
-    assert_template "posts/new"
-  end
+  # test 'should get new' do
+    # sign_in @user
+    # get new_post_path
+    # assert_template "posts/new"
+  # end
 
-  test 'should redirect new if not logged in' do
-    get new_post_path
-    assert_redirected_to new_user_session_path
-  end
+  # test 'should redirect new if not logged in' do
+    # get new_post_path
+    # assert_redirected_to new_user_session_path
+  # end
 
    ##########
    # create #
@@ -46,16 +46,16 @@ class PostsControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to new_user_session_path
   end
 
-  test 'create should render new page with flash message when given parameter is not valid' do
-    sign_in @user
-    post posts_path, params: { post: { content: '' } }
-    invalid_post = assigns(:post)
-    assert_template 'posts/new'
-    assert flash.any?
-    assert invalid_post.errors.any?
-    assert_not_nil invalid_post.errors[:content].nil?
-    assert_not_nil invalid_post.errors[:user].nil?
-  end
+  # test 'create should render new page with flash message when given parameter is not valid' do
+    # sign_in @user
+    # post posts_path, params: { post: { content: '' } }
+    # invalid_post = assigns(:post)
+    # assert_template 'posts/new'
+    # assert flash.any?
+    # assert invalid_post.errors.any?
+    # assert_not_nil invalid_post.errors[:content].nil?
+    # assert_not_nil invalid_post.errors[:user].nil?
+  # end
 
   test 'should create post when given parameter is valid' do
     sign_in @user

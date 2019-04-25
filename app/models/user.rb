@@ -46,9 +46,17 @@ class User < ApplicationRecord
     self.likes.include?(Like.find_by(post_id: post.id))
   end
 
+  # TO-DO Fix - Refactor
+  #PostsControllerTest#test_should_get_index:
+  #ActionView::Template::Error: PG::SyntaxError: ERROR:  syntax error at or near ")"
+  #LINE 1: SELECT "posts".* FROM "posts" WHERE (user_id IN ()
   def feed
     friends_ids = self.friends.ids.join(',')
-    Post.where("user_id IN (#{friends_ids})
+    unless friends_ids.blank?
+      Post.where("user_id IN (#{friends_ids})
                 OR user_id = :user_id", user_id: id)
+    else
+      Post.where("user_id = :user_id", user_id: id)
+    end
   end
 end

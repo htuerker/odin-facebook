@@ -6,10 +6,6 @@ class PostsController < ApplicationController
     @posts = current_user.feed
   end
 
-  def new
-    @post = Post.new
-  end
-
   def create
     @post = current_user.posts.build(post_params)
     if @post.save
