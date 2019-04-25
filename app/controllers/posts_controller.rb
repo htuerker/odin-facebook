@@ -12,7 +12,7 @@ class PostsController < ApplicationController
       flash[:success] = "Successfuly created a post"
       redirect_back fallback_location: root_path
     else
-      flash[:error] = "Invalid parameters"
+      flash[:danger] = "Something went wrong"
       render "new"
     end
   end
