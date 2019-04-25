@@ -5,11 +5,15 @@ class CommentsControllerTest < ActionDispatch::IntegrationTest
 
   def setup
     @user = users(:one)
+    @post = @user.posts.create(content: "Post Content")
   end
 
   test 'should redirect create when not logged in' do
     assert_no_difference 'Comment.count' do
-      post comments_path, params: { comment: { content: "New Comment Content" } }
+      post comments_path, params: {
+        comment: {
+          content: "New Comment Content",
+          post_id: @post.id } }
     end
     assert_redirected_to new_user_session_path
   end
@@ -17,7 +21,40 @@ class CommentsControllerTest < ActionDispatch::IntegrationTest
   test 'should create when parameter is valid' do
     sign_in @user
     assert_difference -> { @user.comments.count } do
-      post comments_path, params: { comment: { content: "New Comment Content" } }
+      post comments_path, params: {
+        comment: {
+          content: "New Comment Content",
+          post_id: @post.id } }
     end
+  end
+
+  test 'should not create when parameter is invalid' do
+    sign_in @user
+    assert_no_difference -> { @user.comments.count } do
+      post comments_path, params: {
+        comment: {
+          content: "",
+          post_id: ""} }
+    end
+    assert assigns(:comment).errors[:post].any?
+    assert assigns(:comment).errors[:content].any?
+  end
+
+  test 'should redirect destroy when not logged in' do
+    delete comment_path(1)
+    assert_redirected_to new_user_session_path
+  end
+
+  test 'should destroy comment when user is authorized' do
+    sign_in @user
+    post comments_path, params: { comment: { content: "Comment", post_id: @post.id } }
+    @comment = assigns(:comment)
+    assert_difference -> { @user.comments.count }, -1 do
+      delete comment_path(@comment)
+    end
+  end
+
+  test 'should not destroy when user is not authorized' do
+
   end
 end

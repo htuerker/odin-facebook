@@ -138,4 +138,29 @@ class UserTest < ActiveSupport::TestCase
     end
   end
 
+  ###############
+  #   comments  #
+  ###############
+
+  test 'should have comments' do
+    @post = @user.posts.create(content: "Post Content")
+    assert @post.present?
+    assert_difference -> { @user.comments.count } do
+      @comment = @user.comments.create(content: "Comment", post: @post)
+    end
+    assert @user.comments.include?(@comment)
+    assert @post.comments.include?(@comment)
+  end
+
+  test 'should create comment many times on a one post' do
+    @post = @user.posts.create(content: "Post Content")
+    assert_difference -> { @user.comments.count }, 2 do
+      @comment1 = @user.comments.create(content: "Comment", post: @post)
+      @comment2 = @user.comments.create(content: "Comment", post: @post)
+    end
+    assert @user.comments.include?(@comment1)
+    assert @post.comments.include?(@comment1)
+    assert @user.comments.include?(@comment2)
+    assert @post.comments.include?(@comment2)
+  end
 end
