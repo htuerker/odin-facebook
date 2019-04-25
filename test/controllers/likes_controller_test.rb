@@ -38,8 +38,10 @@ class LikesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'should not destroy by unauthorized user' do
+    sign_in @user
+    post likes_path, params: { like: { post_id: @post.id } }
+    sign_out @user
     sign_in @other_user
-    post likes_path, params: { like: { user_id: @user.id, post_id: @post.id } }
     assert_no_difference -> { @user.likes.count } do
       delete like_path(@user.likes.last)
     end
