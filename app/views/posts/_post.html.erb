@@ -37,7 +37,15 @@
           </ul>
         </div>
       <% end %>
-      
+      <hr>
+      <%= form_for current_user.comments.build do |f| %>
+        <%= f.hidden_field :post_id, value: post.id %>
+        <div class="form-group">
+          <%= f.label :content, "Add your comment:" %>
+          <%= f.text_area :content, class: "form-control" %>
+        </div>
+        <%= f.submit %>
+      <% end %>
     </div>
 
   </div>

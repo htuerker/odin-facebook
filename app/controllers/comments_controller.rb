@@ -6,11 +6,10 @@ class CommentsController < ApplicationController
     @comment = current_user.comments.build(comment_params)
     if @comment.save
       flash[:success] = "Comment created"
-      redirect_to @comment.post
     else
-      flash[:error] = "Some error occured"
-      redirect_to root_path
+      flash[:error] = @comment.errors.full_messages.to_s
     end
+    redirect_back fallback_location: root_path
   end
 
   def destroy
