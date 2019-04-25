@@ -1,5 +1,5 @@
 # Generate Users
-50.times do |i|
+(1..15).each do |i|
   first_name = Faker::Name.first_name
   last_name = Faker::Name.last_name
   email = "user#{i}@mail.com"
@@ -26,20 +26,16 @@ end
 # Generate Comments
 posts = Post.take(5)
 User.take(5).each do |user|
-  5.times do
-    posts.each do |post|
-      post.comments.create!(user: user, content: Faker::Lorem.paragraph_by_chars(150))
-    end
+  posts.each do |post|
+    post.comments.create!(user: user, content: Faker::Lorem.paragraph_by_chars(150))
   end
 end
 
 # Generate Likes
 posts = Post.take(5)
 User.take(5).each do |user|
-  5.times do
-    posts.each do |post|
-      post.likes.create!(user: user)
-    end
+  posts.each do |post|
+    post.likes.create!(user: user)
   end
 end
 
