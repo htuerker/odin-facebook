@@ -1,4 +1,4 @@
-<li class="card mb-3">
+<li class="card bg-light mb-3">
   <div class="card-body">
     <h5 class="mb-0">
       <%= link_to get_full_name_for(post.user), post.user %>
@@ -44,7 +44,7 @@
           <%= f.label :content, "Add your comment:" %>
           <%= f.text_area :content, class: "form-control" %>
         </div>
-        <%= f.submit %>
+        <%= f.submit "Add comment", class: "btn btn-secondary" %>
       <% end %>
     </div>
 

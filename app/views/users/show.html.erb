@@ -3,14 +3,12 @@
   <div class="col-md-4">
     <h1><%= get_full_name_for(@user) %></h1>
     <p>Email: <%= @user.email %></p>
-    <h3>New post</h3>
-    <%= form_for @post do |f| %>
-      <%= f.text_area :content %>
-      <%= f.submit %>
-    <% end %>
   </div>
 
   <div class="col-md-8">
+    <div class="new-post mb-3">
+      <%= render 'shared/new_post' %>
+    </div>
     <% if @user.posts.any? %>
       <h2>Posts</h2>
       <ul class="list-unstyled pl-0">
