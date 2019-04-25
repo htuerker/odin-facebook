@@ -5,6 +5,7 @@ class CommentsControllerTest < ActionDispatch::IntegrationTest
 
   def setup
     @user = users(:one)
+    @other_user = users(:two)
     @post = @user.posts.create(content: "Post Content")
   end
 
@@ -55,6 +56,11 @@ class CommentsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'should not destroy when user is not authorized' do
-
+    @comment = @user.comments.create(post: @post, content: "Comment")
+    assert @comment.present?
+    sign_in @other_user
+    assert_no_difference 'Comment.count' do
+      delete comment_path(@comment)
+    end
   end
 end
