@@ -3,7 +3,6 @@ class FriendRequestsController < ApplicationController
   before_action :require_authorized_receiver, only: [:accept, :decline]
   before_action :require_authorized_sender, only: [:destroy]
 
-  # TO-DO remove status, create friend_request doesn't need status, for initially it should only 0(pending status)
   def create
     @friend_request = current_user.friend_requests_sent.build(friend_request_params)
     @friend_request.status = 0
@@ -11,9 +10,8 @@ class FriendRequestsController < ApplicationController
       flash[:success] = "Friend request sent"
       redirect_to current_user
     else
-      flash[:error] = "Some error occured"
-      # TO-DO change redirection, not redirect current_user, redirect it to back
-      redirect_to current_user
+      flash[:danger] = "Some error occured"
+      redirect_back(fallback_location: root_path)
     end
   end
 

@@ -42,7 +42,7 @@ class FriendRequestsControllerTest < ActionDispatch::IntegrationTest
         } }
     end
     assert_not assigns(:friend_request).errors[:sender_receiver].nil?
-    assert_redirected_to @user
+    assert_redirected_to root_path
     follow_redirect!
     #TO-DO check specifc flash messages like :danger - :alert when the view changed
     assert flash.any?
