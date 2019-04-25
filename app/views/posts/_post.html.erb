@@ -1,21 +1,40 @@
 <li class="card mb-3">
   <div class="card-body">
-    <h5>
+    <h5 class="mb-0">
       <%= link_to get_full_name_for(post.user), post.user %>
     </h5>
-    <%= post.content %>
+    <small class="text-muted mb-2 d-block">
+      posted <%= time_ago_in_words post.created_at %> ago
+    </small>
+    <p><%= post.content %></p>
     <hr>
-    <small class="text-muted">Posted: <%= post.created_at.strftime("%m/%d/%Y") %></small>
-    <small class="text-muted">
-      <%= link_to "Comments(#{post.comments.count})", post %>
-    </small>
-    <small class="text-muted">
-      Likes(<%= post.likes.count %>)
-    </small>
-    <% if current_user.liked_post? post %>
-      <%= render "shared/remove_like" %>
-    <% else %>
-      <%= render 'shared/like', post: post %>
+
+    <div class="d-flex justify-content-between">
+      <div class="post-meta">
+        <small class="text-muted">
+          Comments(<%= post.comments.count %>)
+        </small>
+        <small class="text-muted">
+          Likes(<%= post.likes.count %>)
+        </small>
+      </div>
+      <div class="post-like">
+        <% if current_user.liked_post? post %>
+          <%= render "shared/remove_like" %>
+        <% else %>
+          <%= render 'shared/like', post: post %>
+        <% end %>
+      </div>
+    </div>
+
+    <% if post.comments.any? %>
+    <hr>
+      <h5>Comments:</h5>
+      <div class="comments">
+        <ul class="list-group list-group-flush">
+          <%= render post.comments %>
+        </ul>
+      </div>
     <% end %>
   </div>
 </li>
