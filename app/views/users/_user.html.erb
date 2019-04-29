@@ -1,9 +1,5 @@
-<li class="mb-3">
+<li class="list-item mb-3 d-flex justify-content-between align-items-center">
   <%= gravatar_for user %>
   <%= link_to get_full_name_for(user), user %>
-  <%= form_for current_user.friend_requests_sent.build do |f| %>
-    <%= f.hidden_field :receiver_id, value: user.id %>
-    <%= f.hidden_field :status, value: 0 %>
-    <%= f.submit "Add Friend" %>
-  <% end %>
+  <%= render "friend_request_button", user: user %>
 </li>
