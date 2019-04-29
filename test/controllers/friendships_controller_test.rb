@@ -24,4 +24,11 @@ class FriendshipsControllerTest < ActionDispatch::IntegrationTest
     assert_not @user.friends.include?(@other_user)
     assert_not @other_user.friends.include?(@user)
   end
+
+  test 'should not throw RecordNotFound error when given user_id is not found' do
+    sign_in @user
+    assert_no_difference 'Friendship.count' do
+      delete friendship_path("asdas")
+    end
+  end
 end

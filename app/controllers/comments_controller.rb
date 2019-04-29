@@ -7,7 +7,7 @@ class CommentsController < ApplicationController
     if @comment.save
       flash[:success] = "Comment created"
     else
-      flash[:error] = @comment.errors.full_messages.to_s
+      flash[:danger] = @comment.errors.full_messages.to_s
     end
     redirect_back fallback_location: root_path
   end
@@ -16,11 +16,10 @@ class CommentsController < ApplicationController
     @comment = Comment.find(params[:id])
     if @comment.destroy
       flash[:success] = "Comment removed"
-      redirect_to root_path
     else
-      flash[:error] = "Some error occured"
-      redirect_to root_path
+      flash[:danger] = "Some error occured"
     end
+    redirect_back fallback_location: root_path
   end
 
   private
