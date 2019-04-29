@@ -5,9 +5,9 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   validates :first_name, presence: true, length: { maximum: 20 },
-             format: { with: /[a-z]+/i }
+             format: { with: /[a-z]+/i, message: "must be alphabetically"}
   validates :last_name, presence: true, length: { maximum: 20 },
-             format: { with: /[a-z]+/i }
+             format: { with: /[a-z]+/i, message: "must be alphabetically" }
 
   has_many :posts, dependent: :destroy
   has_many :comments, dependent: :destroy
