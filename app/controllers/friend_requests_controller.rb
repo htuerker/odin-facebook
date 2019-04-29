@@ -8,11 +8,10 @@ class FriendRequestsController < ApplicationController
     @friend_request.status = 0
     if @friend_request.save
       flash[:success] = "Friend request sent"
-      redirect_to current_user
     else
       flash[:danger] = "Some error occured"
-      redirect_back(fallback_location: root_path)
     end
+    redirect_back(fallback_location: root_path)
   end
 
   def accept
