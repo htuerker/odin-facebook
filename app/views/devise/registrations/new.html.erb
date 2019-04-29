@@ -4,22 +4,26 @@
     <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
       <div class="form-group">
         <%= f.label :first_name %><br />
-        <%= f.text_field :first_name, autofocus: true, autocomplete: "first_name", class: "form-control" %>
+        <%= f.text_field :first_name, autofocus: true, autocomplete: "first_name", class: "form-control"%>
         <ul>
-          <% resource.errors[:first_name].each do |message| %>
-            <li><%= message %></li>
-          <% end %>
+          <%= render 'devise/shared/field_error_messages', resource: resource, field: :first_name %>
         </ul>
       </div>
 
       <div class="form-group">
         <%= f.label :last_name %><br />
         <%= f.text_field :last_name, autocomplete: "last_name", class: "form-control" %>
+        <ul>
+          <%= render 'devise/shared/field_error_messages', resource: resource, field: :last_name %>
+        </ul>
       </div>
 
       <div class="form-group">
         <%= f.label :email %><br />
         <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control" %>
+        <ul>
+          <%= render 'devise/shared/field_error_messages', resource: resource, field: :email %>
+        </ul>
       </div>
 
       <div class="form-group">
@@ -28,11 +32,17 @@
           <em>(<%= @minimum_password_length %> characters minimum)</em>
         <% end %><br />
         <%= f.password_field :password, autocomplete: "new-password", class: "form-control" %>
+        <ul>
+          <%= render 'devise/shared/field_error_messages', resource: resource, field: :password %>
+        </ul>
       </div>
 
       <div class="form-group">
         <%= f.label :password_confirmation %><br />
         <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control" %>
+        <ul>
+          <%= render 'devise/shared/field_error_messages', resource: resource, field: :password_confirmation %>
+        </ul>
       </div>
 
       <div class="form-group">
