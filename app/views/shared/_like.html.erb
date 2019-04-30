@@ -1,5 +1,0 @@
-<%= form_for current_user.likes.build do |f| %>
-  <%= f.hidden_field :user_id, value: current_user.id %>
-  <%= f.hidden_field :post_id, value: post.id %>
-  <%= f.submit "Like", class: "btn btn-outline-primary" %>
-<% end %>

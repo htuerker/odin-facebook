@@ -19,11 +19,7 @@
         </small>
       </div>
       <div class="post-like">
-        <% if current_user.liked_post? post %>
-          <%= render "shared/remove_like" %>
-        <% else %>
-          <%= render 'shared/like', post: post %>
-        <% end %>
+        <%= render "shared/like_form", resource: post %>
       </div>
     </div>
 

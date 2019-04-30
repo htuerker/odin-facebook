@@ -40,14 +40,6 @@ class User < ApplicationRecord
     other_user.friends.delete(self)
   end
 
-  def liked_post?(post)
-    self.likes.include?(Like.find_by(post_id: post.id))
-  end
-
-  # TO-DO Fix - Refactor
-  #PostsControllerTest#test_should_get_index:
-  #ActionView::Template::Error: PG::SyntaxError: ERROR:  syntax error at or near ")"
-  #LINE 1: SELECT "posts".* FROM "posts" WHERE (user_id IN ()
   def feed
     friends_ids = self.friends.ids.join(',')
     unless friends_ids.blank?
