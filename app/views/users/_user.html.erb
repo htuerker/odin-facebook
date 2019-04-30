@@ -1,5 +1,23 @@
 <li class="list-item mb-3 d-flex justify-content-between align-items-center">
   <%= gravatar_for user %>
   <%= link_to get_full_name_for(user), user %>
-  <%= render "friend_request_button", user: user %>
+  <div class="friend_request-links">
+    <% if current_user.friends.include?(user) %>
+      <%= render "friendships/destroy_form", resource: user %>
+    <% else %>
+      <% if @request = current_user.friend_requests_sent.find_by(receiver: user) %>
+        <%= link_to "Cancel", friend_request_path(@request), method: :delete,
+          class: "btn btn-outline-warning"%>
+      <% elsif @request = current_user.friend_requests_received.find_by(sender: user) %>
+        <div class="half-width">
+          <%= link_to "Accept", friend_request_accept_path(@request), method: :post,
+            class: "btn btn-success mb-1" %>
+          <%= link_to "Decline", friend_request_decline_path(@request), method: :post,
+            class: "btn btn-danger"%>
+        </div>
+      <% else %>
+        <%= render "friend_requests/send_form", resource: user %>
+      <% end %>
+    <% end %>
+  </div>
 </li>

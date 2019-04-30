@@ -1,0 +1,4 @@
+<%= form_for current_user.friend_requests_sent.build do |f| %>
+  <%= f.hidden_field :receiver_id, value: resource.id %>
+  <%= f.submit "Send Friend Request", class: "btn btn-outline-primary" %>
+<% end %>
