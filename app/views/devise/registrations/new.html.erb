@@ -5,41 +5,31 @@
       <div class="form-group mb-0">
         <%= f.label :first_name %>
         <%= f.text_field :first_name, autofocus: true, autocomplete: "first_name", class: "form-control"%>
-        <ul class="list-unstyled ml-3 mb-1">
-          <%= render 'devise/shared/field_error_messages', resource: resource, field: :first_name %>
-        </ul>
+        <%= render 'devise/shared/field_error_messages', resource: resource, field: :first_name %>
       </div>
 
       <div class="form-group mb-0">
         <%= f.label :last_name %>
         <%= f.text_field :last_name, autocomplete: "last_name", class: "form-control" %>
-        <ul class="list-unstyled ml-3 mb-1">
-          <%= render 'devise/shared/field_error_messages', resource: resource, field: :last_name %>
-        </ul>
+        <%= render 'devise/shared/field_error_messages', resource: resource, field: :last_name %>
       </div>
 
       <div class="form-group mb-0">
         <%= f.label :email %>
         <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control" %>
-        <ul class="list-unstyled ml-3 mb-1">
-          <%= render 'devise/shared/field_error_messages', resource: resource, field: :email %>
-        </ul>
+        <%= render 'devise/shared/field_error_messages', resource: resource, field: :email %>
       </div>
 
       <div class="form-group mb-0">
         <%= f.label :password %>
         <%= f.password_field :password, autocomplete: "new-password", class: "form-control" %>
-        <ul class="list-unstyled ml-3 mb-1">
-          <%= render 'devise/shared/field_error_messages', resource: resource, field: :password %>
-        </ul>
+        <%= render 'devise/shared/field_error_messages', resource: resource, field: :password %>
       </div>
 
       <div class="form-group">
         <%= f.label :password_confirmation %>
         <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control" %>
-        <ul class="list-unstyled ml-3 mb-1">
-          <%= render 'devise/shared/field_error_messages', resource: resource, field: :password_confirmation %>
-        </ul>
+        <%= render 'devise/shared/field_error_messages', resource: resource, field: :password_confirmation %>
       </div>
 
       <div class="form-group">
