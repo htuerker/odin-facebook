@@ -3,6 +3,11 @@ class FriendRequestsController < ApplicationController
   before_action :require_authorized_receiver, only: [:accept, :decline]
   before_action :require_authorized_sender, only: [:destroy]
 
+  def index
+    @sent_requests = current_user.friend_requests_sent.pending
+    @received_requests = current_user.friend_requests_received.pending
+  end
+
   def create
     @friend_request = FriendRequest.find_or_initialize_by(sender_id: current_user.id,
                                                            receiver_id: params[:friend_request][:receiver_id])
