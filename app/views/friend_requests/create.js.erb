@@ -1,0 +1,3 @@
+sweetAlert("You sent a friend request to <%= get_full_name_for(@friend_request.receiver)%>");
+$("#friend_request-<%= @friend_request.receiver.id %>-links")
+  .html("<%= escape_javascript(render('friend_requests/cancel_link', resource: @friend_request)) %>");

@@ -11,7 +11,7 @@ class UserProfileTest < ActionDispatch::IntegrationTest
   test 'profile page as owner' do
     sign_in @user
     get user_path(@user.id)
-    assert_template 'users/show'
+    assert_template 'users/me'
     # User info
     assert_match "#{@user.email}", response.body
     assert_match "#{@user.first_name.capitalize} #{@user.last_name.capitalize}", response.body

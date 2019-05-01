@@ -43,9 +43,6 @@ class FriendRequestsControllerTest < ActionDispatch::IntegrationTest
     end
     assert_not assigns(:friend_request).errors[:sender_receiver].nil?
     assert_redirected_to root_path
-    follow_redirect!
-    #TO-DO check specifc flash messages like :danger - :alert when the view changed
-    assert flash.any?
   end
 
   test 'should not create friend request between two users are already friend' do
@@ -139,7 +136,6 @@ class FriendRequestsControllerTest < ActionDispatch::IntegrationTest
       delete friend_request_path(friend_request)
     end
     assert_redirected_to root_path
-    assert flash.any?
   end
 
   test 'should not destroy when user not authorized' do
@@ -152,7 +148,6 @@ class FriendRequestsControllerTest < ActionDispatch::IntegrationTest
       delete friend_request_path(friend_request)
     end
     assert_redirected_to root_path
-    assert flash.any?
   end
 
 end

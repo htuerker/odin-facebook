@@ -1,40 +1,5 @@
 <div class="row justify-content-center">
   <div class="col-md-6">
-    <% if @user.friend_requests_sent.pending.any?  %>
-      <h2>Sent friend requests</h2>
-      <ul class="list-unstyled">
-        <% @user.friend_requests_sent.pending.each do |request| %>
-          <li class="list-item mb-3 d-flex justify-content-between align-items-center">
-            <div>
-              <span class="mr-3"><%= gravatar_for request.sender %></span>
-              <%= link_to get_full_name_for(request.sender), request.sender %>
-            </div>
-            <div>
-              <%= render 'friend_requests/cancel_link', resource: request %>
-            </div>
-          </li>
-        <% end %>
-      </ul>
-    <% end %>
-
-    <% if @user.friend_requests_received.pending.any?  %>
-      <h2>New friend requests</h2>
-      <ul class="list-unstyled">
-        <% @user.friend_requests_received.pending.each do |request| %>
-          <li class="list-item mb-3 d-flex justify-content-between align-items-center">
-            <div>
-              <span class="mr-3"><%= gravatar_for request.sender %></span>
-              <%= link_to get_full_name_for(request.sender), request.sender %>
-            </div>
-            <div>
-              <%= render 'friend_requests/accept_link', resource: request %>
-              <%= render 'friend_requests/decline_link', resource: request %>
-            </div>
-          </li>
-        <% end %>
-      </ul>
-    <% end %>
-
     <% if @user.friends.any?  %>
       <h2>Your friends</h2>
       <ul class="list-unstyled">
