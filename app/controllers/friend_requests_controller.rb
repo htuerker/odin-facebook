@@ -4,7 +4,8 @@ class FriendRequestsController < ApplicationController
   before_action :require_authorized_sender, only: [:destroy]
 
   def create
-    @friend_request = current_user.friend_requests_sent.build(friend_request_params)
+    @friend_request = FriendRequest.find_or_initialize_by(sender_id: current_user.id,
+                                                           receiver_id: params[:friend_request][:receiver_id])
     @friend_request.status = 0
     if @friend_request.save
       flash[:success] = "Friend request sent"
