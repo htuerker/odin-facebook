@@ -7,11 +7,11 @@ class UsersController < ApplicationController
   end
 
   def me
-
   end
 
 
   def show
+    render 'me' if @user == current_user
   end
 
   def friends

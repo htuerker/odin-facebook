@@ -3,18 +3,11 @@
     <%= gravatar_for @user %>
     <h1><%= get_full_name_for(@user) %></h1>
     <p>Email: <%= @user.email %></p>
-    <% if @user == current_user  %>
-      <%= link_to "Update your profile", me_edit_path %>
-    <% end %>
+    
   </div>
 
   <div class="col-md-8">
-    <% if @user == current_user %>
-       <div class="new-post mb-3">
-         <%= render 'posts/form' %>
-    </div>
-    <% end %>
-       <% if @user.posts.any? %>
+    <% if @user.posts.any? %>
       <h2>Posts</h2>
       <ul class="list-unstyled pl-0">
         <%= render @user.posts %>
@@ -22,4 +15,3 @@
     <% end %>
   </div>
 </div>
-

@@ -1,4 +1,22 @@
-<h1>Profile</h1>
-<%= @user.first_name %>, <%= @user.last_name %>
-<br>
-<%= @user.email %>
+<div class="row">
+  <div class="col-md-4">
+    <%= gravatar_for @user %>
+    <h1><%= get_full_name_for(@user) %></h1>
+    <p>Email: <%= @user.email %></p>
+    <%= link_to "Update your profile", me_edit_path %>
+  </div>
+
+  <div class="col-md-8">
+    <div class="new-post mb-3">
+      <%= render 'posts/form' %>
+    </div>
+    <% if @user.posts.any? %>
+      <h2>Posts</h2>
+      <ul class="list-unstyled pl-0">
+        <%= render @user.posts %>
+      </ul>
+    <% end %>
+  </div>
+</div>
+
+
