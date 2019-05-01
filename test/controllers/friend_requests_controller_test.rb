@@ -61,6 +61,21 @@ class FriendRequestsControllerTest < ActionDispatch::IntegrationTest
     end
   end
 
+  test 'should update status to pending when there\'s declined request' do
+    sign_in @user
+    @user.friend_requests_sent.create!(receiver: @other_user, status: -1)
+    assert_not @user.friend_requests_sent.pending.any?
+    assert @user.friend_requests_sent.any?
+    assert_not @other_user.friend_requests_received.pending.any?
+    assert @other_user.friend_requests_received.any?
+    assert_no_difference -> { @user.friend_requests_sent } do
+      post friend_requests_path, params: { 
+        friend_request: { 
+          receiver_id: @other_user.id 
+        } }
+    end
+  end
+
   ##################
   # accept decline #
   ##################

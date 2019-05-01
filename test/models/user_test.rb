@@ -95,7 +95,7 @@ class UserTest < ActiveSupport::TestCase
 
   test 'should create friend_ship request' do
     assert_difference 'FriendRequest.count' do
-      @user.friend_requests_sent.create(receiver: @other_user)
+      @user.friend_requests_sent.create(receiver: @other_user, status: 0)
     end
     assert @other_user.friend_requests_received.find_by(sender: @user).present?
   end

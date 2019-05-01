@@ -3,6 +3,7 @@ class FriendRequest < ApplicationRecord
 
   validates :sender, presence: true
   validates :receiver, presence: true
+  validates :status, presence: true, inclusion: { in: [-1, 0, 1] }
   # Refactor this method names, i.e different? friend?
   validate :sender_and_receiver_should_be_different
   validate :sender_and_receiver_should_not_be_friends

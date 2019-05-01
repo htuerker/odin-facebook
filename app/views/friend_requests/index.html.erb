@@ -1,9 +1,9 @@
 <div class="row justify-content-center">
   <div class="col-md-6">
-    <% if @user.friend_requests_sent.pending.any?  %>
+    <% if @sent_requests.any?  %>
       <h2>Sent friend requests</h2>
       <ul class="list-unstyled">
-        <% @user.friend_requests_sent.pending.each do |request| %>
+        <% @sent_requests.each do |request| %>
           <li class="list-item mb-3 d-flex justify-content-between align-items-center">
             <div>
               <span class="mr-3"><%= gravatar_for request.sender %></span>
@@ -17,10 +17,10 @@
       </ul>
     <% end %>
 
-    <% if @user.friend_requests_received.pending.any?  %>
+    <% if @received_requests.any?  %>
       <h2>New friend requests</h2>
       <ul class="list-unstyled">
-        <% @user.friend_requests_received.pending.each do |request| %>
+        <% @received_requests.pending.each do |request| %>
           <li class="list-item mb-3 d-flex justify-content-between align-items-center">
             <div>
               <span class="mr-3"><%= gravatar_for request.sender %></span>
@@ -34,18 +34,4 @@
         <% end %>
       </ul>
     <% end %>
-
-    <% if @user.friends.any?  %>
-      <h2>Your friends</h2>
-      <ul class="list-unstyled">
-        <% @user.friends.each do |friend| %>
-          <li class="list-item mb-3 d-flex justify-content-between align-items-center">
-            <span class="mr-3"><%= gravatar_for friend %></span>
-            <%= link_to get_full_name_for(friend), friend %>
-            <%= link_to "Remove", friendship_path(user_id: friend.id), method: :delete %>
-          </li>
-        <% end %>
-      </ul>
-    <% end %>
-  </div>
 </div>
