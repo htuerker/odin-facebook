@@ -9,7 +9,7 @@
               <span class="mr-3"><%= gravatar_for request.sender %></span>
               <%= link_to get_full_name_for(request.sender), request.sender %>
             </div>
-            <div>
+            <div class="friend_request-links", id="friend_request-<%= request.sender.id %>-links">
               <%= render 'friend_requests/cancel_link', resource: request %>
             </div>
           </li>
@@ -26,7 +26,7 @@
               <span class="mr-3"><%= gravatar_for request.sender %></span>
               <%= link_to get_full_name_for(request.sender), request.sender %>
             </div>
-            <div>
+            <div class="friend_request-links", id="friend_request-<%= request.sender.id %>-links">
               <%= render 'friend_requests/accept_link', resource: request %>
               <%= render 'friend_requests/decline_link', resource: request %>
             </div>

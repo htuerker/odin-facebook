@@ -1,0 +1,2 @@
+sweetAlert("You've accepted friendship with <%= get_full_name_for(@friend_request.sender)%>");
+$("#friend_request-<%= @friend_request.sender.id %>-links").closest('li').remove();

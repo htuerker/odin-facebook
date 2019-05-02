@@ -14,42 +14,64 @@ class FriendRequestsController < ApplicationController
     @friend_request.status = 0
     respond_to do |format|
       if @friend_request.save
-        format.html { redirect_back fallback_location: root_path, success: "Friend request sent succesfuly" }
-        format.json { render json: @friend_request, status: :created, location: @friend_request }
+        format.html { redirect_back fallback_location: root_path,
+                      success: "Friend request sent succesfuly" }
+        format.json { render json: @friend_request, status: :created,
+                      location: @friend_request }
         format.js
       else
-        format.html { redirect_back fallback_location: root_path, danger: "Something went wrong"  }
-        format.json { render json: @friend_request.errors, status: :unprocessable_entity }
+        format.html { redirect_back fallback_location: root_path,
+                      danger: "Something went wrong"  }
+        format.json { render json: @friend_request.errors,
+                      status: :unprocessable_entity }
         format.js
       end
     end
   end
 
   def accept
-    if @friend_request.update(status: 1)
-      @friend_request.sender.establish_friendship(@friend_request.receiver)
-      flash[:succes] = "You have accepted a friendship request!"
-      redirect_to me_friends_path
-    else
-      flash[:alert] = "There was some error occured on accepting a friend request!"
-      redirect_to me_friends_path
+    respond_to do |format|
+      if @friend_request.update(status: 1)
+        @friend_request.sender.establish_friendship(@friend_request.receiver)
+
+        format.html { redirect_back fallback_location: root_path,
+                      success: "You have accepted a friendship request!" }
+        format.json { render json: @friend_request, status: :updated,
+                      location: @friend_request }
+        format.js
+      else
+        format.html { redirect_back fallback_location: root_path,
+                      danger: "Something went wrong"  }
+        format.json { render json: @friend_request.errors,
+                      status: :unprocessable_entity }
+        format.js
+      end
     end
   end
 
   def decline
-    if @friend_request.update(status: -1)
-      flash[:succes] = "You have declined a friendship request!"
-      redirect_to me_friends_path
-    else
-      flash[:alert] = "There was some error occured on declining a friend request!"
-      redirect_to me_friends_path
+    respond_to do |format|
+      if @friend_request.update(status: -1)
+        format.html { redirect_back fallback_location: root_path,
+                      success: "You have declined a friendship request!" }
+        format.json { render json: @friend_request, status: :updated,
+                      location: @friend_request }
+        format.js
+      else
+        format.html { redirect_back fallback_location: root_path,
+                      danger: "Something went wrong"  }
+        format.json { render json: @friend_request.errors,
+                      status: :unprocessable_entity }
+        format.js
+      end
     end
   end
 
   def destroy
     @friend_request.destroy
     respond_to do |format|
-      format.html { redirect_back fallback_location: root_path, success: "Friend request successfuly canceled" }
+      format.html { redirect_back fallback_location: root_path,
+                    success: "Friend request successfuly canceled" }
       format.json  { head :ok }
       format.js
     end
