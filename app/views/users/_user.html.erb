@@ -2,17 +2,6 @@
   <%= gravatar_for user %>
   <%= link_to get_full_name_for(user), user %>
   <div class="friend_request-links", id="friend_request-<%= user.id %>-links">
-    <% if current_user.friends.include?(user) %>
-      <%= render "friendships/destroy_form", resource: user %>
-    <% else %>
-      <% if @request = current_user.friend_requests_sent.pending.find_by(receiver: user) %>
-        <%= render 'friend_requests/cancel_link', resource: @request %>
-      <% elsif @request = current_user.friend_requests_received.pending.find_by(sender: user) %>
-          <%= render 'friend_requests/accept_link', resource: @request %>
-          <%= render 'friend_requests/decline_link', resource: @request %>
-      <% else %>
-        <%= render "friend_requests/send_form", resource: user %>
-      <% end %>
-    <% end %>
+    <%= render "friend_requests/send_form", resource: user %>
   </div>
 </li>
