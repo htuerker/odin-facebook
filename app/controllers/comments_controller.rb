@@ -4,22 +4,26 @@ class CommentsController < ApplicationController
 
   def create
     @comment = current_user.comments.build(comment_params)
-    if @comment.save
-      flash[:success] = "Comment created"
-    else
-      flash[:danger] = @comment.errors.full_messages.to_s
+    respond_to do |format|
+      if @comment.save
+        format.html { redirect_to @comment.post, success: "Comment succesfully created!"}
+        format.json { render json: @comment, status: :created, location: @comment }
+        format.js
+      else
+        format.html { redirect_to @comment.post, danger: "Something went wrong!" }
+        format.json { render json: @comment.errors, status: :unprocessable_entity }
+        format.js
+      end
     end
-    redirect_back fallback_location: root_path
   end
 
   def destroy
-    @comment = Comment.find(params[:id])
-    if @comment.destroy
-      flash[:success] = "Comment removed"
-    else
-      flash[:danger] = "Some error occured"
+    @comment.destroy
+    respond_to do |format|
+      format.html { redirect_to @comment.post }
+      format.json { render }
+      format.js
     end
-    redirect_back fallback_location: root_path
   end
 
   private

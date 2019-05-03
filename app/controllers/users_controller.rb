@@ -6,8 +6,8 @@ class UsersController < ApplicationController
     friends               = current_user.friends.ids
     sent_request_to       = current_user.friend_requests_sent.pending.pluck(:receiver_id)
     received_request_from = current_user.friend_requests_received.pending.pluck(:sender_id)
-    @users = User.all
-      .where.not("id IN (?)", friends + [current_user.id] + sent_request_to + received_request_from)
+    friend_or_has_pending_request = friends + [current_user.id] + sent_request_to + received_request_from
+    @users = User.all.where.not("id IN (?)", friend_or_has_pending_request)
   end
 
   def me

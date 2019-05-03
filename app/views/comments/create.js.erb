@@ -1,0 +1,5 @@
+$("#post-<%=@comment.post.id %>-comments")
+  .append("<%= escape_javascript("#{ render @comment }").html_safe %>");
+<% unless @comment.errors.any? %>
+  $("#post-<%=@comment.post.id %>-comment-form")[0].reset();
+<% end %>

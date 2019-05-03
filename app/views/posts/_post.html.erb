@@ -28,21 +28,13 @@
       <hr>
         <h5>Comments:</h5>
         <div class="comments">
-          <ul class="list-group list-group-flush">
+          <ul class="list-group list-group-flush", id="post-<%= post.id %>-comments">
             <%= render post.comments %>
           </ul>
         </div>
       <% end %>
       <hr>
-      <%= form_for current_user.comments.build do |f| %>
-        <%= f.hidden_field :post_id, value: post.id %>
-        <div class="form-group">
-          <%= f.label :content, "Add your comment:" %>
-          <%= f.text_area :content, class: "form-control" %>
-        </div>
-        <%= f.submit "Add comment", class: "btn btn-secondary" %>
-      <% end %>
+      <%= render "comments/form", resource: post %>
     </div>
-
   </div>
 </li>
