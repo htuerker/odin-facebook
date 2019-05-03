@@ -12,7 +12,7 @@
     <div class="d-flex justify-content-between">
       <div class="post-meta">
         <small class="text-muted">
-          Comments(<%= post.comments.count %>)
+          Comments(<span id="post-<%= post.id %>-comments-counter"><%= post.comments.count %></span>)
         </small>
         <small class="text-muted">
           Likes(<%= post.likes.count %>)

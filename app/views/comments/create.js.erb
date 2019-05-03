@@ -1,5 +1,6 @@
 $("#post-<%=@comment.post.id %>-comments")
   .append("<%= escape_javascript("#{ render @comment }").html_safe %>");
 <% unless @comment.errors.any? %>
-  $("#post-<%=@comment.post.id %>-comment-form")[0].reset();
+    $("#post-<%=@comment.post.id %>-comment-form")[0].reset();
+    $("#post-<%=@comment.post.id %>-comments-counter").html("<%= @comment.post.comments.count %>");
 <% end %>
