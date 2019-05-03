@@ -1,13 +1,14 @@
 <% if @like = current_user.likes.find_by(post_id: resource.id)%>
-    <%= form_for @like, html: { method: :delete } do |f| %>
+  <%= form_for @like, html: { method: :delete }, remote: true do |f| %>
     <%= f.hidden_field :user_id, value: current_user.id %>
     <%= f.hidden_field :post_id, value: resource.id %>
     <%= f.submit "Like", class: "btn btn-outline-danger" %>
   <% end %>
-  <% else %>
-    <%= form_for current_user.likes.build do |f| %>
+<% else %>
+  <%= form_for current_user.likes.build, remote: true do |f| %>
     <%= f.hidden_field :user_id, value: current_user.id %>
     <%= f.hidden_field :post_id, value: resource.id %>
     <%= f.submit "Like", class: "btn btn-outline-primary" %>
   <% end %>
 <% end %>
+

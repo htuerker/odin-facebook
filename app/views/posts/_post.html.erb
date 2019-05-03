@@ -15,17 +15,17 @@
           Comments(<span id="post-<%= post.id %>-comments-counter"><%= post.comments.count %></span>)
         </small>
         <small class="text-muted">
-          Likes(<%= post.likes.count %>)
+          Likes(<span id="post-<%= post.id %>-likes-counter"><%= post.likes.count %></span>)
         </small>
       </div>
-      <div class="post-like">
-        <%= render "shared/like_form", resource: post %>
+      <div class="post-like", id="post-<%= post.id %>-like-form">
+        <%= render "likes/form", resource: post %>
       </div>
     </div>
 
     <div class="commets-section ml-5">
       <% if post.comments.any? %>
-      <hr>
+        <hr>
         <h5>Comments:</h5>
         <div class="comments">
           <ul class="list-group list-group-flush", id="post-<%= post.id %>-comments">

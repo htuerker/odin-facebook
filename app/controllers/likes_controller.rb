@@ -4,13 +4,28 @@ class LikesController < ApplicationController
 
   def create
     @like = current_user.likes.build(like_params)
-    flash[:danger] = "Some error occured" unless @like.save
-    redirect_back fallback_location: root_path
+
+    respond_to do |format|
+      if @like.save
+        format.html { redirect_to @like.post, success: "Liked post!"}
+        format.json { render json: @like, status: :created, location: @like }
+        format.js
+      else
+        format.html { redirect_back fallback_location: root_path , danger: "Something went wrong!"}
+        format.json { render json: @like.errors, status: :unprocessable_entity }
+        format.js
+      end
+    end
   end
 
   def destroy
-    flash[:danger] = "Some error occured" unless @like.destroy
-    redirect_back fallback_location: root_path
+    @like.destroy
+
+    respond_to do |format|
+      format.html { redirect_back fallback_location: root_path }
+      format.json  { head :ok }
+      format.js
+    end
   end
 
   private

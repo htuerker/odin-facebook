@@ -1,0 +1,5 @@
+<% unless @like.errors.any? %>
+    $("#post-<%= @like.post.id%>-like-form").html("<%= escape_javascript(render('likes/form', resource: @like.post)) %>");
+    $("#post-<%=@like.post.id %>-likes-counter").html("<%= @like.post.likes.count %>");
+  <% end %>
+
