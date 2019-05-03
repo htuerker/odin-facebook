@@ -9,6 +9,9 @@ class CommentsControllerTest < ActionDispatch::IntegrationTest
     @post = @user.posts.create(content: "Post Content")
   end
 
+  ###########
+  #  create #
+  ###########
   test 'should redirect create when not logged in' do
     assert_no_difference 'Comment.count' do
       post comments_path, params: {
@@ -41,6 +44,10 @@ class CommentsControllerTest < ActionDispatch::IntegrationTest
     assert assigns(:comment).errors[:content].any?
   end
 
+
+  ###########
+  # destroy #
+  ###########
   test 'should redirect destroy when not logged in' do
     delete comment_path(1)
     assert_redirected_to new_user_session_path
@@ -63,4 +70,25 @@ class CommentsControllerTest < ActionDispatch::IntegrationTest
       delete comment_path(@comment)
     end
   end
+
+
+  ###########
+  #   XHR   #
+  ###########
+
+  test 'should create comment with ajax ' do
+    sign_in @user
+    assert_difference -> { @user.comments.count } do
+      post comments_path, xhr: true, params: { comment: { content: "comment", post_id: @post.id } }
+    end
+  end
+
+  test 'should destroy comment with ajax' do
+    sign_in @user
+    last_comment = @user.comments.create!(content: "comment", post: @post)
+    assert_difference -> { @user.comments.count }, -1 do
+      delete comment_path(last_comment), xhr: true
+    end
+  end
+
 end

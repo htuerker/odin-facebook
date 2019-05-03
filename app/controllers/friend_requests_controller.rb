@@ -69,6 +69,7 @@ class FriendRequestsController < ApplicationController
 
   def destroy
     @friend_request.destroy
+
     respond_to do |format|
       format.html { redirect_back fallback_location: root_path,
                     success: "Friend request successfuly canceled" }

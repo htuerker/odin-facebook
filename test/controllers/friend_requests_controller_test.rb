@@ -73,6 +73,13 @@ class FriendRequestsControllerTest < ActionDispatch::IntegrationTest
     end
   end
 
+  test 'should create a friend request with ajax' do
+    sign_in @user
+    assert_difference -> { @user.friend_requests_sent.count } do
+      post friend_requests_path, params: { friend_request: { receiver_id: @other_user.id } }
+    end
+  end
+
   ##################
   # accept decline #
   ##################
@@ -112,6 +119,24 @@ class FriendRequestsControllerTest < ActionDispatch::IntegrationTest
     assert flash.any?
   end
 
+  test 'should accept with ajax' do
+    sign_in @user
+    assert_not @user.friends.include?(@other_user)
+    friend_request = @other_user.friend_requests_sent.create!(receiver: @user, status: 0)
+    post friend_request_accept_path(friend_request), xhr: true
+    friend_request.reload
+    assert_equal friend_request.status, 1
+    assert @user.friends.include?(@other_user)
+  end
+
+  test 'should decline with ajax' do
+    sign_in @user
+    friend_request = @other_user.friend_requests_sent.create!(receiver: @user, status: 0)
+    post friend_request_decline_path(friend_request), xhr: true
+    friend_request.reload
+    assert_equal friend_request.status, -1
+  end
+
   ###########
   # destroy #
   ###########
@@ -148,6 +173,15 @@ class FriendRequestsControllerTest < ActionDispatch::IntegrationTest
       delete friend_request_path(friend_request)
     end
     assert_redirected_to root_path
+  end
+
+  test 'should destroy with ajax' do
+    sign_in @user
+    friend_request = @user.friend_requests_sent.create!(receiver: @other_user, status: 0)
+    assert @other_user.friend_requests_received.include?(friend_request)
+    assert_difference -> { @user.friend_requests_sent.count }, -1  do
+      delete friend_request_path(friend_request), xhr: true
+    end
   end
 
 end
