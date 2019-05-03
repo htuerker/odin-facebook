@@ -8,6 +8,21 @@ class PostsController < ApplicationController
 
   def create
     @post = current_user.posts.build(post_params)
+
+    respond_to do |format|
+      if @post.save
+        format.html { redirect_back fallback_location: root_path, success: "Successfuly created a post!" }
+        format.json  { render json: @post, status: :created, location: @post }
+        format.js
+      else
+        format.html { redirect_back fallback_location: root_path }
+        format.json  { render json: @post.errors, status: :unprocessable_entity }
+        format.js
+      end
+    end
+  end
+  def create
+    @post = current_user.posts.build(post_params)
     if @post.save
       flash[:success] = "Successfuly created a post"
       redirect_back fallback_location: root_path

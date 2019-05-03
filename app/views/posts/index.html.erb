@@ -1,10 +1,10 @@
 <div class="row justify-content-center">
   <div class="col-md-8">
     <div class="new-post mb-3">
-      <%= render 'shared/new_post' %>
+      <%= render 'posts/form' %>
     </div>
     <h1 class="text-center">Feed</h1>
-    <ul class="list-unstyled">
+    <ul class="list-unstyled", id="posts">
       <%= render @posts %>
     </ul>
   </div>

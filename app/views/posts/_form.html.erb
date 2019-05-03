@@ -1,4 +1,4 @@
-<%= form_for current_user.posts.build do |f| %>
+<%= form_for current_user.posts.build, remote: true do |f| %>
   <div class="form-group">
     <%= f.label :content, "Create new post:", class: "h2" %>
     <%= f.text_area :content, class: "form-control" %>
