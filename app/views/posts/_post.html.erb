@@ -7,6 +7,7 @@
       posted <%= time_ago_in_words post.created_at %> ago
     </small>
     <p><%= post.content %></p>
+    <%= image_tag post.photo.url, class: "card-img-bottom" if post.photo? %>
     <hr>
 
     <div class="d-flex justify-content-between">
