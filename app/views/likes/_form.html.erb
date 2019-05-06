@@ -2,13 +2,17 @@
   <%= form_for @like, html: { method: :delete }, remote: true do |f| %>
     <%= f.hidden_field :user_id, value: current_user.id %>
     <%= f.hidden_field :post_id, value: resource.id %>
-    <%= f.submit "Like", class: "btn btn-outline-danger" %>
+    <%= button_tag class: "btn btn-primary" do %>
+       <i class="fa fa-thumbs-up"></i> Like
+    <% end %>
   <% end %>
 <% else %>
   <%= form_for current_user.likes.build, remote: true do |f| %>
     <%= f.hidden_field :user_id, value: current_user.id %>
     <%= f.hidden_field :post_id, value: resource.id %>
-    <%= f.submit "Like", class: "btn btn-outline-primary" %>
+     <%= button_tag class: "btn btn-outline-primary" do %>
+       <i class="fa fa-thumbs-up"></i> Like
+    <% end %>
   <% end %>
 <% end %>
 

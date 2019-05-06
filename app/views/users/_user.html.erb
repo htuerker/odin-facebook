@@ -1,7 +1,7 @@
-<li class="list-item mb-3 d-flex justify-content-between align-items-center">
-  <%= gravatar_for user %>
-  <%= link_to get_full_name_for(user), user %>
-  <div class="friend_request-links", id="friend_request-<%= user.id %>-links">
+<li class="list-group-item d-flex align-items-center">
+  <%= gravatar_for(user, options: { circle: true }) %>
+  <%= link_to get_full_name_for(user), user, class: "ml-2" %>
+  <div class="friend_request-links ml-auto", id="friend_request-<%= user.id %>-links">
     <%= render "friend_requests/send_form", resource: user %>
   </div>
 </li>

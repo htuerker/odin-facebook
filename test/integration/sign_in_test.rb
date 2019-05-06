@@ -13,10 +13,7 @@ class SignInTest < ActionDispatch::IntegrationTest
     get new_user_session_path
     assert_template 'devise/sessions/new'
     # header links
-    assert_select "a[href=?]", new_user_session_path
-    assert_select "a[href=?]", new_user_registration_path
     assert_select "form[action=?]", user_session_path
-    assert_select "a[href=?]", user_facebook_omniauth_authorize_path
   end
 
   test 'sign in with invalid credentials' do

@@ -1,21 +1,24 @@
 <div class="row">
-  <div class="col-md-4">
-    <%= gravatar_for @user %>
-    <h1><%= get_full_name_for(@user) %></h1>
-    <p>Email: <%= @user.email %></p>
-    <%= link_to "Update your profile", me_edit_path %>
-  </div>
-
-  <div class="col-md-8">
-    <div class="new-post mb-3">
-      <%= render 'posts/form' %>
+  <div class="col-md-8 mx-auto d-flex align-items-end mb-5 pt-5 pb-2">
+    <%= gravatar_for(@user, options: { size: 150, circle: true }) %>
+    <div class="ml-3" style="color:white;">
+      <h3><%= get_full_name_for(@user) %></h3>
+      <%= link_to "Update your profile", me_edit_path %>
     </div>
-    <% if @user.posts.any? %>
-      <h2>Posts</h2>
-      <ul class="list-unstyled pl-0", id="posts">
-        <%= render @user.posts %>
-      </ul>
-    <% end %>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-8 mx-auto">
+      <div class="new-post mb-3">
+        <%= render 'posts/form' %>
+      </div>
+      <% if @user.posts.any? %>
+        <h2>Posts</h2>
+        <ul class="list-unstyled pl-0", id="posts">
+          <%= render @user.posts %>
+        </ul>
+      <% end %>
+    </div>
   </div>
 </div>
 

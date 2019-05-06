@@ -1,13 +1,29 @@
 <li class="card bg-light mb-3">
   <div class="card-body">
-    <h5 class="mb-0">
-      <%= link_to get_full_name_for(post.user), post.user %>
-    </h5>
-    <small class="text-muted mb-2 d-block">
-      posted <%= time_ago_in_words post.created_at %> ago
-    </small>
+    <div class="row d-flex">
+      <div class="ml-3">
+        <%= gravatar_for(post.user, options: { size: 50 }) %>
+      </div>
+      <div class="ml-3">
+        <h5 class="mb-0">
+          <%= link_to get_full_name_for(post.user), post.user %>
+        </h5>
+        <small class="text-muted mb-2 d-block">
+          posted <%= time_ago_in_words post.created_at %> ago
+        </small>
+      </div>
+      <% if post.user == current_user %>
+      <div class="ml-auto mr-3">
+        <%= link_to post_path(post), method: :delete, remote: true, class: "text-danger" do %>
+          <i class="fa fa-trash-o" style="font-size:1.5rem;"></i>
+        <% end %>
+      </div>
+      <% end %>
+    </div>
+    <hr>
     <p><%= post.content %></p>
     <%= image_tag post.photo.url, class: "card-img-bottom" if post.photo? %>
+    
     <hr>
 
     <div class="d-flex justify-content-between">

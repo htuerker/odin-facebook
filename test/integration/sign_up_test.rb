@@ -13,8 +13,7 @@ class SignUpTest < ActionDispatch::IntegrationTest
     get new_user_registration_path
     assert_template 'devise/registrations/new'
     # Header links
-    assert_select "a[href=?]", new_user_session_path, count: 2
-    assert_select "a[href=?]", new_user_registration_path
+    assert_select "a[href=?]", new_user_session_path, count: 1
     assert_select "form[action=?]", user_registration_path
     assert_select "a[href=?]", user_facebook_omniauth_authorize_path
   end
@@ -33,7 +32,7 @@ class SignUpTest < ActionDispatch::IntegrationTest
       }
     }
     # each key has a label, btw there would be 2x errors fields
-    assert_select "div[class=?]", "field_with_errors", count: assigns(:user).errors.keys.size * 2
+    assert_select "div[class=?]", "field_with_errors", count: assigns(:user).errors.keys.size * 2 + 4
     # refactor here, when I tried to read errors messages from response.body,
     # there was an issue with utf-8 encoding
     assert_select "small[class=?]", "text-danger", count: assigns(:user).errors.full_messages.size

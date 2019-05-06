@@ -1,7 +1,19 @@
 @import "bootstrap";
+@import "font-awesome";
 @import "sweetalert";
 
+$color-facebook-primary: #3b5998;
+$color-facebook-primary-light: rgb(67, 103, 178);
+$color-facebook-primary-dark: rgb(41, 72, 125);
+$color-facebook-gray-ligth: rgb(233, 235, 238);
+
+body {
+  padding: 0 !important;
+  background-color: $color-facebook-gray-ligth;
+}
+
 .field_with_errors {
+  display: inline;
   .form-control {
     @extend .is-invalid;
   }
@@ -39,13 +51,8 @@
 
 .friend_request-links {
   width: 200px;
-  a, input[type="submit"] {
+  a, input[type="submit"], button[type="submit"] {
     width: 100%;
-  }
-  .half-width {
-    a, input[type="submit"] {
-    width: 48%;
-    }
   }
 }
 
@@ -67,6 +74,7 @@ body { padding: 2em; }
   font-size: 16px;
   color: #FFF;
 }
+
 .btn-login:before {
   content: "";
   box-sizing: border-box;
@@ -114,4 +122,64 @@ body { padding: 2em; }
 .btn-login-google:hover,
 .btn-login-google:focus {
   background: #E74B37;
+}
+
+.navbar {
+  background-color: $color-facebook-primary;
+  a {
+    border-radius: 5px;
+    color: white !important;
+  }
+  a:hover {
+    background-color: $color-facebook-primary-light;
+  }
+  a:active {
+    background-color: $color-facebook-primary-dark;
+  }
+  .navbar-brand {
+    color: white;
+    font-size: 3rem;
+    font-style: bold;
+  }
+}
+
+.navbar-form {
+  color: white;
+  label {
+    font-size: 0.8rem;
+    margin-bottom: 0;
+  }
+  input {
+    height: 30px;
+    padding: 3px;
+    font-size: 14px;
+    line-height: 14px;
+  }
+  input[type="checkbox"] {
+    height: 13px;
+  }
+  input[type="submit"] {
+    padding: 3px 10px;
+  }
+}
+
+//#############//
+//   BUTTON    //
+//#############//
+
+.btn.btn-primary {
+  color: white;
+  background-color: $color-facebook-primary-light;
+  border: solid 1px $color-facebook-primary-dark;
+  border-radius: 3px;
+  &:hover {
+    background-color: $color-facebook-primary;
+  }
+}
+
+.btn.btn-outline-primary {
+  color: $color-facebook-primary;
+  background-color: $color-facebook-gray-ligth;
+  border: solid 1px $color-facebook-primary-dark;
+  border-radius: 3px;
 }
