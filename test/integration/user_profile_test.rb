@@ -13,9 +13,8 @@ class UserProfileTest < ActionDispatch::IntegrationTest
     get user_path(@user.id)
     assert_template 'users/me'
     # User info
-    assert_match "#{@user.email}", response.body
     assert_match "#{@user.first_name.capitalize} #{@user.last_name.capitalize}", response.body
-    assert_select "img[class=?]", "gravatar"
+    assert_select "img[class=?]", "gravatar rounded-circle"
     assert_select "a[href=?]", me_edit_path
     # New post form
     assert_select "form[id=?]", "new_post"
@@ -44,9 +43,8 @@ class UserProfileTest < ActionDispatch::IntegrationTest
     get user_path(@other_user.id)
     assert_template 'users/show'
     # User info
-    assert_match "#{@other_user.email}", response.body
     assert_match "#{@other_user.first_name.capitalize} #{@other_user.last_name.capitalize}", response.body
-    assert_select "img[class=?]", "gravatar"
+    assert_select "img[class=?]", "gravatar rounded-circle"
     assert_select "a[href=?]", me_edit_path, count: 0
 
     assert_select "form[id=?]", "new_post", count: 0
