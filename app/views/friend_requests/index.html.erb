@@ -1,12 +1,12 @@
 <div class="row justify-content-center">
   <div class="col-md-6">
     <% if @sent_requests.any?  %>
-      <h2>Sent friend requests</h2>
-      <ul class="list-unstyled">
+      <h4>Sent Friend Requests</h4>
+      <ul class="list-group">
         <% @sent_requests.each do |request| %>
-          <li class="list-item mb-3 d-flex justify-content-between align-items-center">
+          <li class="list-group-item d-flex justify-content-between align-items-center">
             <div>
-              <span class="mr-3"><%= gravatar_for request.receiver %></span>
+              <span class="mr-3"><%= gravatar_for(request.receiver, options: { circle: true}) %></span>
               <%= link_to get_full_name_for(request.receiver), request.receiver %>
             </div>
             <div class="friend_request-links", id="friend_request-<%= request.receiver.id %>-links">
@@ -14,16 +14,16 @@
             </div>
           </li>
         <% end %>
-      </ul>
+      </>
     <% end %>
 
     <% if @received_requests.any?  %>
-      <h2>New friend requests</h2>
-      <ul class="list-unstyled">
+      <h4>Accepted Friend Requests</h4>
+      <ul class="list-group">
         <% @received_requests.pending.each do |request| %>
-          <li class="list-item mb-3 d-flex justify-content-between align-items-center">
+          <li class="list-group-item d-flex justify-content-between align-items-center">
             <div>
-              <span class="mr-3"><%= gravatar_for request.sender %></span>
+              <span class="mr-3"><%= gravatar_for(request.sender, options: { circle: true }) %></span>
               <%= link_to get_full_name_for(request.sender), request.sender %>
             </div>
             <div class="friend_request-links", id="friend_request-<%= request.sender.id %>-links">

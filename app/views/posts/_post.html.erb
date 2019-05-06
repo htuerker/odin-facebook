@@ -1,14 +1,12 @@
 <li class="card bg-light mb-3">
   <div class="card-body">
-    <div class="row d-flex">
+    <div class="row d-flex align-items-center mb-2">
       <div class="ml-3">
-        <%= gravatar_for(post.user, options: { size: 50 }) %>
+        <%= gravatar_for(post.user, options: { size: 40, circle: true}) %>
       </div>
       <div class="ml-3">
-        <h5 class="mb-0">
-          <%= link_to get_full_name_for(post.user), post.user %>
-        </h5>
-        <small class="text-muted mb-2 d-block">
+        <%= link_to get_full_name_for(post.user), post.user %>
+        <small class="text-muted mb-2 d-block", style="font-size:0.7rem;">
           posted <%= time_ago_in_words post.created_at %> ago
         </small>
       </div>
@@ -20,13 +18,10 @@
       </div>
       <% end %>
     </div>
-    <hr>
     <p><%= post.content %></p>
     <%= image_tag post.photo.url, class: "card-img-bottom" if post.photo? %>
-    
-    <hr>
 
-    <div class="d-flex justify-content-between">
+    <div class="d-flex justify-content-between mt-2">
       <div class="post-meta">
         <small class="text-muted">
           Comments(<span id="post-<%= post.id %>-comments-counter"><%= post.comments.count %></span>)
@@ -40,9 +35,9 @@
       </div>
     </div>
 
-    <div class="commets-section ml-5">
+    <div class="commets-section">
       <h5>Comments:</h5>
-      <ul class="list-group list-group-flush", id="post-<%= post.id %>-comments">
+      <ul class="list-group list-group-flush mb-3", id="post-<%= post.id %>-comments">
         <% if post.comments.any? %>
           <%= render post.comments %>
         <% end %>

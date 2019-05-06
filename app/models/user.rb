@@ -26,6 +26,9 @@ class User < ApplicationRecord
 
   has_many :friends, through: :friendships, source: :user2
 
+  mount_uploader :profile_photo, PhotoUploader
+  mount_uploader :cover_photo, PhotoUploader
+
   def establish_friendship(other_user)
     begin
       self.friends.push(other_user)
