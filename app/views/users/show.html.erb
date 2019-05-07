@@ -26,7 +26,7 @@
         <h5>Friends(<%= @user.friends.count %>)</h5>
       <% end %>
       <div class="d-flex flex-wrap">
-        <% @user.friends.each do |friend| %>
+        <% @user.friends.take(20).each do |friend| %>
           <%= link_to friend, class: "m-1" do %>
             <%= profile_photo_for(friend, options: { size: 50 }) %>
           <% end %>
