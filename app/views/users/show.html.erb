@@ -8,6 +8,18 @@
 </div>
 <div class="row">
   <div class="col-md-3 ml-auto">
+    <div class="friend_request-links my-2", id="friend_request-<%= @user.id %>-links">
+      <% if current_user.friends.include?(@user)%>
+          <%= link_to  "Unfriend", friendship_path(@user), method: :delete, remote: true %>
+        <% elsif request = current_user.friend_requests_sent.pending.find_by(receiver: @user) %>
+          <%= render  "friend_requests/cancel_link", resource: request %>
+        <% elsif request = current_user.friend_requests_received.pending.find_by(sender: @user) %>
+          <%= render 'friend_requests/accept_link', resource: request %>
+          <%= render 'friend_requests/decline_link', resource: request %>
+        <% else %>
+          <%= render  "friend_requests/send_form", resource: @user %>
+      <% end %>
+    </div>
     <% if @user.friends.any? %>
       <h5>Friends(<%= @user.friends.count %>)</h5>
       <div class="d-flex flex-wrap">
