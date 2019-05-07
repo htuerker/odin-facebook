@@ -3,7 +3,11 @@ class PostsController < ApplicationController
   before_action :require_authorized_user, only: [:destroy]
 
   def index
-    @posts = current_user.feed
+    @posts = current_user.feed.paginate(page: params[:post_page], per_page: 10)
+    respond_to do |format|
+      format.html { render 'index' }
+      format.js
+    end
   end
 
   def create
