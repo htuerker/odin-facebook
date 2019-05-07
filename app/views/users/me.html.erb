@@ -1,5 +1,6 @@
 <div class="row">
-  <div class="col-md-9 mx-auto d-flex align-items-end mb-5 pt-5 pb-2", style="background-image:url(<%= @user.cover_photo.url%>);">
+  <div class="col-md-9 mx-auto d-flex align-items-end mb-5 pt-5 pb-2",
+       style="background-image:url(<%= @user.cover_photo.url%>);background-color:black;">
     <%= profile_photo_for(@user, options: { size: 150, circle: true }) %>
     <div class="ml-3" style="color:white;">
       <h3><%= get_full_name_for(@user) %></h3>

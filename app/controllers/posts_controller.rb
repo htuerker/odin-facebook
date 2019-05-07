@@ -11,11 +11,13 @@ class PostsController < ApplicationController
 
     respond_to do |format|
       if @post.save
-        format.html { redirect_back fallback_location: root_path, success: "Successfuly created a post!" }
+        format.html { redirect_back fallback_location: root_path, 
+                      success: "Successfuly created a post!" }
         format.json  { render json: @post, status: :created, location: @post }
         format.js
       else
-        format.html { redirect_back fallback_location: root_path }
+        format.html { redirect_back fallback_location: root_path, 
+                      danger: "Something went wrong!" }
         format.json  { render json: @post.errors, status: :unprocessable_entity }
         format.js
       end
@@ -25,12 +27,11 @@ class PostsController < ApplicationController
   def destroy
     @post.destroy
     respond_to do |format|
-      format.html { redirect_back fallback_location: root_path, success: "Successfuly removed a post!" }
+      format.html { redirect_back fallback_location: root_path, 
+                    success: "Successfuly removed a post!" }
       format.json { head :ok }
       format.js
     end
-    flash[:success] = "Successfuly deleted a post"
-    redirect_to posts_path
   end
 
   private
