@@ -21,16 +21,6 @@ class PostsController < ApplicationController
       end
     end
   end
-  def create
-    @post = current_user.posts.build(post_params)
-    if @post.save
-      flash[:success] = "Successfuly created a post"
-      redirect_back fallback_location: root_path
-    else
-      flash[:danger] = "Something went wrong"
-      render "new"
-    end
-  end
 
   def destroy
     @post = Post.find(params[:id])
