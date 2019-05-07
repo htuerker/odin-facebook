@@ -6,7 +6,7 @@
         <% @sent_requests.each do |request| %>
           <li class="list-group-item d-flex justify-content-between align-items-center">
             <div>
-              <span class="mr-3"><%= gravatar_for(request.receiver, options: { circle: true}) %></span>
+              <span class="mr-3"><%= profile_photo_for(request.receiver, options: { circle: true}) %></span>
               <%= link_to get_full_name_for(request.receiver), request.receiver %>
             </div>
             <div class="friend_request-links", id="friend_request-<%= request.receiver.id %>-links">
@@ -23,7 +23,7 @@
         <% @received_requests.pending.each do |request| %>
           <li class="list-group-item d-flex justify-content-between align-items-center">
             <div>
-              <span class="mr-3"><%= gravatar_for(request.sender, options: { circle: true }) %></span>
+              <span class="mr-3"><%= profile_photo_for(request.sender, options: { circle: true }) %></span>
               <%= link_to get_full_name_for(request.sender), request.sender %>
             </div>
             <div class="friend_request-links", id="friend_request-<%= request.sender.id %>-links">

@@ -1,7 +1,7 @@
 <li class="list-group-item", id="comment-<%= comment.id %>">
   <div class="row d-flex align-items-center mb-2">
     <div class="ml-3">
-      <%= gravatar_for(comment.user, options: { size: 40, circle: true}) %>
+      <%= profile_photo_for(comment.user, options: { size: 40, circle: true}) %>
     </div>
     <div class="ml-3">
       <%= link_to get_full_name_for(comment.user), comment.user %>

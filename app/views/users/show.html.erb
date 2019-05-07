@@ -1,14 +1,18 @@
-<div class="row mt-0">
-  <div class="col-md-6 mx-auto d-flex align-items-end mb-5 pt-5 pb-2">
-    <%= gravatar_for(@user, options: { size: 150, circle: true }) %>
+<div class="row">
+  <div class="col-md-10 mx-auto d-flex align-items-end mb-5 pt-5 pb-2", style="background-image:url(<%= @user.cover_photo.url%>);">
+    <%= profile_photo_for(@user, options: { size: 150, circle: true }) %>
     <div class="ml-3" style="color:white;">
       <h3><%= get_full_name_for(@user) %></h3>
     </div>
   </div>
 </div>
 <div class="row">
-  <div class="col-md-6 mx-auto">
+  <div class="col-md-3 ml-auto">
+    Hello
+  </div>
+  <div class="col-md-6 mr-auto">
       <% if @user.posts.any? %>
+        <h2>Posts</h2>
         <ul class="list-unstyled pl-0", id="posts">
           <%= render @user.posts %>
         </ul>
@@ -16,5 +20,3 @@
     </div>
   </div>
 </div>
-
-
