@@ -2,6 +2,6 @@
   <%= profile_photo_for(user, options: { circle: true }) %>
   <%= link_to get_full_name_for(user), user, class: "ml-2" %>
   <div class="friend_request-links ml-auto", id="friend_request-<%= user.id %>-links">
-    <%= render "friend_requests/send_form", resource: user %>
+    <%= render "friend_requests/form", resource: user %>
   </div>
 </li>

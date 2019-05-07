@@ -12,7 +12,9 @@
 <div class="row">
   <div class="col-md-3 ml-auto">
     <% if @user.friends.any? %>
-      <h5>Friends(<%= @user.friends.count %>)</h5>
+      <%= link_to user_friends_path(current_user) do %>
+        <h5>Friends(<%= @user.friends.count %>)</h5>
+      <% end %>
       <div class="d-flex flex-wrap">
         <% @user.friends.each do |friend| %>
           <%= link_to friend, class: "m-1" do %>

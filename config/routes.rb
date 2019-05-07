@@ -5,7 +5,7 @@ Rails.application.routes.draw do
     get 'me/edit', to: 'devise/registrations#edit'
   end
   get 'me', to: 'users#me'
-  get 'me/friends', to: 'users#friends'
+  get 'user/friends/:id', to: 'users#friends', as: "user_friends"
 
   # TO-DO refactor it with using routing scopes
   post 'friend_requests/accept/:id', to: 'friend_requests#accept', as: 'friend_request_accept'

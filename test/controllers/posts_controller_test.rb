@@ -40,12 +40,10 @@ class PostsControllerTest < ActionDispatch::IntegrationTest
     sign_in @user
     assert_difference 'Post.count' do
       post posts_path, params: {
-        post: { content: @post.content } },
-      headers: { "HTTP_REFERER" => posts_url }
+        post: { content: @post.content } }
     end
-    assert_redirected_to posts_path
+    assert_redirected_to root_path
     follow_redirect!
-    assert flash.any?
   end
 
   ###########
@@ -62,8 +60,7 @@ class PostsControllerTest < ActionDispatch::IntegrationTest
     assert_difference 'Post.count', -1 do
       delete post_path(@user.posts.first)
     end
-    assert_redirected_to posts_path
-    assert flash.any?
+    assert_redirected_to root_path
   end
 
   test 'should redirect destroy when current user is not authorized to delete' do

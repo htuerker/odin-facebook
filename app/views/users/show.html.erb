@@ -13,16 +13,18 @@
       <% if current_user.friends.include?(@user)%>
           <%= link_to  "Unfriend", friendship_path(@user), method: :delete, remote: true %>
         <% elsif request = current_user.friend_requests_sent.pending.find_by(receiver: @user) %>
-          <%= render  "friend_requests/cancel_link", resource: request %>
+          <%= render  "friend_requests/links/cancel_link", resource: request %>
         <% elsif request = current_user.friend_requests_received.pending.find_by(sender: @user) %>
-          <%= render 'friend_requests/accept_link', resource: request %>
-          <%= render 'friend_requests/decline_link', resource: request %>
+          <%= render 'friend_requests/links/accept_link', resource: request %>
+          <%= render 'friend_requests/links/decline_link', resource: request %>
         <% else %>
-          <%= render  "friend_requests/send_form", resource: @user %>
+          <%= render  "friend_requests/form", resource: @user %>
       <% end %>
     </div>
     <% if @user.friends.any? %>
-    <h5>Friends(<%= @user.friends.count %>)</h5>
+      <%= link_to user_friends_path(@user) do %>
+        <h5>Friends(<%= @user.friends.count %>)</h5>
+      <% end %>
       <div class="d-flex flex-wrap">
         <% @user.friends.each do |friend| %>
           <%= link_to friend, class: "m-1" do %>

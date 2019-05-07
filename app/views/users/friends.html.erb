@@ -2,12 +2,11 @@
   <div class="col-md-6">
     <% if @user.friends.any?  %>
       <h2>Your friends</h2>
-      <ul class="list-unstyled">
+      <ul class="list-group">
         <% @user.friends.each do |friend| %>
-          <li class="list-item mb-3 d-flex justify-content-between align-items-center">
+          <li class="list-group-item d-flex align-items-center">
             <span class="mr-3"><%= profile_photo_for friend %></span>
             <%= link_to get_full_name_for(friend), friend %>
-            <%= link_to "Remove", friendship_path(user_id: friend.id), method: :delete %>
           </li>
         <% end %>
       </ul>

@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show]
-  before_action :set_current_user, only: [:me, :edit, :friends]
+  before_action :set_user, only: [:show, :friends]
+  before_action :set_current_user, only: [:me, :edit]
 
   def index
     friends               = current_user.friends.ids
