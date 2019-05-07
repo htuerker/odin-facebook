@@ -6,8 +6,8 @@
     <ul class="list-unstyled", id="posts">
       <%= render @posts %>
     </ul>
-    <%= link_to 'Load more', posts_path(post_page: @posts.next_page),
-          remote: true, class:"btn btn-primary",
-          style: "width:100%;" %>
+    <%= link_to 'Load more', posts_path(posts_page: @posts.next_page),
+          remote: true, id: "post-pagination-link",
+          class:"btn btn-primary",style: "width:100%;" %>
   </div>
 </div>
