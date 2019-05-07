@@ -1,5 +1,5 @@
 <div class="row">
-  <div class="col-md-10 mx-auto d-flex align-items-end mb-5 pt-5 pb-2", style="background-image:url(<%= @user.cover_photo.url%>);">
+  <div class="col-md-9 mx-auto d-flex align-items-end mb-5 pt-5 pb-2", style="background-image:url(<%= @user.cover_photo.url%>);">
     <%= profile_photo_for(@user, options: { size: 150, circle: true }) %>
     <div class="ml-3" style="color:white;">
       <h3><%= get_full_name_for(@user) %></h3>
@@ -10,8 +10,16 @@
 
 <div class="row">
   <div class="col-md-3 ml-auto">
-    Hello
-    
+    <% if @user.friends.any? %>
+      <h5>Friends(<%= @user.friends.count %>)</h5>
+      <div class="d-flex flex-wrap">
+        <% @user.friends.each do |friend| %>
+          <%= link_to friend, class: "m-1" do %>
+            <%= profile_photo_for(friend, options: { size: 50 }) %>
+          <% end %>
+        <% end %>
+      </div>
+    <% end %>
   </div>
   <div class="col-md-6 mr-auto">
       <div class="new-post mb-3">

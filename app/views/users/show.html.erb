@@ -8,7 +8,16 @@
 </div>
 <div class="row">
   <div class="col-md-3 ml-auto">
-    Hello
+    <% if @user.friends.any? %>
+      <h5>Friends(<%= @user.friends.count %>)</h5>
+      <div class="d-flex flex-wrap">
+        <% @user.friends.each do |friend| %>
+          <%= link_to friend, class: "m-1" do %>
+            <%= profile_photo_for(friend, options: { size: 50 }) %>
+          <% end %>
+        <% end %>
+      </div>
+    <% end %>
   </div>
   <div class="col-md-6 mr-auto">
       <% if @user.posts.any? %>
