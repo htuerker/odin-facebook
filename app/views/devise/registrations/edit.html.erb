@@ -8,16 +8,13 @@
         <%= f.file_field :profile_photo, class: "form-control" %>
         <%= render 'devise/shared/field_error_messages', resource: resource, field: :profile_photo %>
       </div>
+      
       <div class="form-group">
         <%= f.label :cover_photo %><br />
         <%= f.file_field :cover_photo, class: "form-control" %>
         <%= render 'devise/shared/field_error_messages', resource: resource, field: :profile_photo %>
       </div>
-      <div class="form-group">
-        <%= f.label :first_name %><br />
-        <%= f.text_field :first_name, autofocus: true, autocomplete: "first_name", class: "form-control" %>
-        <%= render 'devise/shared/field_error_messages', resource: resource, field: :first_name %>
-      </div>
+
       <div class="form-group">
         <%= f.label :first_name %><br />
         <%= f.text_field :first_name, autofocus: true, autocomplete: "first_name", class: "form-control" %>

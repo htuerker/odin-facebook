@@ -21,10 +21,14 @@ class PostsController < ApplicationController
       end
     end
   end
-
+  
   def destroy
-    @post = Post.find(params[:id])
     @post.destroy
+    respond_to do |format|
+      format.html { redirect_back fallback_location: root_path, success: "Successfuly removed a post!" }
+      format.json { head :ok }
+      format.js
+    end
     flash[:success] = "Successfuly deleted a post"
     redirect_to posts_path
   end
