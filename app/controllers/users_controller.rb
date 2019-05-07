@@ -15,7 +15,11 @@ class UsersController < ApplicationController
 
 
   def show
-    render 'me' if @user == current_user
+    @posts = @user.posts.paginate(page: params[:posts_page], per_page: 10)
+    respond_to do |format|
+      format.html { render (@user == current_user)? 'me' : 'show' }
+      format.js
+    end
   end
 
   def friends
