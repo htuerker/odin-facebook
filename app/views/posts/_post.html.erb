@@ -18,7 +18,9 @@
       </div>
       <% end %>
     </div>
-    <p><%= post.content %></p>
+    <%= link_to post, style: "color:inherit;text-decoration:inherit;" do %>
+      <p><%= post.content %></p>
+    <% end %>
     <%= image_tag post.photo.url, class: "card-img-bottom" if post.photo? %>
 
     <div class="d-flex justify-content-between mt-2">

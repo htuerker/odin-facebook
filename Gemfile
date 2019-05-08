@@ -62,6 +62,7 @@ group :development do
   gem 'guard'
   gem 'guard-minitest'
   gem 'minitest-reporters'
+  gem "letter_opener"
 end
 
 group :test do

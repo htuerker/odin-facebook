@@ -1,15 +1,19 @@
 class PostsController < ApplicationController
-  before_action :set_post, only: [:destroy]
+  before_action :set_post, only: [:show, :destroy]
   before_action :require_authorized_user, only: [:destroy]
 
   def index
     @posts = current_user.feed.paginate(page: params[:posts_page], per_page: 10)
+
     respond_to do |format|
       format.html { render 'index' }
       format.js
     end
   end
 
+  def show
+  end
+  
   def create
     @post = current_user.posts.build(post_params)
 
@@ -30,6 +34,7 @@ class PostsController < ApplicationController
   
   def destroy
     @post.destroy
+    
     respond_to do |format|
       format.html { redirect_back fallback_location: root_path, 
                     success: "Successfuly removed a post!" }

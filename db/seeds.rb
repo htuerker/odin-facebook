@@ -35,9 +35,9 @@ end
 # Generate Posts
 
 User.take(6).each do |user|
-  5.times do
+  10.times do
     user.posts.create!(content: Faker::Lorem.paragraph_by_chars(180),
-                       photo: Rails.root.join("app/assets/images/seed/posts/post_#{(1..5).to_a.sample}.jpg").open)
+                       photo: Rails.root.join("app/assets/images/seed/posts/post_#{(1..10).to_a.sample}.jpg").open)
   end
 end
 

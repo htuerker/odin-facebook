@@ -13,7 +13,6 @@ class UsersController < ApplicationController
   def me
   end
 
-
   def show
     @posts = @user.posts.paginate(page: params[:posts_page], per_page: 10)
     respond_to do |format|
