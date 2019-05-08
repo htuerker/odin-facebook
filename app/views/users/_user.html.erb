@@ -1,7 +1,11 @@
-<li class="list-group-item d-flex align-items-center">
-  <%= profile_photo_for(user, options: { size: 80, circle: true }) %>
-  <%= link_to get_full_name_for(user), user, class: "ml-2" %>
-  <div class="friend_request-links ml-auto", id="friend_request-<%= user.id %>-links">
+<li class="row list-group-item d-flex align-items-center">
+  <div class="col-3 p-0 m-0">
+    <%= profile_photo_for(user, options: { size: 60, circle: true }) %>
+  </div>
+  <div class="col-5 p-0 m-0 text-left">
+    <%= link_to get_full_name_for(user), user, class: "m-1" %>
+  </div>
+  <div class="col-4 p-0 friend_request-links m-0", id="friend_request-<%= user.id %>-links">
     <%= render "friend_requests/form", resource: user %>
   </div>
 </li>

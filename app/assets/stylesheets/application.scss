@@ -50,7 +50,6 @@ body {
 
 
 .friend_request-links {
-  width: 200px;
   a, input[type="submit"], button[type="submit"] {
     width: 100%;
   }
@@ -182,4 +181,10 @@ body { padding: 2em; }
   background-color: $color-facebook-gray-ligth;
   border: solid 1px $color-facebook-primary-dark;
   border-radius: 3px;
+}
+
+@media only screen and (max-width: 992px) {
+  .navbar-form {
+    display: none;
+  }
 }

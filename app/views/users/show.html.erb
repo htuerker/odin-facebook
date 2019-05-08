@@ -9,7 +9,7 @@
 </div>
 <div class="row">
   <div class="col-sm-12 col-xs-12 col-md-3 ml-auto">
-    <div class="friend_request-links my-2", id="friend_request-<%= @user.id %>-links">
+    <div class="friend_request-links m-3", id="friend_request-<%= @user.id %>-links">
       <% if current_user.friends.include?(@user)%>
           <%= link_to  "Unfriend", friendship_path(@user), method: :delete, remote: true,
               class: "btn btn-warning" %>
