@@ -2,10 +2,10 @@
     <% if @comments.any? %>
         $("#post-<%= @post.id %>-comments").append("<%= escape_javascript("#{ render @comments}").html_safe %>");
         <% if @comments.next_page.nil? %>
-            $("#comment-pagination-link").remove();
+            $("#post-<%= @post.id %>-comments-pagination-link").remove();
         <% else %>
-            $("#comment-pagination-link").attr('href', '<%= comments_by_post_path(post_id: @post.id, comments_page: @comments.next_page) %>');
-            $("#comment-pagination-link").text("Load More");
+            $("#post-<%= @post.id %>-comments-pagination-link").attr('href', '<%= comments_by_post_path(post_id: @post.id, comments_page: @comments.next_page) %>');
+            $("#post-<%= @post.id %>-comments-pagination-link").text("Load More");
         <% end %>
     <% end %>
 <% end %>

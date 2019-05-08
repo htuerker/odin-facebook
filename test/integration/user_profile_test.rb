@@ -21,7 +21,7 @@ class UserProfileTest < ActionDispatch::IntegrationTest
     # User's own posts
     assert_select "div[class=?]", "card-body", count: @user.posts.count
 
-    @user.posts.each do |user_post|
+    @other_user.posts.paginate(page: 1, per_page: 10).each do |user_post|
       # TO-DO
       # fix fixture issue, there's one invalid post with filled by nil values
       next unless user_post.id
@@ -30,10 +30,8 @@ class UserProfileTest < ActionDispatch::IntegrationTest
       assert_select "span[id=?]","post-#{user_post.id}-likes-counter", { value: user_post.comments.count }
       assert_select "div[id=?]", "post-#{user_post.id}-like-form", count: 1
 
-      user_post.comments.each do |comment|
-        assert_select "li[id=?]", "comment-#{comment.id}", count: 1
-      end
-      assert_select "form[id=?]", "post-#{user_post.id}-comment-form", count: 1
+      assert_select "a[id=?]", "post-#{user_post.id}-comments"
+      assert_select "a[id=?]", "post-#{user_post.id}-comments-pagination-link", count: 1
     end
 
   end
@@ -50,16 +48,12 @@ class UserProfileTest < ActionDispatch::IntegrationTest
     assert_select "form[id=?]", "new_post", count: 0
     assert_select "div[class=?]", "card-body", count: @other_user.posts.count
 
-    @other_user.posts.each do |user_post|
+    @other_user.posts.paginate(page: 1, per_page: 10).each do |user_post|
       assert_select "span[id=?]","post-#{user_post.id}-comments-counter", { value: user_post.comments.count }
       assert_select "span[id=?]","post-#{user_post.id}-likes-counter", { value: user_post.comments.count }
       assert_select "div[id=?]", "post-#{user_post.id}-like-form", count: 1
 
-      user_post.comments.each do |comment|
-        assert_select "li[id=?]", "comment-#{comment.id}", count: 1
-        # comment remove link for current_user if there's comment by current user
-        assert_select "a[href=?]", "comments/#{comment.id}", { count: (comment.user == @user)? 1 : 0 }
-      end
+      assert_select "a[id=?]", "post-#{user_post.id}-comments-pagination-link", count: 1
       #comment form under each post
       assert_select "form[id=?]", "post-#{user_post.id}-comment-form", count: 1
     end
