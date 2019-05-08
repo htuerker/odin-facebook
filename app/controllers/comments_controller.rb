@@ -2,6 +2,19 @@ class CommentsController < ApplicationController
   before_action :set_comment, only: [:destroy]
   before_action :require_authorized_user, only: [:destroy]
 
+  def comments_by_post
+    respond_to do |format|
+      if @post = Post.find_by(id: params[:post_id])
+        @comments = @post.comments.paginate(page: params[:comments_page], per_page: 3)
+        format.html { redirect_to @post }
+        format.js
+      else
+        format.html { redirect_back fallback_location: root_path, danger: "Something went wrong!" }
+        format.js
+      end
+    end
+  end
+
   def create
     @comment = current_user.comments.build(comment_params)
     respond_to do |format|

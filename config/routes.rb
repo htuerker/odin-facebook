@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   post 'friend_requests/decline/:id', to: 'friend_requests#decline', as: 'friend_request_decline'
 
   delete 'friendship/:user_id', to: 'friendships#destroy', as: 'friendship'
+  get "comments_by_post/:post_id/:comments_page", to: "comments#comments_by_post", as: "comments_by_post"
   resources :users, only: [:index, :show]
   resources :posts, only: [:index, :show, :create, :destroy]
   resources :comments, only: [:create, :destroy]
