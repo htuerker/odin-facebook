@@ -39,9 +39,9 @@
 
     <div class="comments-section">
       <h5>Comments:</h5>
+      <ul class="list-group list-group-flush mb-3", id="post-<%= post.id %>-comments">
+      </ul>
       <% if post.comments.any? %>
-        <ul class="list-group list-group-flush mb-3", id="post-<%= post.id %>-comments">
-        </ul>
         <%= link_to 'Load Comments', comments_by_post_path(post_id: post.id, comments_page: 1),
             remote: true, id: "post-#{post.id}-comments-pagination-link", class: "btn btn-primary form-control my-2"%>
       <% end %>
