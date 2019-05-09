@@ -67,7 +67,9 @@ class CommentsControllerTest < ActionDispatch::IntegrationTest
     assert @comment.present?
     sign_in @other_user
     assert_no_difference 'Comment.count' do
-      delete comment_path(@comment)
+      assert_raises Pundit::NotAuthorizedError do
+        delete comment_path(@comment)
+      end
     end
   end
 

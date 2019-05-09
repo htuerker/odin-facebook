@@ -79,7 +79,6 @@ class EditProfileTest < ActionDispatch::IntegrationTest
     # password changed
     get new_user_session_path
     assert_template "devise/sessions/new"
-    assert_not flash.any?
     post user_session_path, params: {
       user: {
         email: @user.email,

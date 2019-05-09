@@ -63,17 +63,15 @@ class PostsControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to root_path
   end
 
-  test 'should redirect destroy when current user is not authorized to delete' do
+  test 'should throw unauthorized error destroy when current user is not authorized to delete' do
     sign_in @user
     other_user = users(:two)
     assert_no_difference 'Post.count', -1 do
-      delete post_path(other_user.posts.first)
+      assert_raises Pundit::NotAuthorizedError do
+        delete post_path(other_user.posts.first)
+      end
     end
-    assert_redirected_to posts_path
-    follow_redirect!
-    assert flash.any?
   end
-
 
   ###########
   #   XHR   #

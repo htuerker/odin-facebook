@@ -1,7 +1,5 @@
 class FriendRequestsController < ApplicationController
   before_action :set_friend_request, only: [:accept, :decline, :destroy]
-  before_action :require_authorized_receiver, only: [:accept, :decline]
-  before_action :require_authorized_sender, only: [:destroy]
 
   def index
     @sent_requests = current_user.friend_requests_sent.pending
@@ -30,6 +28,10 @@ class FriendRequestsController < ApplicationController
   end
 
   def accept
+    unless FriendRequestPolicy.new(current_user, @friend_request).accept?
+      raise Pundit::NotAuthorizedError
+    end
+
     respond_to do |format|
       if @friend_request.update(status: 1)
         @friend_request.sender.establish_friendship(@friend_request.receiver)
@@ -50,6 +52,10 @@ class FriendRequestsController < ApplicationController
   end
 
   def decline
+    unless FriendRequestPolicy.new(current_user, @friend_request).accept?
+      raise Pundit::NotAuthorizedError
+    end
+    
     respond_to do |format|
       if @friend_request.update(status: -1)
         format.html { redirect_back fallback_location: root_path,
@@ -68,6 +74,9 @@ class FriendRequestsController < ApplicationController
   end
 
   def destroy
+    unless FriendRequestPolicy.new(current_user, @friend_request).destroy?
+      raise Pundit::NotAuthorizedError
+    end
     @friend_request.destroy
 
     respond_to do |format|
@@ -77,28 +86,21 @@ class FriendRequestsController < ApplicationController
       format.js
     end
   end
-end
 
-private
+  private
 
-def friend_request_params
-  params.require(:friend_request).permit(:receiver_id)
-end
-
-def set_friend_request
-  @friend_request = FriendRequest.find(params[:id])
-end
-
-def require_authorized_receiver
-  unless @friend_request.receiver == current_user
-    flash[:danger] = "You're not authorized"
-    redirect_back(fallback_location: root_path)
+  def friend_request_params
+    params.require(:friend_request).permit(:receiver_id)
   end
-end
 
-def require_authorized_sender
-  unless @friend_request.sender == current_user
-    flash[:danger] = "You're not authorized"
-    redirect_back(fallback_location: root_path)
+  def set_friend_request
+    @friend_request = FriendRequest.find(params[:id])
+  end
+
+  def require_authorized_receiver
+    unless @friend_request.receiver == current_user
+      flash[:danger] = "You're not authorized"
+      redirect_back(fallback_location: root_path)
+    end
   end
 end

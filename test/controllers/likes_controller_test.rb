@@ -56,7 +56,9 @@ class LikesControllerTest < ActionDispatch::IntegrationTest
     sign_out @user
     sign_in @other_user
     assert_no_difference -> { @user.likes.count } do
-      delete like_path(@user.likes.last)
+      assert_raises Pundit::NotAuthorizedError do
+        delete like_path(@user.likes.last)
+      end
     end
   end
 

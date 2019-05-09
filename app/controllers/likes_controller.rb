@@ -1,6 +1,5 @@
 class LikesController < ApplicationController
   before_action :set_like, only: [:destroy]
-  before_action :require_authorized_user, only: [:destroy]
 
   def create
     @like = current_user.likes.build(like_params)
@@ -19,6 +18,9 @@ class LikesController < ApplicationController
   end
 
   def destroy
+    unless LikePolicy.new(current_user, @like).destroy?
+      raise Pundit::NotAuthorizedError
+    end
     @like.destroy
 
     respond_to do |format|
@@ -36,12 +38,5 @@ class LikesController < ApplicationController
 
   def like_params
     params.require(:like).permit(:post_id)
-  end
-
-  def require_authorized_user
-    unless @like.user == current_user
-      flash[:danger] = "You're not authorized"
-      redirect_back(fallback_location: root_path)
-    end
   end
 end

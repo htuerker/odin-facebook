@@ -1,6 +1,5 @@
 class PostsController < ApplicationController
   before_action :set_post, only: [:show, :destroy]
-  before_action :require_authorized_user, only: [:destroy]
 
   def index
     @posts = current_user.feed.paginate(page: params[:posts_page], per_page: 10)
@@ -33,6 +32,9 @@ class PostsController < ApplicationController
   end
   
   def destroy
+    unless PostPolicy.new(current_user, @post).destroy?
+      raise Pundit::NotAuthorizedError
+    end
     @post.destroy
     
     respond_to do |format|
@@ -51,12 +53,5 @@ class PostsController < ApplicationController
 
   def post_params
     params.require(:post).permit(:content, :photo)
-  end
-
-  def require_authorized_user
-    unless @post.user == current_user
-      flash[:danger] = "You are not authorized to delete this post"
-      redirect_to posts_path
-    end
   end
 end

@@ -92,13 +92,13 @@ class FriendRequestsControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to new_user_session_path
   end
 
-  test 'should not accept when user not authorized' do
+  test 'should throw error on accept when user not authorized' do
     sign_in @user
     post friend_requests_path, params: { friend_request: { receiver_id: @other_user.id } }
     friend_request = assigns(:friend_request)
-    post friend_request_accept_path(friend_request)
-    assert_redirected_to root_path
-    assert flash.any?
+    assert_raises Pundit::NotAuthorizedError do
+      post friend_request_accept_path(friend_request)
+    end
   end
 
   test 'should redirect decline when not logged in' do
@@ -110,13 +110,13 @@ class FriendRequestsControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to new_user_session_path
   end
 
-  test 'should not decline when user not authorized' do
+  test 'should throw error on decline when user not authorized' do
     sign_in @user
     post friend_requests_path, params: { friend_request: { receiver_id: @other_user.id } }
     friend_request = assigns(:friend_request)
-    post friend_request_decline_path(friend_request)
-    assert_redirected_to root_path
-    assert flash.any?
+    assert_raises Pundit::NotAuthorizedError do
+      post friend_request_decline_path(friend_request)
+    end
   end
 
   test 'should accept with ajax' do
@@ -170,7 +170,9 @@ class FriendRequestsControllerTest < ActionDispatch::IntegrationTest
     sign_out @user
     sign_in @other_user
     assert_no_difference 'FriendRequest.count' do
-      delete friend_request_path(friend_request)
+      assert_raises Pundit::NotAuthorizedError do
+        delete friend_request_path(friend_request)
+      end
     end
     assert_redirected_to root_path
   end
@@ -183,5 +185,4 @@ class FriendRequestsControllerTest < ActionDispatch::IntegrationTest
       delete friend_request_path(friend_request), xhr: true
     end
   end
-
 end

@@ -1,6 +1,5 @@
 class CommentsController < ApplicationController
   before_action :set_comment, only: [:destroy]
-  before_action :require_authorized_user, only: [:destroy]
 
   def comments_by_post
     respond_to do |format|
@@ -30,7 +29,10 @@ class CommentsController < ApplicationController
     end
   end
 
-    def destroy
+  def destroy
+    unless CommentPolicy.new(current_user, @comment).destroy?
+      raise Pundit::NotAuthorizedError
+    end
     @comment.destroy
     respond_to do |format|
       format.html { redirect_to @comment.post }
@@ -47,12 +49,5 @@ class CommentsController < ApplicationController
 
   def comment_params
     params.require(:comment).permit(:content, :post_id)
-  end
-
-  def require_authorized_user
-    unless @comment.user == current_user
-      flash[:danger] = "You're not authorized"
-      redirect_back(fallback_location: root_path)
-    end
   end
 end

@@ -21,17 +21,17 @@ class UserProfileTest < ActionDispatch::IntegrationTest
     # User's own posts
     assert_select "div[class=?]", "card-body", count: @user.posts.count
 
-    @other_user.posts.paginate(page: 1, per_page: 10).each do |user_post|
+    @user.posts.paginate(page: 1, per_page: 10).each do |user_post|
       # TO-DO
       # fix fixture issue, there's one invalid post with filled by nil values
       next unless user_post.id
       ########################
       assert_select "span[id=?]","post-#{user_post.id}-comments-counter", { value: user_post.comments.count }
-      assert_select "span[id=?]","post-#{user_post.id}-likes-counter", { value: user_post.comments.count }
+      assert_select "span[id=?]","post-#{user_post.id}-likes-counter", { value: user_post.likes.count }
       assert_select "div[id=?]", "post-#{user_post.id}-like-form", count: 1
-
-      assert_select "a[id=?]", "post-#{user_post.id}-comments"
-      assert_select "a[id=?]", "post-#{user_post.id}-comments-pagination-link", count: 1
+      if user_post.comments.any?
+        assert_select "a[id=?]", "post-#{user_post.id}-comments-pagination-link", count: 1
+      end
     end
 
   end
