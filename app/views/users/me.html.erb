@@ -28,17 +28,17 @@
       <div class="new-post mb-3">
         <%= render 'posts/form' %>
       </div>
-      <% if @posts.any? %>
         <h2>Posts</h2>
         <ul class="list-unstyled pl-0", id="posts">
-          <%= render @posts %>
+          <% if @posts.any? %>
+            <%= render @posts %>
+          <% end %>
         </ul>
         <% if @posts.next_page %>
           <%= link_to 'Load more', user_path(id: @user.id, posts_page: @posts.next_page),
               remote: true, id: "post-pagination-link",
               class:"btn btn-primary mb-5",style: "width:100%;" %>
-          <% end %>
-      <% end %>
+        <% end %>
     </div>
   </div>
 </div>
