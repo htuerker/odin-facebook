@@ -1,7 +1,7 @@
-#facebook-clone project
+# facebook-clone project
 Facebook implementation with Ruby on Rails
-##Installation Guide
-###Prerequisities
+## Installation Guide
+### Prerequisities
 System dependencies:
 ```
 $ ruby -v
@@ -17,19 +17,19 @@ $ postgres --version
   postgres (PostgreSQL) 11.2
 ```
 
-####Local setup
-#####Clone project
+#### Local setup
+##### Clone project
 ```
 $ git clone https://github.com/btuerker/odin-facebook.git
 $ cd ./odin-facebook
 ```
-#####Install dependencies
+##### Install dependencies
 ```
 (if required update bundler)
 $ gem update --system && gem install bundler && bundler update --bundler
 $ bundle install
 ```
-#####Configure database
+##### Configure database
 ```
 (make sure the database is running)
 (run psql with default superuser of postgresql(mostly it's postgres), if it's not check postgresql's installation documentation)
@@ -43,25 +43,25 @@ $ postgres=# \du
  burhanturker | Superuser, Create role, Create DB, Replication, Bypass RLS | {}
  facebook_dev | Superuser, Create role, Create DB                          | {}
 ```
-#####Setup database(from application folder)
+##### Setup database(from application folder)
 ```
 $ rails db:create
 $ rails db:migrate
 $ rails db:seed (Optionally to use mock data)
 ```
-#####Run the server
+##### Run the server
 ```
 $ rails s
 ```
 Now, check the [localhost:3000](http://localhost:3000)
 
-####Container setup(docker & docker-compose)
-#####Clone project
+#### Container setup(docker & docker-compose)
+##### Clone project
 ```
 $ git clone https://github.com/btuerker/odin-facebook.git
 $ cd ./odin-facebook
 ```
-####Build and run with docker-compose(from application folder)
+##### Build and run with docker-compose(from application folder)
 ```
 $ docker-compose build
 $ docker-compose up
@@ -74,7 +74,7 @@ In another terminal session run:
 ```
 Now everything should ok, check the [localhost:3000](http://localhost:3000)
 
-####Deployment(Heroku)
+#### Deployment(Heroku)
 ```
 $ git clone https://github.com/btuerker/odin-facebook.git
 $ cd ./odin-facebook
@@ -92,16 +92,16 @@ $ git push heroku master
 $ heroku run rails db:create
 $ heroku run rails db:seed 
 ```
-####Live Preview(Heroku)
+#### Live Preview(Heroku)
 (I'm using AWS Education Account, the keys I've used should be expired, but it can get images from cloud storage)
 [Preview](https://warm-dusk-15967.herokuapp.com)
-######Demo account -> email:burhan.tuerker@gmail.com password:password 
+###### Demo account -> email:burhan.tuerker@gmail.com password:password 
 
 
-#Page Previews
-###Browser
+# Page Previews
+### Browser
 ![User Profile](./documentation/user_profile.png "User Profile")
 ![User Profile](./documentation/feed.png "Feed")
-###Mobile
+### Mobile
 ![User Profile](./documentation/user_profile.png "User Profile")
 ![User Profile](./documentation/mobile.png "Feed")
