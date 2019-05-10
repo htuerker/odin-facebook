@@ -100,8 +100,8 @@ $ heroku run rails db:seed
 
 #Page Previews
 ###Browser
-![User Profile](./documentation/user_profile.png?raw=true "User Profile")
-![User Profile](./documentation/feed.png?raw=true "Feed")
+![User Profile](./documentation/user_profile.png "User Profile")
+![User Profile](./documentation/feed.png "Feed")
 ###Mobile
-![User Profile](./documentation/user_profile.png?raw=true "User Profile")
-![User Profile](./documentation/mobile.png?raw=true "Feed")
+![User Profile](./documentation/user_profile.png "User Profile")
+![User Profile](./documentation/mobile.png "Feed")
