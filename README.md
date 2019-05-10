@@ -96,3 +96,12 @@ $ heroku run rails db:seed
 (I'm using AWS Education Account, the keys I've used should be expired, but it can get images from cloud storage)
 [Preview](https://warm-dusk-15967.herokuapp.com)
 ######Demo account -> email:burhan.tuerker@gmail.com password:password 
+
+
+#Page Previews
+###Browser
+![User Profile](./documentation/user_profile.png?raw=true "User Profile")
+![User Profile](./documentation/feed.png?raw=true "Feed")
+###Mobile
+![User Profile](./documentation/user_profile.png?raw=true "User Profile")
+![User Profile](./documentation/mobile.png?raw=true "Feed")
