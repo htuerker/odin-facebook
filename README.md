@@ -103,5 +103,4 @@ $ heroku run rails db:seed
 ![User Profile](./documentation/user_profile.png "User Profile")
 ![User Profile](./documentation/feed.png "Feed")
 ### Mobile
-![User Profile](./documentation/user_profile.png "User Profile")
-![User Profile](./documentation/mobile.png "Feed")
+![User Profile](./documentation/mobile.png "Mobile Feed")
