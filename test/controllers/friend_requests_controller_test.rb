@@ -3,7 +3,6 @@ require 'test_helper'
 class FriendRequestsControllerTest < ActionDispatch::IntegrationTest
   include Devise::Test::IntegrationHelpers
 
-  #TO-DO setup fixtures to use one friend_request
   def setup
     @user = users(:one)
     @other_user = users(:two)
@@ -13,7 +12,7 @@ class FriendRequestsControllerTest < ActionDispatch::IntegrationTest
   # create #
   ##########
   test 'should redirect create when not logged in' do
-    post friend_requests_path, params: { friend_request: { receiver_id: 1 } }
+    post friend_requests_path
     assert_redirected_to new_user_session_path
   end
 
@@ -27,7 +26,7 @@ class FriendRequestsControllerTest < ActionDispatch::IntegrationTest
           receiver_id: @other_user.id
         } }
     end
-    assert_equal assigns(:friend_request).status, 0
+    assert_equal assigns(:friend_request).status, FriendRequest.statuses[:pending]
     assert @user.friend_requests_sent.find_by(receiver: @other_user).present?
     assert @other_user.friend_requests_received.find_by(sender: @user).present?
 
@@ -60,7 +59,7 @@ class FriendRequestsControllerTest < ActionDispatch::IntegrationTest
 
   test 'should update status to pending when there\'s declined request' do
     sign_in @user
-    @user.friend_requests_sent.create!(receiver: @other_user, status: -1)
+    @user.friend_requests_sent.create!(receiver: @other_user, status: FriendRequest.statuses[:declined])
     assert_not @user.friend_requests_sent.pending.any?
     assert @user.friend_requests_sent.any?
     assert_not @other_user.friend_requests_received.pending.any?
@@ -81,32 +80,44 @@ class FriendRequestsControllerTest < ActionDispatch::IntegrationTest
   end
 
   ##################
-  # accept decline #
+  #     update     #
   ##################
-  test 'should redirect accept when not logged in' do
+  test 'should redirect update when not logged in' do
     sign_in @user
     post friend_requests_path, params: { friend_request: { receiver_id: @other_user.id } }
     friend_request = assigns(:friend_request)
     sign_out @user
-    post friend_request_accept_path(friend_request)
+    patch friend_request_path(friend_request), params: {
+      friend_request: {
+        status: FriendRequest.statuses[:accepted]
+      }
+    }
     assert_redirected_to new_user_session_path
   end
 
-  test 'should throw error on accept when user not authorized' do
+  test 'should throw error on update-accept when user not authorized' do
     sign_in @user
     post friend_requests_path, params: { friend_request: { receiver_id: @other_user.id } }
     friend_request = assigns(:friend_request)
     assert_raises Pundit::NotAuthorizedError do
-      post friend_request_accept_path(friend_request)
+      patch friend_request_path(friend_request), params: {
+        friend_request: {
+          status: FriendRequest.statuses[:accepted]
+        }
+      }
     end
   end
 
-  test 'should redirect decline when not logged in' do
+  test 'should redirect update-decline when not logged in' do
     sign_in @user
     post friend_requests_path, params: { friend_request: { receiver_id: @other_user.id } }
     friend_request = assigns(:friend_request)
     sign_out @user
-    post friend_request_decline_path(friend_request)
+    patch friend_request_path(friend_request), params: {
+      friend_request: {
+        status: FriendRequest.statuses[:declined]
+      }
+    }
     assert_redirected_to new_user_session_path
   end
 
@@ -115,26 +126,41 @@ class FriendRequestsControllerTest < ActionDispatch::IntegrationTest
     post friend_requests_path, params: { friend_request: { receiver_id: @other_user.id } }
     friend_request = assigns(:friend_request)
     assert_raises Pundit::NotAuthorizedError do
-      post friend_request_decline_path(friend_request)
+    patch friend_request_path(friend_request), params: {
+      friend_request: {
+        status: FriendRequest.statuses[:declined]
+      }
+    }
     end
   end
 
   test 'should accept with ajax' do
     sign_in @user
     assert_not @user.friends.include?(@other_user)
-    friend_request = @other_user.friend_requests_sent.create!(receiver: @user, status: 0)
-    post friend_request_accept_path(friend_request), xhr: true
+    friend_request = @other_user.friend_requests_sent
+      .create!(receiver: @user, status: FriendRequest.statuses[:pending])
+
+    patch friend_request_path(friend_request), xhr: true, params: {
+      friend_request: {
+        status: FriendRequest.statuses[:accepted]
+      }
+    }
     friend_request.reload
-    assert_equal friend_request.status, 1
+    assert_equal friend_request.status, FriendRequest.statuses[:accepted]
     assert @user.friends.include?(@other_user)
   end
 
   test 'should decline with ajax' do
     sign_in @user
-    friend_request = @other_user.friend_requests_sent.create!(receiver: @user, status: 0)
-    post friend_request_decline_path(friend_request), xhr: true
+    friend_request = @other_user.friend_requests_sent.create!(receiver: @user,
+                                                              status: FriendRequest.statuses[:pending])
+    patch friend_request_path(friend_request), xhr: true, params: {
+      friend_request: {
+        status: FriendRequest.statuses[:declined]
+      }
+    }
     friend_request.reload
-    assert_equal friend_request.status, -1
+    assert_equal friend_request.status, FriendRequest.statuses[:declined]
   end
 
   ###########
@@ -179,7 +205,7 @@ class FriendRequestsControllerTest < ActionDispatch::IntegrationTest
 
   test 'should destroy with ajax' do
     sign_in @user
-    friend_request = @user.friend_requests_sent.create!(receiver: @other_user, status: 0)
+    friend_request = @user.friend_requests_sent.create!(receiver: @other_user, status: FriendRequest.statuses[:pending])
     assert @other_user.friend_requests_received.include?(friend_request)
     assert_difference -> { @user.friend_requests_sent.count }, -1  do
       delete friend_request_path(friend_request), xhr: true
