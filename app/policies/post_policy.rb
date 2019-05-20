@@ -1,19 +1,19 @@
 class PostPolicy < ApplicationPolicy
-    attr_reader :user, :post
+  attr_reader :user, :post
 
-    def initialize(user, post)
-        super
-        @user = user
-        @post = post
-    end
+  def initialize(user, post)
+    super
+    @user = user
+    @post = post
+  end
 
-    def destroy?
-        @post.present? && @post.persisted? && owner?
-    end
-    
-    private
+  def destroy?
+    @post.present? && @post.persisted? && owner?
+  end
 
-    def owner? 
-        @user && @user == @post.user
-    end
+  private
+
+  def owner?
+    @user && @user == @post.user
+  end
 end

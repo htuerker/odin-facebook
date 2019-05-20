@@ -1,19 +1,19 @@
 class LikePolicy < ApplicationPolicy
-    attr_reader :user, :like
+  attr_reader :user, :like
 
-    def initialize(user, like)
-        super
-        @user = user
-        @like = like
-    end
+  def initialize(user, like)
+    super
+    @user = user
+    @like = like
+  end
 
-    def destroy?
-        @like.present? && @like.persisted? && owner?
-    end
-    
-    private
+  def destroy?
+    @like.present? && @like.persisted? && owner?
+  end
 
-    def owner? 
-        @user && @user == @like.user
-    end
+  private
+
+  def owner?
+    @user && @user == @like.user
+  end
 end

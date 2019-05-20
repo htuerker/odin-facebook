@@ -18,12 +18,12 @@ class CommentsController < ApplicationController
     @comment = current_user.comments.build(comment_params)
     respond_to do |format|
       if @comment.save
-        format.html { redirect_to @comment.post, success: "Comment succesfully created!"}
-        format.json { render json: @comment, status: :created, location: @comment }
+        format.html { redirect_to @comment.post,
+                      success: "Comment succesfully created!" }
         format.js
       else
-        format.html { redirect_back fallback_location: root_path, danger: "Something went wrong!" }
-        format.json { render json: @comment.errors, status: :unprocessable_entity }
+        format.html { redirect_back fallback_location: root_path,
+                      danger: "Something went wrong!" }
         format.js
       end
     end
@@ -36,7 +36,6 @@ class CommentsController < ApplicationController
     @comment.destroy
     respond_to do |format|
       format.html { redirect_to @comment.post }
-      format.json { render }
       format.js
     end
   end
