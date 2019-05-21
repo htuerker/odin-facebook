@@ -28,9 +28,7 @@ class PostsController < ApplicationController
   end
 
   def destroy
-    unless PostPolicy.new(current_user, @post).destroy?
-      raise Pundit::NotAuthorizedError
-    end
+    authorize @post, :destroy?
     @post.destroy
 
     respond_to do |format|

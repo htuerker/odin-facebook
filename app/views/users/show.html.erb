@@ -1,5 +1,5 @@
 <div class="row">
-  <div class="col-sm-12 col-xs-12 col-md-9 mx-auto d-flex align-items-end mb-5 pt-5 pb-2", 
+  <div class="col-sm-12 col-xs-12 col-md-9 mx-auto d-flex align-items-end mb-5 pt-5 pb-2",
        style="background-image:url(<%= @user.cover_photo.url%>);background-color:black;">
     <%= profile_photo_for(@user, options: { size: 150, circle: true }) %>
     <div class="ml-3" style="color:white;">
@@ -10,14 +10,14 @@
 <div class="row">
   <div class="col-sm-12 col-xs-12 col-md-3 ml-auto">
     <div class="friend_request-links m-3", id="friend_request-<%= @user.id %>-links">
-      <% if current_user.friends.include?(@user)%>
-          <%= link_to  "Unfriend", friendship_path(@user), method: :delete, remote: true,
+      <% if friendship = current_user.friendships.find_by(user2: @user)%>
+          <%= link_to  "Unfriend", friendship_path(friendship), method: :delete, remote: true,
               class: "btn btn-warning" %>
         <% elsif request = current_user.friend_requests_sent.pending.find_by(receiver: @user) %>
-          <%= render  "friend_requests/links/cancel_link", resource: request %>
+          <%= render  "friend_requests/links/cancel_form", resource: request %>
         <% elsif request = current_user.friend_requests_received.pending.find_by(sender: @user) %>
-          <%= render 'friend_requests/links/accept_link', resource: request %>
-          <%= render 'friend_requests/links/decline_link', resource: request %>
+          <%= render 'friend_requests/links/accept_form', resource: request %>
+          <%= render 'friend_requests/links/decline_form', resource: request %>
         <% else %>
           <%= render  "friend_requests/form", resource: @user %>
       <% end %>

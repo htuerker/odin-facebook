@@ -5,19 +5,16 @@ class FriendRequestTest < ActiveSupport::TestCase
   def setup
     @user = users(:one)
     @other_user = users(:two)
+    @request = FriendRequest.new(sender: @user, receiver: @other_user, status: FriendRequest.statuses[:pending])
   end
 
   test 'should be valid' do
-    # presence
-    @request = @user.friend_requests_sent.build(receiver: @other_user)
+    @request.status = nil
     assert_not @request.valid?
     assert @request.errors[:status].any?
-    # inclusion
     assert_raise ArgumentError do
       @request.status = "hello"
     end
-    assert_not @request.valid?
-    assert @request.errors[:status].any?
     @request.status = FriendRequest.statuses[:pending]
     assert @request.valid?
     @request.status = FriendRequest.statuses[:accepted]

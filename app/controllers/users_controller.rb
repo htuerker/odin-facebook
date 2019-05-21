@@ -10,18 +10,12 @@ class UsersController < ApplicationController
     @users = User.all.where.not("id IN (?)", friend_or_has_pending_request)
   end
 
-  def me
-  end
-
   def show
     @posts = @user.posts.paginate(page: params[:posts_page], per_page: 10)
     respond_to do |format|
       format.html { render (@user == current_user)? 'me' : 'show' }
       format.js
     end
-  end
-
-  def friends
   end
 
   private

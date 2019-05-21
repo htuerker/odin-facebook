@@ -1,0 +1,9 @@
+<% if params[:friend_request][:status] == FriendRequest.statuses[:accepted] %>
+    $("#friend_request-<%= @friend_request.sender.id %>-links").closest('li').remove();
+<% elsif params[:friend_request][:status] == FriendRequest.statuses[:declined] %>
+    $("#friend_request-<%= @friend_request.sender.id %>-links").closest('li').remove();
+<% elsif params[:friend_request][:status] == FriendRequest.statuses[:cancelled] %>
+    $("#friend_request-<%= @friend_request.receiver.id %>-links")
+      .html("<%= escape_javascript(render('friend_requests/form', resource: @friend_request.receiver)) %>");
+<% end %>
+

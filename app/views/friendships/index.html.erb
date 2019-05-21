@@ -1,0 +1,15 @@
+<div class="row justify-content-center">
+  <div class="col-xs-12 col-sm-12 col-md-9 col-lg-6">
+    <% if @friends.any?  %>
+      <h2><%= get_full_name_for(@user)%>'s friends</h2>
+      <ul class="list-group">
+        <% @friends.each do |friend| %>
+          <li class="list-group-item d-flex align-items-center">
+            <span class="mr-3"><%= profile_photo_for friend %></span>
+            <%= link_to get_full_name_for(friend), friend %>
+          </li>
+        <% end %>
+      </ul>
+    <% end %>
+  </div>
+</div>

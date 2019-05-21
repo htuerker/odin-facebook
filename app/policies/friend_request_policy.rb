@@ -16,6 +16,10 @@ class FriendRequestPolicy < ApplicationPolicy
       receiver? && pending?
   end
 
+  def cancel?
+    @friend_request.present? && @friend_request.persisted? && sender?
+  end
+
   def destroy?
     @friend_request.present? && @friend_request.persisted? && sender?
   end

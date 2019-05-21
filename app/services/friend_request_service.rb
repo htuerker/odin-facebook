@@ -9,11 +9,16 @@ class FriendRequestService
     self.new(friend_request, params, user).update
   end
 
-  def self.create(friend_request)
-    self.new(friend_request).create
+  def self.create(friend_request, params)
+    self.new(friend_request, params).create
   end
 
   def create
+    @friend_request.status = FriendRequest.statuses[:pending]
+    if @friend_request.save
+    else
+      false
+    end
   end
 
   def update
@@ -25,18 +30,29 @@ class FriendRequestService
     when FriendRequest.statuses[:declined]
       authorizer.authorize_on 'decline'
       decline
+    when FriendRequest.statuses[:cancelled]
+      authorizer.authorize_on 'cancel'
+      cancel
     end
   end
 
   def accept
     if @friend_request.update(@params)
-      @friend_request.sender.establish_friendship(@friend_request.receiver)
+      @friend_request.sender.friends << @friend_request.receiver
+      @friend_request.receiver.friends << @friend_request.sender
     else
       false
     end
   end
 
   def decline
+    if @friend_request.update(@params)
+    else
+      false
+    end
+  end
+
+  def cancel
     if @friend_request.update(@params)
     else
       false

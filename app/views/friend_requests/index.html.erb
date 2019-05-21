@@ -12,7 +12,7 @@
               <%= link_to get_full_name_for(request.receiver), request.receiver %>
             </div>
             <div class="col-4 p-0 m-0 friend_request-links", id="friend_request-<%= request.receiver.id %>-links">
-              <%= render 'friend_requests/links/cancel_link', resource: request %>
+              <%= render 'friend_requests/links/cancel_form', resource: request %>
             </div>
           </li>
         <% end %>
@@ -31,8 +31,8 @@
               <%= link_to get_full_name_for(request.sender), request.sender %>
             </div>
             <div class="col-4 p-0 m-0 friend_request-links", id="friend_request-<%= request.sender.id %>-links">
-              <%= render 'friend_requests/links/accept_link', resource: request %>
-              <%= render 'friend_requests/links/decline_link', resource: request %>
+              <%= render 'friend_requests/links/accept_form', resource: request %>
+              <%= render 'friend_requests/links/decline_form', resource: request %>
             </div>
           </li>
         <% end %>

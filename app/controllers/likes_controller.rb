@@ -16,9 +16,7 @@ class LikesController < ApplicationController
   end
 
   def destroy
-    unless LikePolicy.new(current_user, @like).destroy?
-      raise Pundit::NotAuthorizedError
-    end
+    authorize @like, :destroy?
     @like.destroy
 
     respond_to do |format|
