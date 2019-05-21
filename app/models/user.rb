@@ -54,6 +54,13 @@ class User < ApplicationRecord
     end
   end
 
+  def friendable_users
+    User.all.where.not('id IN(?)', [self.id] +
+                                    self.friends.ids +
+                                    self.friend_requests_sent.pending.pluck(:receiver_id) +
+                                    self.friend_requests_received.pending.pluck(:sender_id))
+  end
+
   def self.from_omniauth(auth)
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
       user.email = auth.info.email
