@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class LikePolicy < ApplicationPolicy
   attr_reader :user, :like
 

@@ -125,38 +125,46 @@ body { padding: 2em; }
 
 .navbar {
   background-color: $color-facebook-primary;
+
   a {
     border-radius: 5px;
     color: white !important;
   }
+
   a:hover {
     background-color: $color-facebook-primary-light;
   }
+
   a:active {
     background-color: $color-facebook-primary-dark;
   }
+
   .navbar-brand {
-    color: white;
+    color: #ffffff;
     font-size: 3rem;
     font-style: bold;
   }
 }
 
 .navbar-form {
-  color: white;
+  color: #ffffff;
+
   label {
     font-size: 0.8rem;
     margin-bottom: 0;
   }
+
   input {
-    height: 30px;
-    padding: 3px;
     font-size: 14px;
+    height: 30px;
     line-height: 14px;
+    padding: 3px;
   }
+
   input[type="checkbox"] {
     height: 13px;
   }
+
   input[type="submit"] {
     padding: 3px 10px;
   }
@@ -167,10 +175,11 @@ body { padding: 2em; }
 //#############//
 
 .btn.btn-primary {
-  color: white;
   background-color: $color-facebook-primary-light;
   border: solid 1px $color-facebook-primary-dark;
   border-radius: 3px;
+  color: #ffffff;
+
   &:hover {
     background-color: $color-facebook-primary;
   }
@@ -181,6 +190,7 @@ body { padding: 2em; }
   background-color: $color-facebook-gray-ligth;
   border: solid 1px $color-facebook-primary-dark;
   border-radius: 3px;
+  color: $color-facebook-primary;
 }
 
 @media only screen and (max-width: 992px) {
@@ -188,3 +198,4 @@ body { padding: 2em; }
     display: none;
   }
 }
+

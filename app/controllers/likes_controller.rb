@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class LikesController < ApplicationController
   before_action :set_like, only: [:destroy]
 
@@ -6,10 +8,10 @@ class LikesController < ApplicationController
 
     respond_to do |format|
       if @like.save
-        format.html { redirect_to @like.post, success: "Liked post!"}
+        format.html { redirect_to @like.post, success: 'Liked post!' }
         format.js
       else
-        format.html { redirect_back fallback_location: root_path , danger: "Something went wrong!"}
+        format.html { redirect_back fallback_location: root_path, danger: 'Something went wrong!' }
         format.js
       end
     end

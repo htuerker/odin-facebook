@@ -1,7 +1,8 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
 class LikeTest < ActiveSupport::TestCase
-
   def setup
     @user = users(:one)
     @post = posts(:one)

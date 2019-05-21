@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
 class PostsControllerTest < ActionDispatch::IntegrationTest
@@ -17,8 +19,8 @@ class PostsControllerTest < ActionDispatch::IntegrationTest
     assert_template 'posts/index'
   end
 
-  test "should redirect index if not logged in" do
-    get "/posts"
+  test 'should redirect index if not logged in' do
+    get '/posts'
     assert_redirected_to new_user_session_path
     follow_redirect!
     assert_template 'devise/sessions/new'
@@ -40,7 +42,8 @@ class PostsControllerTest < ActionDispatch::IntegrationTest
     sign_in @user
     assert_difference 'Post.count' do
       post posts_path, params: {
-        post: { content: @post.content } }
+        post: { content: @post.content }
+      }
     end
     assert_redirected_to root_path
     follow_redirect!
@@ -53,7 +56,6 @@ class PostsControllerTest < ActionDispatch::IntegrationTest
     delete post_path(@post)
     assert_redirected_to new_user_session_path
   end
-
 
   test 'should delete post when current user is authorized to delete' do
     sign_in @user

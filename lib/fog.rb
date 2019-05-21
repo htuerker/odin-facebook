@@ -1,1 +1,3 @@
-module Fog end;
+# frozen_string_literal: true
+
+module Fog end

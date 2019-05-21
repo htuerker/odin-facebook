@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ChangeFriendRequestStatusToTypedValue < ActiveRecord::Migration[5.2]
   def up
     remove_column :friend_requests, :status

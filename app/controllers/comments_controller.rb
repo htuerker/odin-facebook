@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CommentsController < ApplicationController
   before_action :set_comment, only: [:destroy]
 
@@ -8,7 +10,7 @@ class CommentsController < ApplicationController
         format.html { redirect_to @post }
         format.js
       else
-        format.html { redirect_back fallback_location: root_path, danger: "Something went wrong!" }
+        format.html { redirect_back fallback_location: root_path, danger: 'Something went wrong!' }
         format.js
       end
     end
@@ -18,12 +20,16 @@ class CommentsController < ApplicationController
     @comment = current_user.comments.build(comment_params)
     respond_to do |format|
       if @comment.save
-        format.html { redirect_to @comment.post,
-                      success: "Comment succesfully created!" }
+        format.html do
+          redirect_to @comment.post,
+                      success: 'Comment succesfully created!'
+        end
         format.js
       else
-        format.html { redirect_back fallback_location: root_path,
-                      danger: "Something went wrong!" }
+        format.html do
+          redirect_back fallback_location: root_path,
+                        danger: 'Something went wrong!'
+        end
         format.js
       end
     end
@@ -33,6 +39,7 @@ class CommentsController < ApplicationController
     unless CommentPolicy.new(current_user, @comment).destroy?
       raise Pundit::NotAuthorizedError
     end
+
     @comment.destroy
     respond_to do |format|
       format.html { redirect_to @comment.post }

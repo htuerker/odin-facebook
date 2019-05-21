@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class PunditAuthorizer
   include Pundit
 
@@ -16,6 +18,7 @@ class PunditAuthorizer
   end
 
   private
+
   # Override Pundit to refer user to @user, instead of current_user
   def pundit_user
     user

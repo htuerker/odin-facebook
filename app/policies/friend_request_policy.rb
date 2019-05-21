@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class FriendRequestPolicy < ApplicationPolicy
   attr_reader :user, :friend_request
 

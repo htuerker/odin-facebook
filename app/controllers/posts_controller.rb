@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class PostsController < ApplicationController
-  before_action :set_post, only: [:show, :destroy]
+  before_action :set_post, only: %i[show destroy]
 
   def index
     @posts = current_user.feed.paginate(page: params[:posts_page], per_page: 10)
@@ -9,19 +11,22 @@ class PostsController < ApplicationController
     end
   end
 
-  def show
-  end
+  def show; end
 
   def create
     @post = current_user.posts.build(post_params)
     respond_to do |format|
       if @post.save
-        format.html { redirect_back fallback_location: root_path,
-                      success: "Successfuly created a post!" }
+        format.html do
+          redirect_back fallback_location: root_path,
+                        success: 'Successfuly created a post!'
+        end
         format.js
       else
-        format.html { redirect_back fallback_location: root_path,
-                      danger: "Something went wrong!" }
+        format.html do
+          redirect_back fallback_location: root_path,
+                        danger: 'Something went wrong!'
+        end
         format.js
       end
     end
@@ -32,8 +37,10 @@ class PostsController < ApplicationController
     @post.destroy
 
     respond_to do |format|
-      format.html { redirect_back fallback_location: root_path,
-                    success: "Successfuly removed a post!" }
+      format.html do
+        redirect_back fallback_location: root_path,
+                      success: 'Successfuly removed a post!'
+      end
       format.js
     end
   end

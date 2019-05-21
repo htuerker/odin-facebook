@@ -1,11 +1,13 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
 class FriendRequestTest < ActiveSupport::TestCase
-
   def setup
     @user = users(:one)
     @other_user = users(:two)
-    @request = FriendRequest.new(sender: @user, receiver: @other_user, status: FriendRequest.statuses[:pending])
+    @request = FriendRequest.new(sender: @user, receiver: @other_user,
+                                 status: FriendRequest.statuses[:pending])
   end
 
   test 'should be valid' do
@@ -13,7 +15,7 @@ class FriendRequestTest < ActiveSupport::TestCase
     assert_not @request.valid?
     assert @request.errors[:status].any?
     assert_raise ArgumentError do
-      @request.status = "hello"
+      @request.status = 'hello'
     end
     @request.status = FriendRequest.statuses[:pending]
     assert @request.valid?

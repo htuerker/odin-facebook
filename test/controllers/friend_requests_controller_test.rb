@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
 class FriendRequestsControllerTest < ActionDispatch::IntegrationTest
@@ -24,12 +26,12 @@ class FriendRequestsControllerTest < ActionDispatch::IntegrationTest
       post friend_requests_path, params: {
         friend_request: {
           receiver_id: @other_user.id
-        } }
+        }
+      }
     end
     assert_equal assigns(:friend_request).status, FriendRequest.statuses[:pending]
     assert @user.friend_requests_sent.find_by(receiver: @other_user).present?
     assert @other_user.friend_requests_received.find_by(sender: @user).present?
-
   end
 
   test 'should not send friendrequest to himself' do
@@ -38,7 +40,8 @@ class FriendRequestsControllerTest < ActionDispatch::IntegrationTest
       post friend_requests_path, params: {
         friend_request: {
           receiver_id: @user.id
-        } }
+        }
+      }
     end
     assert_not assigns(:friend_request).errors[:sender_receiver].nil?
     assert_redirected_to root_path
@@ -52,8 +55,9 @@ class FriendRequestsControllerTest < ActionDispatch::IntegrationTest
     assert_no_difference 'FriendRequest.count' do
       post friend_requests_path, params: {
         friend_request: {
-          receiver_id: @other_user.id,
-        } }
+          receiver_id: @other_user.id
+        }
+      }
     end
   end
 
@@ -68,7 +72,8 @@ class FriendRequestsControllerTest < ActionDispatch::IntegrationTest
       post friend_requests_path, params: {
         friend_request: {
           receiver_id: @other_user.id
-        } }
+        }
+      }
     end
   end
 
@@ -126,11 +131,11 @@ class FriendRequestsControllerTest < ActionDispatch::IntegrationTest
     post friend_requests_path, params: { friend_request: { receiver_id: @other_user.id } }
     friend_request = assigns(:friend_request)
     assert_raises Pundit::NotAuthorizedError do
-    patch friend_request_path(friend_request), params: {
-      friend_request: {
-        status: FriendRequest.statuses[:declined]
+      patch friend_request_path(friend_request), params: {
+        friend_request: {
+          status: FriendRequest.statuses[:declined]
+        }
       }
-    }
     end
   end
 
@@ -138,7 +143,7 @@ class FriendRequestsControllerTest < ActionDispatch::IntegrationTest
     sign_in @user
     assert_not @user.friends.include?(@other_user)
     friend_request = @other_user.friend_requests_sent
-      .create!(receiver: @user, status: FriendRequest.statuses[:pending])
+                                .create!(receiver: @user, status: FriendRequest.statuses[:pending])
 
     patch friend_request_path(friend_request), xhr: true, params: {
       friend_request: {
@@ -207,7 +212,7 @@ class FriendRequestsControllerTest < ActionDispatch::IntegrationTest
     sign_in @user
     friend_request = @user.friend_requests_sent.create!(receiver: @other_user, status: FriendRequest.statuses[:pending])
     assert @other_user.friend_requests_received.include?(friend_request)
-    assert_difference -> { @user.friend_requests_sent.count }, -1  do
+    assert_difference -> { @user.friend_requests_sent.count }, -1 do
       delete friend_request_path(friend_request), xhr: true
     end
   end

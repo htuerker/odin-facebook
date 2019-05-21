@@ -1,7 +1,8 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
 class UserTest < ActiveSupport::TestCase
-
   def setup
     @user = users(:one)
     @other_user = users(:two)
@@ -11,7 +12,7 @@ class UserTest < ActiveSupport::TestCase
   # validations #
   ###############
 
-  test "should be valid?" do
+  test 'should be valid?' do
     assert @user.valid?
   end
 
@@ -44,19 +45,19 @@ class UserTest < ActiveSupport::TestCase
   ###############
 
   test 'should destroy associated posts when user destroyed' do
-    assert_difference 'Post.count', -(@user.posts.count) do
+    assert_difference 'Post.count', -@user.posts.count do
       @user.destroy
     end
   end
 
   test 'should destroy associated comments when user destroyed' do
-    assert_difference 'Comment.count', -(@user.comments.count) do
+    assert_difference 'Comment.count', -@user.comments.count do
       @user.destroy
     end
   end
 
   test 'should destroy associated likes when user destroyed' do
-    assert_difference 'Like.count', -(@user.likes.count) do
+    assert_difference 'Like.count', -@user.likes.count do
       @user.destroy
     end
   end

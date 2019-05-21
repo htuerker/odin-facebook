@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
 class LikesControllerTest < ActionDispatch::IntegrationTest
@@ -20,7 +22,7 @@ class LikesControllerTest < ActionDispatch::IntegrationTest
   test 'should create like' do
     sign_in @user
     assert_difference -> { @user.likes.count } do
-      post likes_path, params: { like: { user_id: @user.id, post_id: @post.id }}
+      post likes_path, params: { like: { user_id: @user.id, post_id: @post.id } }
     end
   end
 
@@ -35,7 +37,7 @@ class LikesControllerTest < ActionDispatch::IntegrationTest
   test 'should create with ajax' do
     sign_in @user
     assert_difference -> { @user.likes.count } do
-      post likes_path, xhr:true, params: { like: { user_id: @user.id, post_id: @post.id } }
+      post likes_path, xhr: true, params: { like: { user_id: @user.id, post_id: @post.id } }
     end
   end
 
@@ -66,7 +68,7 @@ class LikesControllerTest < ActionDispatch::IntegrationTest
     sign_in @user
     like = @user.likes.create!(post: @post)
     assert_difference -> { @user.likes.count }, -1 do
-      delete like_path(like), xhr:true
+      delete like_path(like), xhr: true
     end
   end
 end

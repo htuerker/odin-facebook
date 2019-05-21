@@ -1,28 +1,31 @@
-# Generate Users
-User.create!(first_name: "Burhan",
-             last_name: "Tuerker",
-             email: "burhan.tuerker@gmail.com",
-             password: "password",
-             profile_photo: Rails.root.join("app/assets/images/seed/users/user.jpg").open,
-             cover_photo: Rails.root.join("app/assets/images/seed/users/lana_del_rey.jpg").open);
+# frozen_string_literal: true
 
-(1..5).each do |i|
+# Generate Users
+User.create!(first_name: 'Burhan',
+             last_name: 'Tuerker',
+             email: 'burhan.tuerker@gmail.com',
+             password: 'password',
+             profile_photo: Rails.root.join('app/assets/images/seed/users/user.jpg').open,
+             cover_photo: Rails.root.join('app/assets/images/seed/users/lana_del_rey.jpg').open)
+
+(1..5).each do |_i|
   first_name = Faker::Name.first_name
   last_name = Faker::Name.last_name
-  email = "user#{i}@mail.com"
-  password = "password"
-  profile_photo = Rails.root.join("app/assets/images/seed/users/user_#{i}.jpg").open
-  cover_photo = Rails.root.join("app/assets/images/seed/users/lana_del_rey.jpg").open
-  
-  User.create!(first_name: first_name, last_name: last_name, email: email, password: password, 
+  email = 'user#{i}@mail.com'
+  password = 'password'
+  profile_photo = Rails.root.join('app/assets/images/seed/users/user_#{i}.jpg').open
+  cover_photo = Rails.root.join('app/assets/images/seed/users/lana_del_rey.jpg').open
+
+  User.create!(first_name: first_name, last_name: last_name, email: email, password: password,
                profile_photo: profile_photo, cover_photo: cover_photo)
 end
+
 (6..50).each do |i|
   first_name = Faker::Name.first_name
   last_name = Faker::Name.last_name
   email = "user#{i}@mail.com"
-  password = "password"
-  
+  password = 'password'
+
   User.create!(first_name: first_name, last_name: last_name, email: email, password: password)
 end
 
@@ -34,27 +37,25 @@ end
 
 # Generate Posts
 
-User.take(6).each do |user|
+User.take(6).each do |u|
   10.times do
-    user.posts.create!(content: Faker::Lorem.paragraph_by_chars(180),
-                       photo: Rails.root.join("app/assets/images/seed/posts/post_#{(1..10).to_a.sample}.jpg").open)
+    u.posts.create!(content: Faker::Lorem.paragraph_by_chars(180),
+                    photo: Rails.root.join("app/assets/images/seed/posts/post_#{(1..10).to_a.sample}.jpg").open)
   end
 end
 
 # Generate Comments
 posts = Post.take(5)
-User.take(6).each do |user|
-  posts.each do |post|
-    post.comments.create!(user: user, content: Faker::Lorem.paragraph_by_chars(150))
+User.take(6).each do |u|
+  posts.each do |p|
+    p.comments.create!(user: u, content: Faker::Lorem.paragraph_by_chars(150))
   end
 end
 
 # Generate Likes
 posts = Post.take(5)
-User.take(6).each do |user|
-  posts.each do |post|
-    post.likes.create!(user: user)
+User.take(6).each do |u|
+  posts.each do |p|
+    p.likes.create!(user: u)
   end
 end
-
-

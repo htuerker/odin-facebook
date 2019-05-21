@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class FriendRequestService
   def initialize(friend_request, params = nil, user = nil)
     @friend_request = friend_request
@@ -6,11 +8,11 @@ class FriendRequestService
   end
 
   def self.update(friend_request, params, user)
-    self.new(friend_request, params, user).update
+    new(friend_request, params, user).update
   end
 
   def self.create(friend_request, params)
-    self.new(friend_request, params).create
+    new(friend_request, params).create
   end
 
   def create

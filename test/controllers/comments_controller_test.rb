@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
 class CommentsControllerTest < ActionDispatch::IntegrationTest
@@ -6,7 +8,7 @@ class CommentsControllerTest < ActionDispatch::IntegrationTest
   def setup
     @user = users(:one)
     @other_user = users(:two)
-    @post = @user.posts.create(content: "Post Content")
+    @post = @user.posts.create(content: 'Post Content')
   end
 
   ###########
@@ -16,8 +18,10 @@ class CommentsControllerTest < ActionDispatch::IntegrationTest
     assert_no_difference 'Comment.count' do
       post comments_path, params: {
         comment: {
-          content: "New Comment Content",
-          post_id: @post.id } }
+          content: 'New Comment Content',
+          post_id: @post.id
+        }
+      }
     end
     assert_redirected_to new_user_session_path
   end
@@ -27,8 +31,10 @@ class CommentsControllerTest < ActionDispatch::IntegrationTest
     assert_difference -> { @user.comments.count } do
       post comments_path, params: {
         comment: {
-          content: "New Comment Content",
-          post_id: @post.id } }
+          content: 'New Comment Content',
+          post_id: @post.id
+        }
+      }
     end
   end
 
@@ -37,13 +43,14 @@ class CommentsControllerTest < ActionDispatch::IntegrationTest
     assert_no_difference -> { @user.comments.count } do
       post comments_path, params: {
         comment: {
-          content: "",
-          post_id: ""} }
+          content: '',
+          post_id: ''
+        }
+      }
     end
     assert assigns(:comment).errors[:post].any?
     assert assigns(:comment).errors[:content].any?
   end
-
 
   ###########
   # destroy #
@@ -55,7 +62,7 @@ class CommentsControllerTest < ActionDispatch::IntegrationTest
 
   test 'should destroy comment when user is authorized' do
     sign_in @user
-    post comments_path, params: { comment: { content: "Comment", post_id: @post.id } }
+    post comments_path, params: { comment: { content: 'Comment', post_id: @post.id } }
     @comment = assigns(:comment)
     assert_difference -> { @user.comments.count }, -1 do
       delete comment_path(@comment)
@@ -63,7 +70,7 @@ class CommentsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'should not destroy when user is not authorized' do
-    @comment = @user.comments.create(post: @post, content: "Comment")
+    @comment = @user.comments.create(post: @post, content: 'Comment')
     assert @comment.present?
     sign_in @other_user
     assert_no_difference 'Comment.count' do
@@ -73,7 +80,6 @@ class CommentsControllerTest < ActionDispatch::IntegrationTest
     end
   end
 
-
   ###########
   #   XHR   #
   ###########
@@ -81,16 +87,15 @@ class CommentsControllerTest < ActionDispatch::IntegrationTest
   test 'should create comment with ajax ' do
     sign_in @user
     assert_difference -> { @user.comments.count } do
-      post comments_path, xhr: true, params: { comment: { content: "comment", post_id: @post.id } }
+      post comments_path, xhr: true, params: { comment: { content: 'comment', post_id: @post.id } }
     end
   end
 
   test 'should destroy comment with ajax' do
     sign_in @user
-    last_comment = @user.comments.create!(content: "comment", post: @post)
+    last_comment = @user.comments.create!(content: 'comment', post: @post)
     assert_difference -> { @user.comments.count }, -1 do
       delete comment_path(last_comment), xhr: true
     end
   end
-
 end

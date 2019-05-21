@@ -1,7 +1,8 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
 class CommentTest < ActiveSupport::TestCase
-
   def setup
     @comment = comments(:one)
   end
