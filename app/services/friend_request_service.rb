@@ -40,8 +40,8 @@ class FriendRequestService
 
   def accept
     if @friend_request.update(@params)
-      @friend_request.sender.friends << @friend_request.receiver
-      @friend_request.receiver.friends << @friend_request.sender
+      friendship = Friendship.new(user1: @friend_request.sender, user2: @friend_request.receiver)
+      friendship.establish_friendship
     else
       false
     end

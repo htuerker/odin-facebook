@@ -7,10 +7,9 @@ class FriendshipsController < ApplicationController
   end
 
   def destroy
-    @friendship.destroy
+    @friendship.destroy_friendship
     respond_to do |format|
-      format.html { redirect_back fallback_location: root_path,
-                    success: "Succesfully deleted friendship" }
+      format.html { redirect_back fallback_location: root_path }
       format.js
     end
   end
@@ -20,4 +19,4 @@ class FriendshipsController < ApplicationController
   def set_friendship
     @friendship = Friendship.find(params[:id])
   end
-en
+end
