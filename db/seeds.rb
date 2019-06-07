@@ -8,12 +8,12 @@ User.create!(first_name: 'Burhan',
              profile_photo: Rails.root.join('app/assets/images/seed/users/user.jpg').open,
              cover_photo: Rails.root.join('app/assets/images/seed/users/lana_del_rey.jpg').open)
 
-(1..5).each do |_i|
+(1..5).each do |i|
   first_name = Faker::Name.first_name
   last_name = Faker::Name.last_name
-  email = 'user#{i}@mail.com'
+  email = "user#{i}@mail.com"
   password = 'password'
-  profile_photo = Rails.root.join('app/assets/images/seed/users/user_#{i}.jpg').open
+  profile_photo = Rails.root.join("app/assets/images/seed/users/user_#{i}.jpg").open
   cover_photo = Rails.root.join('app/assets/images/seed/users/lana_del_rey.jpg').open
 
   User.create!(first_name: first_name, last_name: last_name, email: email, password: password,
