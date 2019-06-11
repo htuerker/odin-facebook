@@ -2,28 +2,31 @@
 
 class FriendRequest < ApplicationRecord
   after_initialize { self.status = FriendRequest.statuses[:pending] if self.new_record? }
-  enum status: { pending: 'pending', accepted: 'accepted', declined: 'declined',
-                 cancelled: 'cancelled' }
+
+  enum status: { pending: 'pending',
+                 accepted: 'accepted',
+                 declined: 'declined',
+                 cancelled: 'cancelled'
+  }
 
   validates :status, presence: true
-  # Refactor this method names, i.e different? friend?
-  validate :sender_and_receiver_should_be_different
-  validate :sender_and_receiver_should_not_be_friends
+  validate :not_self
+  validate :not_friends
 
   belongs_to :sender, class_name: 'User'
   belongs_to :receiver, class_name: 'User'
 
   private
 
-  def sender_and_receiver_should_be_different
+  def not_self
     if sender == receiver
-      errors.add(:sender_receiver, 'sender and receiver pair should be different')
+      errors.add(:not_self, 'sender and receiver pair should be different')
     end
   end
 
-  def sender_and_receiver_should_not_be_friends
-    if sender.friends.include?(receiver) || receiver.friends.include?(sender)
-      errors.add(:sender_receiver, 'sender and receiver users are already friend')
+  def not_friends
+    if Friendship.find_between(sender, receiver)
+      errors.add(:not_friends, 'sender and receiver users are already friend')
     end
   end
 end
