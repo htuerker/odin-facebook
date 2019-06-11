@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class FriendRequest < ApplicationRecord
+  after_initialize { self.status = FriendRequest.statuses[:pending] if self.new_record? }
   enum status: { pending: 'pending', accepted: 'accepted', declined: 'declined',
                  cancelled: 'cancelled' }
 
