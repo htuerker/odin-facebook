@@ -8,9 +8,9 @@ class User < ApplicationRecord
     :omniauthable, omniauth_providers: %i[facebook]
 
   validates :first_name, presence: true, length: { maximum: 20 },
-    format: { with: /\A\b[a-z]+\b\z/i, message: 'must be alphabetically' }
+    format: { with: /\A\b[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*\b\z/i, message: 'must be valid name' }
   validates :last_name, presence: true, length: { maximum: 20 },
-    format: { with: /\A\b[a-z]+\b\z/i, message: 'must be alphabetically' }
+    format: { with: /\A\b[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*\b\z/i, message: 'must be valid name' }
 
   has_many :posts, dependent: :destroy
   has_many :comments, dependent: :destroy
