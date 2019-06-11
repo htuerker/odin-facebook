@@ -4,8 +4,6 @@ class FriendRequest < ApplicationRecord
   enum status: { pending: 'pending', accepted: 'accepted', declined: 'declined',
                  cancelled: 'cancelled' }
 
-  validates :sender, presence: true
-  validates :receiver, presence: true
   validates :status, presence: true
   # Refactor this method names, i.e different? friend?
   validate :sender_and_receiver_should_be_different
