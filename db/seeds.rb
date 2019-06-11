@@ -32,7 +32,7 @@ end
 # Generate friendships
 user = User.first
 User.all.where.not(id: user.id).limit(30).each do |u|
-  user.establish_friendship(u)
+  user.direct_friends << u
 end
 
 # Generate Posts
