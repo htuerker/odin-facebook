@@ -19,8 +19,8 @@
       <li class="nav-item">
       <%= link_to friend_requests_path, class: "nav-link" do %>
           <i class="fa fa-bell" style="font-size:1rem;">
-            <% if current_user.friend_requests_received.pending.any? %>
-              <%= content_tag 'span', current_user.friend_requests_received.pending.count,
+            <% if current_user.received_friend_requests.any? %>
+              <%= content_tag 'span', current_user.received_friend_requests.count,
                 class: "badge badge-danger mt-auto", style:"font-size:0.6rem;"%>
             <% end %>
           </i>

@@ -10,8 +10,6 @@ class PunditAuthorizer
     @obj  = obj
   end
 
-  # The only API
-  # query can end with '? optionally
   def authorize_on(query)
     query += '?' unless query.last == '?'
     authorize(obj, query)
@@ -19,7 +17,6 @@ class PunditAuthorizer
 
   private
 
-  # Override Pundit to refer user to @user, instead of current_user
   def pundit_user
     user
   end

@@ -48,8 +48,8 @@ class User < ApplicationRecord
 
   def friendable_users
     User.all.where.not('id IN(?)', [self.id] + self.friends.ids +
-                       self.friend_requests_sent.pending.pluck(:receiver_id) +
-                       self.friend_requests_received.pending.pluck(:sender_id))
+                       self.sent_friend_requests.pluck(:receiver_id) +
+                       self.received_friend_requests.pluck(:sender_id))
   end
 
   def self.from_omniauth(auth)

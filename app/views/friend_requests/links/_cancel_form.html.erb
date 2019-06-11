@@ -1,4 +1,0 @@
-<%= form_for resource, remote: true do |f| %>
-  <%= f.hidden_field :status, value: FriendRequest.statuses[:cancelled] %>
-  <%= f.submit "Cancel", class: "btn btn-warning" %>
-<% end %>

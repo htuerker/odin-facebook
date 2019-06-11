@@ -10,16 +10,19 @@
 <div class="row">
   <div class="col-sm-12 col-xs-12 col-md-3 ml-auto">
     <div class="friend_request-links m-3", id="friend_request-<%= @user.id %>-links">
-      <% if friendship = current_user.friendships.find_by(user2: @user)%>
-          <%= link_to  "Unfriend", friendship_path(friendship), method: :delete, remote: true,
-              class: "btn btn-warning" %>
-        <% elsif request = current_user.friend_requests_sent.pending.find_by(receiver: @user) %>
-          <%= render  "friend_requests/links/cancel_form", resource: request %>
-        <% elsif request = current_user.friend_requests_received.pending.find_by(sender: @user) %>
-          <%= render 'friend_requests/links/accept_form', resource: request %>
-          <%= render 'friend_requests/links/decline_form', resource: request %>
-        <% else %>
-          <%= render  "friend_requests/form", resource: @user %>
+      <span>friend_request_links</span>
+      <% if current_user.friends.include?(@user) %>
+        <%= link_to "Unfriend", friendship_path(Friendship.find_between(current_user, @user)), method: :delete%>
+      <% elsif request = current_user.sent_friend_requests.find_by(receiver: @user) %>
+        <%= link_to "Cancel", friend_request_path(request), method: :delete %>
+      <% elsif request = current_user.received_friend_requests.find_by(sender: @user) %>
+        <%= link_to "Accept", friendship_path({ friend: @user}) %>
+        <%= link_to "Decline", friend_request_path(request), method: :delete %>
+      <% else %>
+          <%= form_for current_user.sent_friend_requests.build do |f| %>
+            <%= f.hidden_field :receiver_id, value: @user.id %>
+            <%= f.submit "Add Friend" %>
+          <% end %>
       <% end %>
     </div>
     <% if @user.friends.any? %>

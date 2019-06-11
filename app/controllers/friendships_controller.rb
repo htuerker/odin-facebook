@@ -6,8 +6,12 @@ class FriendshipsController < ApplicationController
     @friends = @user.friends
   end
 
+  def create
+
+  end
+
   def destroy
-    @friendship.destroy_friendship
+    @friendship.destroy
     respond_to do |format|
       format.html { redirect_back fallback_location: root_path }
       format.js
