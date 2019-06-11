@@ -11,13 +11,13 @@ class FriendRequest < ApplicationRecord
 
   def not_self
     if sender == receiver
-      errors.add(:not_self, 'sender and receiver pair should be different')
+      errors.add(:not_self, 'sender and receiver pair can\'t be the same')
     end
   end
 
   def not_friends
     if Friendship.find_between(sender, receiver)
-      errors.add(:not_friends, 'sender and receiver users are already friend')
+      errors.add(:not_friends, 'sender and receiver pair can\'t be already friends')
     end
   end
 end

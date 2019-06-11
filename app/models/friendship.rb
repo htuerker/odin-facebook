@@ -15,13 +15,13 @@ class Friendship < ApplicationRecord
 
   def not_self
     if user == friend
-      self.errors[:not_self] << "cannot create friendship by yourself"
+      self.errors[:not_self] << "user and friend pair can't be the same"
     end
   end
 
   def not_friends
     if Friendship.find_between(user, friend)
-      self.errors[:not_friends] << "cannot create friendship while you're already friends"
+      self.errors[:not_friends] << "user and friend pair can't be already friends"
     end
   end
 end
