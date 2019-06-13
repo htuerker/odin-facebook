@@ -3,46 +3,37 @@
 class CommentsController < ApplicationController
   before_action :set_comment, only: [:destroy]
 
-  def comments_by_post
+  def index
+    if @post = Post.find_by(id: params[:post_id])
+      @comments = @post.comments.paginate(page: params[:comments_page], per_page: 3)
+    end
+
     respond_to do |format|
-      if @post = Post.find_by(id: params[:post_id])
-        @comments = @post.comments.paginate(page: params[:comments_page], per_page: 3)
-        format.html { redirect_to @post }
-        format.js
-      else
-        format.html { redirect_back fallback_location: root_path, danger: 'Something went wrong!' }
-        format.js
-      end
+      format.html { redirect_to @post }
+      format.js
     end
   end
 
   def create
     @comment = current_user.comments.build(comment_params)
+    if @comment.save
+      flash[:success] = 'Comment successfuly created!'
+    else
+      flash[:danger] = 'Something went wrong!'
+    end
+
     respond_to do |format|
-      if @comment.save
-        format.html do
-          redirect_to @comment.post,
-                      success: 'Comment succesfully created!'
-        end
-        format.js
-      else
-        format.html do
-          redirect_back fallback_location: root_path,
-                        danger: 'Something went wrong!'
-        end
-        format.js
-      end
+      format.html { redirect_back fallback_location: root_path }
+      format.js
     end
   end
 
   def destroy
-    unless CommentPolicy.new(current_user, @comment).destroy?
-      raise Pundit::NotAuthorizedError
-    end
-
+    authorize @comment, :destroy?
     @comment.destroy
+
     respond_to do |format|
-      format.html { redirect_to @comment.post }
+      format.html { redirect_back fallback_location: root_path }
       format.js
     end
   end

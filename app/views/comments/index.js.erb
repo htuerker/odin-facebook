@@ -4,7 +4,7 @@
         <% if @comments.next_page.nil? %>
             $("#post-<%= @post.id %>-comments-pagination-link").remove();
         <% else %>
-            $("#post-<%= @post.id %>-comments-pagination-link").attr('href', '<%= comments_by_post_path(post_id: @post.id, comments_page: @comments.next_page) %>');
+            $("#post-<%= @post.id %>-comments-pagination-link").attr('href', '<%= post_comments_path(post_id: @post.id, comments_page: @comments.next_page) %>');
             $("#post-<%= @post.id %>-comments-pagination-link").text("Load More");
         <% end %>
     <% end %>

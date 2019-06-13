@@ -42,7 +42,7 @@
       <ul class="list-group list-group-flush mb-3", id="post-<%= post.id %>-comments">
       </ul>
       <% if post.comments.any? %>
-        <%= link_to 'Load Comments', comments_by_post_path(post_id: post.id, comments_page: 1),
+        <%= link_to 'Load Comments', post_comments_path(post_id: post.id, comments_page: 1),
             remote: true, id: "post-#{post.id}-comments-pagination-link", class: "btn btn-primary form-control my-2"%>
       <% end %>
       <%= render "comments/form", resource: post %>

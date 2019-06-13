@@ -9,7 +9,13 @@ class FriendRequestsController < ApplicationController
   end
 
   def create
-    FriendRequests::CreateService.new(current_user, friend_request_params).execute
+    @friend_request = current_user.sent_friend_requests.build(friend_request_params)
+    if @friend_request.save
+      flash[:success] = 'Succesfuly liked a post!'
+    else
+      flash[:danger] = 'Something went wrong!'
+    end
+
     respond_to do |format|
       format.html { redirect_back fallback_location: root_path }
       format.js
@@ -17,8 +23,10 @@ class FriendRequestsController < ApplicationController
   end
 
   def destroy
+    # TO-DO implement nil policy
     authorize @friend_request, :destroy?
     @friend_request.destroy
+
     respond_to do |format|
       format.html { redirect_back fallback_location: root_path }
       format.js
@@ -35,3 +43,4 @@ class FriendRequestsController < ApplicationController
     @friend_request = FriendRequest.find(params[:id])
   end
 end
+

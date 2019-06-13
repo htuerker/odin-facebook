@@ -8,22 +8,8 @@ class FriendRequestPolicy < ApplicationPolicy
     @friend_request = friend_request
   end
 
-  def accept?
-    @friend_request.present? && @friend_request.persisted? &&
-      receiver? && pending?
-  end
-
-  def decline?
-    @friend_request.present? && @friend_request.persisted? &&
-      receiver? && pending?
-  end
-
-  def cancel?
-    @friend_request.present? && @friend_request.persisted? && sender?
-  end
-
   def destroy?
-    @friend_request.present? && @friend_request.persisted? && sender?
+    @friend_request.present? && @friend_request.persisted? && (sender? || receiver?)
   end
 
   private

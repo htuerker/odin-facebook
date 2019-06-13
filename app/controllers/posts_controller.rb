@@ -5,6 +5,7 @@ class PostsController < ApplicationController
 
   def index
     @posts = current_user.feed.paginate(page: params[:posts_page], per_page: 10)
+
     respond_to do |format|
       format.html { render 'index' }
       format.js
@@ -15,20 +16,15 @@ class PostsController < ApplicationController
 
   def create
     @post = current_user.posts.build(post_params)
+    if @post.save
+      flash[:success] = "Successfuly created a post!"
+    else
+      flash[:danger] = "Something went wrond!"
+    end
+
     respond_to do |format|
-      if @post.save
-        format.html do
-          redirect_back fallback_location: root_path,
-                        success: 'Successfuly created a post!'
-        end
-        format.js
-      else
-        format.html do
-          redirect_back fallback_location: root_path,
-                        danger: 'Something went wrong!'
-        end
-        format.js
-      end
+      format.html { redirect_back fallback_location: root_path }
+      format.js
     end
   end
 
@@ -37,10 +33,7 @@ class PostsController < ApplicationController
     @post.destroy
 
     respond_to do |format|
-      format.html do
-        redirect_back fallback_location: root_path,
-                      success: 'Successfuly removed a post!'
-      end
+      format.html { redirect_back fallback_location: root_path }
       format.js
     end
   end

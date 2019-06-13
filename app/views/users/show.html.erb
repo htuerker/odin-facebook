@@ -12,12 +12,12 @@
     <div class="friend_request-links m-3", id="friend_request-<%= @user.id %>-links">
       <span>friend_request_links</span>
       <% if current_user.friends.include?(@user) %>
-        <%= link_to "Unfriend", friendship_path(Friendship.find_between(current_user, @user)), method: :delete%>
+        <%= link_to "Unfriend", friendship_path(Friendship.find_between(current_user, @user)), method: :delete, remote: true, class: 'btn btn-danger'%>
       <% elsif request = current_user.sent_friend_requests.find_by(receiver: @user) %>
-        <%= link_to "Cancel", friend_request_path(request), method: :delete %>
+        <%= link_to "Cancel", friend_request_path(request), method: :delete, remote: true, class: 'btn btn-info' %>
       <% elsif request = current_user.received_friend_requests.find_by(sender: @user) %>
-        <%= link_to "Accept", friendship_path({ friend: @user}) %>
-        <%= link_to "Decline", friend_request_path(request), method: :delete %>
+        <%= link_to "Accept", friendships_path({ friendship: { friend: @user} }), method: :post, class: 'btn btn-primary' %>
+        <%= link_to "Decline", friend_request_path(request), method: :delete, remote:true, class: 'btn btn-danger'%>
       <% else %>
           <%= form_for current_user.sent_friend_requests.build do |f| %>
             <%= f.hidden_field :receiver_id, value: @user.id %>
@@ -26,7 +26,7 @@
       <% end %>
     </div>
     <% if @user.friends.any? %>
-      <%= link_to user_friends_path(@user) do %>
+      <%= link_to user_friendships_path(@user) do %>
         <h5>Friends(<%= @user.friends.count %>)</h5>
       <% end %>
       <div class="d-flex flex-wrap">

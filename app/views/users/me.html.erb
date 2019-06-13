@@ -12,7 +12,7 @@
 <div class="row">
   <div class="col-xs-12 col-sm-12 col-md-3 ml-auto">
     <% if @user.friends.any? %>
-      <%= link_to user_friends_path(current_user) do %>
+      <%= link_to user_friendships_path(current_user) do %>
         <h5>Friends(<%= @user.friends.count %>)</h5>
       <% end %>
       <div class="d-flex flex-wrap">
