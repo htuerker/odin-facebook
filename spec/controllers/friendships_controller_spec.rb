@@ -41,6 +41,7 @@ RSpec.describe FriendshipsController, type: :controller do
     context 'when user is signed in' do
       before do
         sign_in current_user
+        FriendRequest.create(sender: other_user, receiver: current_user)
       end
 
       context 'when given parameter is valid' do
