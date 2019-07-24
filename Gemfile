@@ -58,6 +58,7 @@ group :development, :test do
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
   gem 'factory_bot_rails'
   gem 'rspec-rails', '~> 3.8'
+  gem 'capybara'
 end
 
 group :development do
@@ -73,9 +74,8 @@ group :development do
 end
 
 group :test do
-  gem 'capybara', '>= 2.15'
   gem 'selenium-webdriver'
-  gem 'chromedriver-helper'
+  gem 'webdrivers'
   gem 'rails-controller-testing'
   gem 'shoulda-matchers'
 end
