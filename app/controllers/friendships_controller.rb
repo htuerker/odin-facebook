@@ -9,6 +9,7 @@ class FriendshipsController < ApplicationController
   def create
     @friendship = current_user.direct_friendships.build(friendship_params)
     if @friendship.save
+      FriendRequest.find_between(current_user, @friendship.friend).destroy
       flash[:success] = 'You established a friendship!'
     else
       flash[:danger] = 'Something went wrong!'

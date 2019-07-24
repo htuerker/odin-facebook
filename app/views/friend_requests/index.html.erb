@@ -12,7 +12,7 @@
               <%= link_to get_full_name_for(request.receiver), request.receiver %>
             </div>
             <div class="col-4 p-0 m-0 friend_request-links", id="friend_request-<%= request.receiver.id %>-links">
-              <%= link_to "Cancel", friend_request_path(request), method: :delete, class: "btn btn-warning" %>
+              <%= link_to "Cancel", friend_request_path(request), method: :delete, remote: true, class: "btn btn-info" %>
             </div>
           </li>
         <% end %>
@@ -31,9 +31,11 @@
               <%= link_to get_full_name_for(request.sender), request.sender %>
             </div>
             <div class="col-4 p-0 m-0 friend_request-links", id="friend_request-<%= request.sender.id %>-links">
-              <%= form_for current_user.direct_friendships.build do |f| %>
+              <%= form_for current_user.direct_friendships.build, remote: true do |f| %>
                 <%= f.hidden_field :friend_id, value: request.sender.id %>
+                <%= f.submit "Accept", class: 'btn btn-primary' %>
               <% end %>
+              <%= link_to "Cancel", friend_request_path(request), method: :delete, class: "btn btn-info mt-1", remote: true %>
             </div>
           </li>
         <% end %>

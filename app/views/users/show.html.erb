@@ -9,19 +9,18 @@
 </div>
 <div class="row">
   <div class="col-sm-12 col-xs-12 col-md-3 ml-auto">
-    <div class="friend_request-links m-3", id="friend_request-<%= @user.id %>-links">
-      <span>friend_request_links</span>
+    <div class="friend_request-links mb-3", id="friend_request-<%= @user.id %>-links">
       <% if current_user.friends.include?(@user) %>
         <%= link_to "Unfriend", friendship_path(Friendship.find_between(current_user, @user)), method: :delete, remote: true, class: 'btn btn-danger'%>
       <% elsif request = current_user.sent_friend_requests.find_by(receiver: @user) %>
         <%= link_to "Cancel", friend_request_path(request), method: :delete, remote: true, class: 'btn btn-info' %>
       <% elsif request = current_user.received_friend_requests.find_by(sender: @user) %>
-        <%= link_to "Accept", friendships_path({ friendship: { friend: @user} }), method: :post, class: 'btn btn-primary' %>
+        <%= link_to "Accept", friendships_path({ friendship: { friend: @user} }), method: :post, remote: true, class: 'btn btn-primary' %>
         <%= link_to "Decline", friend_request_path(request), method: :delete, remote:true, class: 'btn btn-danger'%>
       <% else %>
-          <%= form_for current_user.sent_friend_requests.build do |f| %>
+          <%= form_for current_user.sent_friend_requests.build, remote: true do |f| %>
             <%= f.hidden_field :receiver_id, value: @user.id %>
-            <%= f.submit "Add Friend" %>
+            <%= f.submit "Add Friend", class: "btn btn-primary" %>
           <% end %>
       <% end %>
     </div>

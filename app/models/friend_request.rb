@@ -7,6 +7,10 @@ class FriendRequest < ApplicationRecord
   belongs_to :sender, class_name: 'User'
   belongs_to :receiver, class_name: 'User'
 
+  def self.find_between(user1, user2)
+    FriendRequest.find_by(sender: user1, receiver: user2) || FriendRequest.find_by(sender: user2, receiver: user1)
+  end
+
   private
 
   def not_self
