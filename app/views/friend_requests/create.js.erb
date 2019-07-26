@@ -1,0 +1,4 @@
+<% if @friend_request.persisted? %>
+  $("#friend_request-<%= @friend_request.receiver.id %>-links")
+    .html("<%= escape_javascript(link_to 'Cancel', @friend_request, method: :delete, remote: true, class: 'btn btn-info') %>");
+<% end %>

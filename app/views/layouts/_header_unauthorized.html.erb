@@ -1,0 +1,27 @@
+<nav class="container-fluid navbar navbar-expand-lg navbar-default">
+  <div class="container">
+    <a class="navbar-brand" href="/">facebook</a>
+      <ul class="navbar-nav ml-auto">
+        <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+          <div class="row navbar-form">
+            <div class="col">
+              <%= f.label :email %>
+              <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+            </div>
+            <div class="col mr-1-sm">
+              <%= f.label :password %>
+              <%= f.password_field :password, autocomplete: "current-password" %><br/>
+              <% if devise_mapping.rememberable? %>
+                <%= f.check_box :remember_me %>
+                <%= f.label :remember_me %>
+              <% end %>
+            </div>
+            <div class="col">
+              <label></label></br>
+              <%= f.submit "Log in", class: "btn btn-primary" %>
+            </div>
+          </div>
+        <% end %>
+      </ul>
+  </div>
+</nav>

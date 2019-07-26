@@ -1,0 +1,7 @@
+$("#posts").append("<%= escape_javascript("#{ render @posts}").html_safe %>");
+
+<% if @posts.next_page %>
+    $("#post-pagination-link").attr('href', '<%= posts_path(posts_page: @posts.next_page) %>');
+<% else %>
+    $("#post-pagination-link").remove();
+<% end %>

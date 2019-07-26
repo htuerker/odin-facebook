@@ -1,0 +1,34 @@
+<nav class="container-fluid navbar navbar-expand-lg navbar-dark navbar-default mb-5">
+  <a href="/" style="color:white; font-size:2rem;font-weight:bold; margin-left: 2rem;" class="nav-link py-0">facebook</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse justify-content-md-center" id="navbar">
+    <ul class="navbar-nav">
+      <li class="nav-item d-block">
+        <%= link_to current_user, class: "nav-link ml-0" do %>
+          <%= profile_photo_for(current_user, options: { size: 20, circle: true }) %><%= get_full_name_for(current_user) %>
+        <% end %>
+      </li>
+      <li class="nav-item">
+      <%= link_to 'Home', root_path, class: "nav-link" %>
+      </li>
+      <li class="nav-item">
+      <%= link_to 'Find Friends', users_path, class: "nav-link" %>
+      </li>
+      <li class="nav-item">
+      <%= link_to friend_requests_path, class: "nav-link" do %>
+          <i class="fa fa-bell" style="font-size:1rem;">
+            <% if current_user.received_friend_requests.any? %>
+              <%= content_tag 'span', current_user.received_friend_requests.count,
+                class: "badge badge-danger mt-auto", style:"font-size:0.6rem;"%>
+            <% end %>
+          </i>
+      <% end %>
+      </li>
+      <li class="nav-item">
+      <%= link_to('Logout', destroy_user_session_path, method: :delete, class: "nav-link") %>
+      </li>
+    </ul>
+  </div>
+</nav>

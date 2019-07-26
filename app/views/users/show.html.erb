@@ -1,0 +1,54 @@
+<div class="row">
+  <div class="col-sm-12 col-xs-12 col-md-9 mx-auto d-flex align-items-end mb-5 pt-5 pb-2",
+       style="background-image:url(<%= @user.cover_photo.url%>);background-color:black;">
+    <%= profile_photo_for(@user, options: { size: 150, circle: true }) %>
+    <div class="ml-3" style="color:white;">
+      <h3><%= get_full_name_for(@user) %></h3>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-sm-12 col-xs-12 col-md-3 ml-auto">
+    <div class="friend_request-links mb-3", id="friend_request-<%= @user.id %>-links">
+      <% if current_user.friends.include?(@user) %>
+        <%= link_to "Unfriend", friendship_path(Friendship.find_between(current_user, @user)), method: :delete, remote: true, class: 'btn btn-danger'%>
+      <% elsif request = current_user.sent_friend_requests.find_by(receiver: @user) %>
+        <%= link_to "Cancel", friend_request_path(request), method: :delete, remote: true, class: 'btn btn-info' %>
+      <% elsif request = current_user.received_friend_requests.find_by(sender: @user) %>
+        <%= link_to "Accept", friendships_path({ friendship: { friend: @user} }), method: :post, remote: true, class: 'btn btn-primary' %>
+        <%= link_to "Decline", friend_request_path(request), method: :delete, remote:true, class: 'btn btn-danger'%>
+      <% else %>
+          <%= form_for current_user.sent_friend_requests.build, remote: true do |f| %>
+            <%= f.hidden_field :receiver_id, value: @user.id %>
+            <%= f.submit "Add Friend", class: "btn btn-primary" %>
+          <% end %>
+      <% end %>
+    </div>
+    <% if @user.friends.any? %>
+      <%= link_to user_friendships_path(@user) do %>
+        <h5>Friends(<%= @user.friends.count %>)</h5>
+      <% end %>
+      <div class="d-flex flex-wrap">
+        <% @user.friends.take(20).each do |friend| %>
+          <%= link_to friend, class: "m-1" do %>
+            <%= profile_photo_for(friend, options: { size: 50 }) %>
+          <% end %>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+  <div class="col-sm-12 col-xs-12 col-md-6 mr-auto">
+      <h2>Posts</h2>
+      <ul class="list-unstyled pl-0", id="posts">
+        <% if @posts.any? %>
+          <%= render @posts %>
+        <% end %>
+      </ul>
+      <% if @posts.next_page %>
+          <%= link_to 'Load more', user_path(id: @user.id, posts_page: @posts.next_page),
+              remote: true, id: "post-pagination-link",
+              class:"btn btn-primary mb-5",style: "width:100%;" %>
+      <% end %>
+    </div>
+  </div>
+</div>

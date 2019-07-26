@@ -1,0 +1,51 @@
+<li class="card bg-light mb-3", id="post-<%= post.id %>">
+  <div class="card-body">
+    <div class="row d-flex align-items-center mb-2">
+      <div class="ml-3">
+        <%= profile_photo_for(post.user, options: { size: 40, circle: true}) %>
+      </div>
+      <div class="ml-3">
+        <%= link_to get_full_name_for(post.user), post.user %>
+        <small class="text-muted mb-2 d-block", style="font-size:0.7rem;">
+          posted <%= time_ago_in_words post.created_at %> ago
+        </small>
+      </div>
+      <% if post.user == current_user %>
+      <div class="ml-auto mr-3">
+        <%= link_to post_path(post), method: :delete, remote: true, class: "text-danger" do %>
+          <i class="fa fa-trash-o" style="font-size:1.5rem;"></i>
+        <% end %>
+      </div>
+      <% end %>
+    </div>
+    <%= link_to post, style: "color:inherit;text-decoration:inherit;" do %>
+      <p><%= post.content %></p>
+    <% end %>
+    <%= image_tag post.photo.url, class: "card-img-bottom" if post.photo? %>
+
+    <div class="d-flex justify-content-between mt-2">
+      <div class="post-meta">
+        <small class="text-muted">
+          Comments(<span id="post-<%= post.id %>-comments-counter"><%= post.comments.count %></span>)
+        </small>
+        <small class="text-muted">
+          Likes(<span id="post-<%= post.id %>-likes-counter"><%= post.likes.count %></span>)
+        </small>
+      </div>
+      <div class="post-like", id="post-<%= post.id %>-like-form">
+        <%= render "likes/form", resource: post %>
+      </div>
+    </div>
+
+    <div class="comments-section">
+      <h5>Comments:</h5>
+      <ul class="list-group list-group-flush mb-3", id="post-<%= post.id %>-comments">
+      </ul>
+      <% if post.comments.any? %>
+        <%= link_to 'Load Comments', post_comments_path(post_id: post.id, comments_page: 1),
+            remote: true, id: "post-#{post.id}-comments-pagination-link", class: "btn btn-primary form-control my-2"%>
+      <% end %>
+      <%= render "comments/form", resource: post %>
+    </div>
+  </div>
+</li>

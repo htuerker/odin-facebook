@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
@@ -34,37 +36,53 @@ gem 'jbuilder', '~> 2.5'
 # gem 'capistrano-rails', group: :development
 
 # Reduces boot times through caching; required in config/boot.rb
+
+# Additional Dependencies
+gem 'active_record_union'
 gem 'bootsnap', '>= 1.1.0', require: false
-
+gem 'bootstrap', '~> 4.3.1'
+gem 'carrierwave', '~> 1.0'
 gem 'devise'
-
 gem 'faker'
+gem 'fog-aws'
+gem 'font-awesome-rails'
+gem 'jquery-rails'
+gem 'mini_magick'
+gem 'omniauth-facebook'
+gem 'pundit', require: true
+gem 'sweetalert-rails'
+gem 'will_paginate', '~> 3.1.0'
+
 
 group :development, :test do
-  # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  gem 'byebug', platforms: %i[mri mingw x64_mingw]
+  gem 'factory_bot_rails'
+  gem 'rspec-rails', '~> 3.8'
+  gem 'capybara'
 end
 
 group :development do
-  # Access an interactive console on exception pages or by calling 'console' anywhere in the code.
-  gem 'web-console', '>= 3.3.0'
   gem 'listen', '>= 3.0.5', '< 3.2'
-  # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
-  gem 'spring'
-  gem 'spring-watcher-listen', '~> 2.0.0'
-  gem 'hirb'
+  gem 'web-console', '>= 3.3.0'
   gem 'guard'
   gem 'guard-minitest'
+  gem 'hirb'
+  gem 'letter_opener'
   gem 'minitest-reporters'
+  gem 'spring'
+  gem 'spring-watcher-listen', '~> 2.0.0'
 end
 
 group :test do
-  # Adds support for Capybara system testing and selenium driver
-  gem 'capybara', '>= 2.15'
   gem 'selenium-webdriver'
-  # Easy installation and use of chromedriver to run system tests with Chrome
-  gem 'chromedriver-helper'
+  gem 'webdrivers'
+  gem 'rails-controller-testing'
+  gem 'shoulda-matchers'
+end
+
+group :production do
+  gem 'rails_12factor'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]

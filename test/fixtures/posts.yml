@@ -2,6 +2,10 @@ one:
   content: Post Content
   user: one
 
+two:
+  content: Post Content
+  user: two
+
 <% 5.times do |i| %>
 post_<%= i %>:
   content: <%= Faker::Lorem.paragraph_by_chars(180) %>

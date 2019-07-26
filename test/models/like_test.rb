@@ -1,12 +1,17 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
 class LikeTest < ActiveSupport::TestCase
-
   def setup
-    @like = likes(:one)
+    @user = users(:one)
+    @post = posts(:one)
+    Like.create(user: @user, post: @post)
   end
 
-  test 'should valid?' do
-    assert @like.valid?
+  test 'should have valid user-post pair' do
+    assert_no_difference 'Like.count' do
+      @like = Like.create(user: @user, post: @post)
+    end
   end
 end

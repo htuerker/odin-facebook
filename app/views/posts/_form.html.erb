@@ -1,0 +1,11 @@
+<%= form_for current_user.posts.build, remote: true do |f| %>
+  <div class="form-group">
+    <%= f.label :content, "Create post", class: "h5" %>
+    <%= f.text_area :content, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.file_field :photo %>
+  </div>
+  <%= f.submit "Share", class: "btn btn-primary form-control" %>
+<% end %>
+

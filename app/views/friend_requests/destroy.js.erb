@@ -1,0 +1,5 @@
+<% unless @friend_request.persisted? %>
+  <% target = (@friend_request.sender == current_user) ? @friend_request.receiver : @friend_request.sender %>
+  $("#friend_request-<%= target.id %>-links")
+      .html("<%= escape_javascript(render('friend_requests/form', resource: target)) %>");
+<% end %>

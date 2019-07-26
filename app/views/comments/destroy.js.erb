@@ -1,0 +1,2 @@
+$("#comment-<%=@comment.id %>").remove();
+$("#post-<%=@comment.post.id %>-comments-counter").html("<%= @comment.post.comments.count %>");

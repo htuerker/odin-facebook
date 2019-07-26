@@ -1,0 +1,3 @@
+<% if @friendship.persisted? %>
+  $("#friend_request-<%= @friendship.friend_id %>-links").parent().remove();
+<% end %>

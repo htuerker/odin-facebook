@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateFriendRequests < ActiveRecord::Migration[5.2]
   def change
     create_table :friend_requests do |t|
@@ -8,6 +10,6 @@ class CreateFriendRequests < ActiveRecord::Migration[5.2]
       t.timestamps
     end
 
-    add_index :friend_requests, [:sender_id, :receiver_id], unique: true
+    add_index :friend_requests, %i[sender_id receiver_id], unique: true
   end
 end
