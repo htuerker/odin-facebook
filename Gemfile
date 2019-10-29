@@ -5,79 +5,55 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.6.1'
 
-# Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 5.2.3'
-# Use postgresql as the database for Active Record
-gem 'pg', '>= 0.18', '< 2.0'
-# Use Puma as the app server
-gem 'puma', '~> 3.11'
-# Use SCSS for stylesheets
-gem 'sass-rails', '~> 5.0'
-# Use Uglifier as compressor for JavaScript assets
-gem 'uglifier', '>= 1.3.0'
-# See https://github.com/rails/execjs#readme for more supported runtimes
-# gem 'mini_racer', platforms: :ruby
-
-# Use CoffeeScript for .coffee assets and views
-gem 'coffee-rails', '~> 4.2'
-# Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
-gem 'turbolinks', '~> 5'
-# Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-gem 'jbuilder', '~> 2.5'
-# Use Redis adapter to run Action Cable in production
-# gem 'redis', '~> 4.0'
-# Use ActiveModel has_secure_password
-# gem 'bcrypt', '~> 3.1.7'
-
-# Use ActiveStorage variant
-# gem 'mini_magick', '~> 4.8'
-
-# Use Capistrano for deployment
-# gem 'capistrano-rails', group: :development
-
-# Reduces boot times through caching; required in config/boot.rb
-
-# Additional Dependencies
 gem 'active_record_union'
 gem 'bootsnap', '>= 1.1.0', require: false
 gem 'bootstrap', '~> 4.3.1'
 gem 'carrierwave', '~> 1.0'
+gem 'coffee-rails', '~> 4.2'
 gem 'devise'
 gem 'faker'
 gem 'fog-aws'
 gem 'font-awesome-rails'
+gem 'jbuilder', '~> 2.5'
 gem 'jquery-rails'
 gem 'mini_magick'
 gem 'omniauth-facebook'
+gem 'pg', '>= 0.18', '< 2.0'
+gem 'puma', '~> 3.11'
 gem 'pundit', require: true
+gem 'rails', '~> 5.2.3'
+gem 'sass-rails', '~> 5.0'
 gem 'sweetalert-rails'
+gem 'turbolinks', '~> 5'
+gem 'uglifier', '>= 1.3.0'
 gem 'will_paginate', '~> 3.1.0'
 
 
 group :development, :test do
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
+  gem 'capybara'
+  gem 'dotenv-rails'
   gem 'factory_bot_rails'
   gem 'rspec-rails', '~> 3.8'
-  gem 'capybara'
 end
 
 group :development do
-  gem 'listen', '>= 3.0.5', '< 3.2'
-  gem 'web-console', '>= 3.3.0'
   gem 'guard'
   gem 'guard-minitest'
   gem 'hirb'
   gem 'letter_opener'
+  gem 'listen', '>= 3.0.5', '< 3.2'
   gem 'minitest-reporters'
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
+  gem 'web-console', '>= 3.3.0'
 end
 
 group :test do
-  gem 'selenium-webdriver'
-  gem 'webdrivers'
   gem 'rails-controller-testing'
+  gem 'selenium-webdriver'
   gem 'shoulda-matchers'
+  gem 'webdrivers'
 end
 
 group :production do
