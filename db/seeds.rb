@@ -39,7 +39,7 @@ end
 
 User.take(6).each do |u|
   10.times do
-    u.posts.create!(content: Faker::Lorem.paragraph_by_chars(180),
+    u.posts.create!(content: Faker::Lorem.paragraph_by_chars(number: 180),
                     photo: Rails.root.join("app/assets/images/seed/posts/post_#{(1..10).to_a.sample}.jpg").open)
   end
 end
@@ -48,7 +48,7 @@ end
 posts = Post.take(5)
 User.take(6).each do |u|
   posts.each do |p|
-    p.comments.create!(user: u, content: Faker::Lorem.paragraph_by_chars(150))
+    p.comments.create!(user: u, content: Faker::Lorem.paragraph_by_chars(number: 150))
   end
 end
 

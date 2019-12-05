@@ -8,6 +8,6 @@ two:
 
 <% 5.times do |i| %>
 post_<%= i %>:
-  content: <%= Faker::Lorem.paragraph_by_chars(180) %>
+  content: <%= Faker::Lorem.paragraph_by_chars(number: 180) %>
   user: one
 <% end %>

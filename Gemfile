@@ -9,7 +9,7 @@ gem 'active_record_union'
 gem 'bootsnap', '>= 1.1.0', require: false
 gem 'bootstrap', '~> 4.3.1'
 gem 'carrierwave', '~> 1.0'
-gem 'coffee-rails', '~> 4.2'
+gem 'coffee-rails', '~> 5.0.0'
 gem 'devise'
 gem 'faker'
 gem 'fog-aws'
@@ -21,11 +21,12 @@ gem 'omniauth-facebook'
 gem 'pg', '>= 0.18', '< 2.0'
 gem 'puma', '~> 3.11'
 gem 'pundit', require: true
-gem 'rails', '~> 5.2.3'
+gem 'rails', '~> 6.0.0'
 gem 'sass-rails', '~> 5.0'
 gem 'sweetalert-rails'
 gem 'turbolinks', '~> 5'
 gem 'uglifier', '>= 1.3.0'
+gem "webpacker"
 gem 'will_paginate', '~> 3.1.0'
 
 
