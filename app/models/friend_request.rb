@@ -7,21 +7,24 @@ class FriendRequest < ApplicationRecord
   belongs_to :sender, class_name: 'User'
   belongs_to :receiver, class_name: 'User'
 
+  after_create -> { Notifications::CreateService.call(self) }
+
   def self.find_between(user1, user2)
-    FriendRequest.find_by(sender: user1, receiver: user2) || FriendRequest.find_by(sender: user2, receiver: user1)
+    FriendRequest.find_by(sender: user1, receiver: user2) ||
+      FriendRequest.find_by(sender: user2, receiver: user1)
   end
 
   private
 
   def not_self
-    if sender == receiver
-      errors.add(:not_self, 'sender and receiver pair can\'t be the same')
-    end
+    return unless sender == receiver
+
+    errors.add(:not_self, 'sender and receiver pair can\'t be the same')
   end
 
   def not_friends
-    if Friendship.find_between(sender, receiver)
-      errors.add(:not_friends, 'sender and receiver pair can\'t be already friends')
-    end
+    return unless Friendship.find_between(sender, receiver)
+
+    errors.add(:not_friends, 'sender and receiver pair can\'t be already friends')
   end
 end

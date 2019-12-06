@@ -23,11 +23,13 @@ class User < ApplicationRecord
     class_name: 'FriendRequest', dependent: :destroy
 
   has_many :direct_friendships, class_name: 'Friendship', dependent: :destroy
-  has_many :inverse_friendships, class_name: 'Friendship', foreign_key: :friend_id,
-    dependent: :destroy
+  has_many :inverse_friendships, class_name: 'Friendship',foreign_key: :friend_id, dependent: :destroy
 
   has_many :direct_friends, through: :direct_friendships, source: :friend
   has_many :inverse_friends, through: :inverse_friendships, source: :user
+
+  has_many :sent_notifications, foreign_key: :actor_id, class_name: 'Notification', dependent: :destroy
+  has_many :received_notifications, foreign_key: :notifier_id, class_name: 'Notification', dependent: :destroy
 
   mount_uploader :profile_photo, PhotoUploader
   mount_uploader :cover_photo, PhotoUploader

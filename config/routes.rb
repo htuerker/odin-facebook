@@ -17,4 +17,5 @@ Rails.application.routes.draw do
   resources :friend_requests, only: %i[index create destroy]
   resources :friendships, only: %i[index create destroy]
   resources :likes, only: %i[create destroy]
+  resources :notifications, only: %i[index]
 end
