@@ -23,4 +23,14 @@ RSpec.describe Comment, type: :model do
     end
   end
 
+  describe 'after_create notifications' do
+    let(:user) { create(:user) }
+    let(:others) { create_list(:user, 2) }
+    let(:post) { create(:post, user: user) }
+    it 'should create notification' do
+      expect(user.received_notifications).to be_empty
+      create(:comment, user: others.first, post: post)
+      expect(user.received_notifications).not_to be_empty
+    end
+  end
 end

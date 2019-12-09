@@ -12,8 +12,12 @@ RSpec.feature 'User visits find friends page', :type => :feature do
       within "#friend_request-#{user.id}-links" do
         click_button 'Add'
       end
+
       reload_page
-      expect(page).to have_no_selector "#friend_request-#{user.id}-links"
+
+      within "#friend_request-#{user.id}-links" do
+        find_link('Cancel').visible?
+      end
     end
   end
 end

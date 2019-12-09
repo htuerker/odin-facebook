@@ -5,4 +5,6 @@ class Like < ApplicationRecord
 
   belongs_to :user
   belongs_to :post
+
+  after_create -> { Notifications::CreateService.call(self) }
 end

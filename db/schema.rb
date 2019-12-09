@@ -58,12 +58,12 @@ ActiveRecord::Schema.define(version: 2019_12_06_145350) do
     t.string "subject_type"
     t.bigint "subject_id"
     t.bigint "actor_id"
-    t.bigint "notifier_id"
+    t.bigint "recipient_id"
     t.boolean "read_status", default: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["actor_id"], name: "index_notifications_on_actor_id"
-    t.index ["notifier_id"], name: "index_notifications_on_notifier_id"
+    t.index ["recipient_id"], name: "index_notifications_on_recipient_id"
     t.index ["subject_type", "subject_id"], name: "index_notifications_on_subject_type_and_subject_id"
   end
 

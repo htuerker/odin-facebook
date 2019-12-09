@@ -1,3 +1,4 @@
 <% if @friendship.persisted? %>
-  $("#friend_request-<%= @friendship.friend_id %>-links").parent().remove();
+  $("#friend_request-<%= @friendship.friend_id %>-links")
+    .html("<%= escape_javascript(link_to 'Unfriend', @friendship, method: :delete, remote: true, class: 'btn btn-danger') %>");
 <% end %>

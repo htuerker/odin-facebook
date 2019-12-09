@@ -6,34 +6,6 @@ RSpec.describe FriendRequestsController, type: :controller do
 
   render_views
 
-  describe 'GET #index' do
-    context 'when user is anonymous' do
-      it 'should redirect to sign in route' do
-        get :index
-        expect(response).to redirect_to(new_user_session_path)
-      end
-    end
-
-    context 'when user is signed in' do
-      before do
-        sign_in current_user
-      end
-      it 'should render index template with sending and receiving requests' do
-        sent = []
-        received = []
-        5.times do
-          sent << create(:friend_request, sender: current_user, receiver: create(:user))
-          received << create(:friend_request, sender: create(:user), receiver: current_user)
-        end
-
-        get :index
-        expect(assigns(:sent_requests)).to eq sent
-        expect(assigns(:received_requests)).to eq received
-        expect(response).to render_template('index')
-      end
-    end
-  end
-
   describe 'POST #create' do
     context 'when user is anonymous' do
       it 'should redirect to sign in route' do

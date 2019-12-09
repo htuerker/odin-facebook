@@ -22,7 +22,7 @@ RSpec.feature 'User visits home page', :type => :feature do
       expect(page).to have_link 'Home', href: root_path
       expect(page).to have_link "#{current_user.first_name} #{current_user.last_name}", href: user_path(current_user)
       expect(page).to have_link 'Find Friends', href: users_path
-      expect(page).to have_link href: friend_requests_path
+      expect(page).to have_link href: notifications_path
     end
   end
 

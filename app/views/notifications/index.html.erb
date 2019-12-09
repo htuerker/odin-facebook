@@ -3,28 +3,15 @@
     <% if @notifications.any? %>
       <ul class="list-group">
         <% @notifications.each do |notification| %>
-          <% if notification.source.to_sym === :friend_request %>
-            <%= link_to notification.actor do %>
-              <li class="row list-group-item d-flex align-items-center">
-                <div class="p-0 m-0">
-                  <span class="mr-3"><%= profile_photo_for(notification.actor, options: { size: 60, circle: true }) %></span>
-                </div>
-                <div class="p-0 m-2 text-left">
-                    <%= get_full_name_for(notification.actor) %> sent you a friend request
-                </div>
-              </li>
-            <% end %>
-          <% elsif notification.source.to_sym === :comment %>
-            <%= link_to Comment.find(notification.source_id) do %>
-              <li class="row list-group-item d-flex align-items-center">
-                <div class="p-0 m-0">
-                  <span class="mr-3"><%= profile_photo_for(notification.actor, options: { size: 60, circle: true }) %></span>
-                </div>
-                <div class="p-0 m-2 text-left">
-                    <%= get_full_name_for(notification.actor)%> commented on a post
-                </div>
-              </li>
-            <% end %>
+          <%= link_to notification.subject.post do %>
+            <li class="row list-group-item d-flex align-items-center">
+              <div class="p-0 m-0">
+                <span class="mr-3"><%= profile_photo_for(notification.actor, options: { size: 60, circle: true }) %></span>
+              </div>
+              <div class="p-0 m-2 text-left">
+                  <%= get_full_name_for(notification.actor)%> <%= notification_text_for(notification)%>
+              </div>
+            </li>
           <% end %>
         <% end %>
       </ul>

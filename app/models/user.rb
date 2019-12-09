@@ -17,19 +17,28 @@ class User < ApplicationRecord
   has_many :likes, dependent: :destroy
 
   has_many :sent_friend_requests, foreign_key: :sender_id,
-    class_name: 'FriendRequest', dependent: :destroy
+                                  class_name: 'FriendRequest',
+                                  dependent: :destroy
 
   has_many :received_friend_requests, foreign_key: :receiver_id,
-    class_name: 'FriendRequest', dependent: :destroy
+                                      class_name: 'FriendRequest',
+                                      dependent: :destroy
 
-  has_many :direct_friendships, class_name: 'Friendship', dependent: :destroy
-  has_many :inverse_friendships, class_name: 'Friendship',foreign_key: :friend_id, dependent: :destroy
+  has_many :direct_friendships, class_name: 'Friendship',
+                                dependent: :destroy
+  has_many :inverse_friendships, class_name: 'Friendship',
+                                 foreign_key: :friend_id, 
+                                 dependent: :destroy
 
   has_many :direct_friends, through: :direct_friendships, source: :friend
   has_many :inverse_friends, through: :inverse_friendships, source: :user
 
-  has_many :sent_notifications, foreign_key: :actor_id, class_name: 'Notification', dependent: :destroy
-  has_many :received_notifications, foreign_key: :notifier_id, class_name: 'Notification', dependent: :destroy
+  has_many :sent_notifications, foreign_key: :actor_id,
+                                class_name: 'Notification',
+                                dependent: :destroy
+  has_many :received_notifications, foreign_key: :recipient_id,
+                                    class_name: 'Notification',
+                                    dependent: :destroy
 
   mount_uploader :profile_photo, PhotoUploader
   mount_uploader :cover_photo, PhotoUploader
@@ -49,9 +58,9 @@ class User < ApplicationRecord
   end
 
   def friendable_users
-    User.all.where.not('id IN(?)', [self.id] + self.friends.ids +
-                       self.sent_friend_requests.pluck(:receiver_id) +
-                       self.received_friend_requests.pluck(:sender_id))
+    User.all.where.not('id IN(?)', [id] + friends.ids +
+                       sent_friend_requests.pluck(:receiver_id) +
+                       received_friend_requests.pluck(:sender_id))
   end
 
   def self.from_omniauth(auth)

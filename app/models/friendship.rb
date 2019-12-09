@@ -6,6 +6,7 @@ class Friendship < ApplicationRecord
 
   validate :not_self
   validate :not_friends
+  validates :user_id, uniqueness: { scope: :friend_id }
 
   def self.find_between(user1, user2)
     Friendship.find_by(user: user1, friend: user2) || Friendship.find_by(user: user2, friend: user1)

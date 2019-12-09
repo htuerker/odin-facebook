@@ -14,13 +14,13 @@
       <%= link_to 'Home', root_path, class: "nav-link" %>
       </li>
       <li class="nav-item">
-      <%= link_to 'Find Friends', users_path, class: "nav-link" %>
+        <%= link_to 'Find Friends', users_path, class: "nav-link" %>
       </li>
       <li class="nav-item">
-      <%= link_to friend_requests_path, class: "nav-link" do %>
+      <%= link_to notifications_path, class: "nav-link" do %>
           <i class="fa fa-bell" style="font-size:1rem;">
-            <% if current_user.received_friend_requests.any? %>
-              <%= content_tag 'span', current_user.received_friend_requests.count,
+            <% if current_user.received_notifications.not_seen.without_friend_requests.any? %>
+              <%= content_tag 'span', current_user.received_notifications.not_seen.without_friend_requests.count,
                 class: "badge badge-danger mt-auto", style:"font-size:0.6rem;"%>
             <% end %>
           </i>

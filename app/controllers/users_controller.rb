@@ -5,6 +5,8 @@ class UsersController < ApplicationController
 
   def index
     @users = current_user.friendable_users
+    @sent_friend_requests = current_user.sent_friend_requests
+    @received_friend_requests = current_user.received_friend_requests
   end
 
   def show

@@ -9,8 +9,4 @@ class Comment < ApplicationRecord
   validates :content, presence: true, length: { maximum: 150 }
 
   after_create -> { Notifications::CreateService.call(self) }
-
-  def notifier_ids
-    post.comments.pluck(:user_id).reject { |id| id == user.id }.uniq
-  end
 end

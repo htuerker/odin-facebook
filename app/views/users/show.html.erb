@@ -15,7 +15,7 @@
       <% elsif request = current_user.sent_friend_requests.find_by(receiver: @user) %>
         <%= link_to "Cancel", friend_request_path(request), method: :delete, remote: true, class: 'btn btn-info' %>
       <% elsif request = current_user.received_friend_requests.find_by(sender: @user) %>
-        <%= link_to "Accept", friendships_path({ friendship: { friend: @user} }), method: :post, remote: true, class: 'btn btn-primary' %>
+        <%= link_to "Accept", friendships_path({ friendship: { friend_id: @user.id} }), method: :post, remote: true, class: 'btn btn-primary' %>
         <%= link_to "Decline", friend_request_path(request), method: :delete, remote:true, class: 'btn btn-danger'%>
       <% else %>
           <%= form_for current_user.sent_friend_requests.build, remote: true do |f| %>
