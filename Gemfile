@@ -19,7 +19,7 @@ gem 'jquery-rails'
 gem 'mini_magick'
 gem 'omniauth-facebook'
 gem 'pg', '>= 0.18', '< 2.0'
-gem 'puma', '~> 3.11'
+gem 'puma', '~> 3.12'
 gem 'pundit', require: true
 gem 'rails', '~> 6.0.0'
 gem 'sass-rails', '~> 5.0'
