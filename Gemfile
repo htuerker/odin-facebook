@@ -8,7 +8,7 @@ ruby '2.6.1'
 gem 'active_record_union'
 gem 'bootsnap', '>= 1.1.0', require: false
 gem 'bootstrap', '~> 4.3.1'
-gem 'carrierwave', '~> 1.0'
+gem 'carrierwave', '~> 1.3'
 gem 'coffee-rails', '~> 5.0.0'
 gem 'devise'
 gem 'faker'
